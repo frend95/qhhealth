@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hexq.qh.customer.mapper.CustomerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hexq.qh.customer.model.Customer">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="mobile" property="mobile" />
+        <result column="location" property="location" />
+        <result column="name" property="name" />
+        <result column="desc" property="desc" />
+        <result column="avatar" property="avatar" />
+        <result column="star" property="star" />
+        <result column="status" property="status" />
+        <result column="is_vip" property="isVip" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId, mobile, location, name, desc, avatar, star, status, is_vip AS isVip,
+        create_time AS createTime, update_time AS updateTime
+    </sql>
+
+    <sql id="columns">
+        ${alias}.id,
+        ${alias}.user_id AS userId,
+        ${alias}.mobile,
+        ${alias}.location,
+        ${alias}.name,
+        ${alias}.desc,
+        ${alias}.avatar,
+        ${alias}.star,
+        ${alias}.status,
+        ${alias}.is_vip AS isVip,
+        ${alias}.create_time AS createTime,
+        ${alias}.update_time AS updateTime,
+    </sql>
+
+    <select id="getConciseList" resultType="Map">
+        SELECT
+            id,
+            name,
+            avatar,
+            star
+        FROM
+            customer
+        WHERE
+            status = #{status}
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            AND user_id = #{userId}
+        ORDER BY
+            star DESC
+    </select>
+
+    <update id="watchAddOne">
+        UPDATE customer_media
+        SET count = count + 1
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getMedia" resultType="Map">
+        SELECT
+            id,
+            title,
+            `desc`,
+            thumb,
+            media,
+            type,
+            create_time createTime
+        FROM
+            customer_media
+        WHERE
+            customer_id = #{id}
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+        ORDER BY create_time
+        <if test="page != null and size != null">
+            LIMIT #{page}, #{size}
+        </if>
+    </select>
+
+    <insert id="addMedia">
+        INSERT INTO customer_media (customer_id, media, title, `desc`, type, thumb)
+        VALUES
+            ( #{id}, #{media}, #{title}, #{desc}, #{type}, #{thumb});
+    </insert>
+
+</mapper>
