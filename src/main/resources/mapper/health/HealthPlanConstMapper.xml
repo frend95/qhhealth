@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.health.mapper.HealthPlanConstMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.health.model.HealthPlanConst">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="total_budget" property="totalBudget" />
+        <result column="breakfast_threshold" property="breakfastThreshold" />
+        <result column="lunch_threshold" property="lunchThreshold" />
+        <result column="dinner_threshold" property="dinnerThreshold" />
+        <result column="meal_threshold" property="mealThreshold" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, total_budget, breakfast_threshold, lunch_threshold, dinner_threshold, meal_threshold, create_time
+    </sql>
+
+    <sql id="columns">
+    ${alias}.id,
+    ${alias}.user_id AS userId,
+    ${alias}.total_budget AS totalBudget,
+    ${alias}.breakfast_threshold AS breakfastThreshold,
+    ${alias}.lunch_threshold AS lunchThreshold,
+    ${alias}.dinner_threshold AS dinnerThreshold,
+    ${alias}.meal_threshold AS mealThreshold,
+    ${alias}.create_time AS createTime,
+    </sql>
+
+</mapper>

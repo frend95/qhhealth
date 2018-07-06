@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.nutritionist.model.NutritionistCase">
+        <id column="id" property="id" />
+        <result column="nutritionist_id" property="nutritionistId" />
+        <result column="thumb" property="thumb" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+        <result column="height" property="height" />
+        <result column="result" property="result" />
+        <result column="period" property="period" />
+        <result column="content" property="content" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nutritionist_id, thumb, name, age, height, result, period, content
+    </sql>
+
+    <sql id="columns">
+    ${alias}.id,
+    ${alias}.nutritionist_id AS nutritionistId,
+    ${alias}.thumb,
+    ${alias}.name,
+    ${alias}.age,
+    ${alias}.height,
+    ${alias}.result,
+    ${alias}.period,
+    ${alias}.content,
+    </sql>
+
+</mapper>

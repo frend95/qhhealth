@@ -32,6 +32,9 @@ public class ${entity} implements Serializable {
     private static final long serialVersionUID = 1L;
 
 #foreach($field in ${table.fields})
+#if("${field.comment}" != "")
+    /**${field.comment}*/
+#end
 #if(${field.keyFlag})
 #set($keyPropertyName=${field.propertyName})
 #end
@@ -53,7 +56,7 @@ public class ${entity} implements Serializable {
 #if(${logicDeleteFieldName}==${field.name})
     @TableLogic
 #end
-    private ${field.propertyType} ${field.propertyName};        //${field.comment}
+    private ${field.propertyType} ${field.propertyName};
 #end
 
 #if(!${entityLombokModel})

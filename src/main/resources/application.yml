@@ -74,11 +74,12 @@ c3p0:
 #日志等级
 logging:
   level:
-    com.hexq.qh: DEBUG
+    com.hfkd.qhhealth: DEBUG
+    logging.level.org.apache.commons.httpclient: OFF
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
-  type-aliases-package: com.hexq.qh.*.model
+  type-aliases-package: com.hfkd.qhhealth.*.model
   configuration:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true #使mapper查询出Map类型的结果空的的键值为null

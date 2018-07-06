@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.video.mapper.VideoCmtMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.video.model.VideoCmt">
+        <id column="id" property="id" />
+        <result column="video_id" property="videoId" />
+        <result column="author_id" property="authorId" />
+        <result column="content" property="content" />
+        <result column="reply_cnt" property="replyCnt" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, video_id, author_id, content, reply_cnt, create_time
+    </sql>
+
+    <sql id="columns">
+    ${alias}.id,
+    ${alias}.video_id AS videoId,
+    ${alias}.author_id AS authorId,
+    ${alias}.content,
+    ${alias}.reply_cnt AS replyCnt,
+    ${alias}.create_time AS createTime,
+    </sql>
+
+</mapper>

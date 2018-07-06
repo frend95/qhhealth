@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.health.mapper.HealthPlanItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.health.model.HealthPlanItem">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="kcal_per_100g" property="kcalPer100g" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, kcal_per_100g, sort
+    </sql>
+
+    <sql id="columns">
+    ${alias}.id,
+    ${alias}.name,
+    ${alias}.kcal_per_100g AS kcalPer100g,
+    ${alias}.sort,
+    </sql>
+
+</mapper>

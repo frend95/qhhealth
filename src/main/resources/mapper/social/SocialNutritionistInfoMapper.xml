@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.social.mapper.SocialNutritionistInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.social.model.SocialNutritionistInfo">
+        <id column="nutritionist_id" property="nutritionistId" />
+        <result column="name" property="name" />
+        <result column="bio" property="bio" />
+        <result column="avatar" property="avatar" />
+        <result column="avatar_thumb" property="avatarThumb" />
+        <result column="service_cnt" property="serviceCnt" />
+        <result column="feed_cnt" property="feedCnt" />
+        <result column="tutorial_cnt" property="tutorialCnt" />
+        <result column="followers" property="followers" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        nutritionist_id, name, bio, avatar, avatar_thumb, service_cnt, feed_cnt, tutorial_cnt, followers
+    </sql>
+
+    <sql id="columns">
+    ${alias}.nutritionist_id AS nutritionistId,
+    ${alias}.name,
+    ${alias}.bio,
+    ${alias}.avatar,
+    ${alias}.avatar_thumb AS avatarThumb,
+    ${alias}.service_cnt AS serviceCnt,
+    ${alias}.feed_cnt AS feedCnt,
+    ${alias}.tutorial_cnt AS tutorialCnt,
+    ${alias}.followers,
+    </sql>
+
+</mapper>

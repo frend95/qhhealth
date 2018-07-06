@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.sys.mapper.SysEntranceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hfkd.qhhealth.sys.model.SysEntrance">
+        <id column="id" property="id" />
+        <result column="content_id" property="contentId" />
+        <result column="type" property="type" />
+        <result column="order" property="order" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, content_id, type, order
+    </sql>
+
+    <sql id="columns">
+    ${alias}.id,
+    ${alias}.content_id AS contentId,
+    ${alias}.type,
+    ${alias}.order,
+    </sql>
+
+</mapper>
