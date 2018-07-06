@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/7/5 10:12
  */
 @RestController
-@RequestMapping("/socialUserFollowing")
+@RequestMapping("/social")
 public class SocialUserFollowingController {
 
 }

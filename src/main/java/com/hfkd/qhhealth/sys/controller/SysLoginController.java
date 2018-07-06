@@ -84,7 +84,9 @@ public class SysLoginController {
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
         Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", userSession);
+        user.setSalt(null);
+        user.setPassword(null);
+        resultMap.put("result", user);
         resultMap.put("token", token);
         return resultMap;
 	}

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/7/4 18:21
  */
 @RestController
-@RequestMapping("/videoCmt")
+@RequestMapping("/video")
 public class VideoCmtController {
 
 }
