@@ -72,9 +72,9 @@ public class CacheAopConfig {
         Map proceed = (Map) joinPoint.proceed();
         try {
             //方法的返回值
-            String code = (String) proceed.get("code");
+            int code = (int) proceed.get("code");
             //如果返回码为成功，则不处理
-            if (RspUtil.CODE_OK.equals(code)) {
+            if (RspUtil.CODE_OK == (code)) {
                 return proceed;
             }
             MethodSignature signature = (MethodSignature) joinPoint.getSignature();

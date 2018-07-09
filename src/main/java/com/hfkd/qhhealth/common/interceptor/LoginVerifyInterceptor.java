@@ -50,6 +50,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
         Class<?> clazz = hm.getBeanType();
         Method m = hm.getMethod();
 
+        // 验证method是否加上了Verify注解，没有则放行
         boolean isClassAnnotation = clazz.isAnnotationPresent(Verify.class);
         boolean isMethodAnnotation = m.isAnnotationPresent(Verify.class);
         if (!isMethodAnnotation && !isClassAnnotation) {
@@ -73,6 +74,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
+        // 取出redis中的token与userJson
         Map<Object, Object> entries = redis.opsForHash().entries(sessionKey);
         String userJson = (String) entries.get("user");
         String oriTokenDb = (String) entries.get("token");
@@ -87,6 +89,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
+        // Verify加上adminOnly只能admin访问
         Verify clazzAnnotation = clazz.getAnnotation(Verify.class);
         Verify methodAnnotation = m.getAnnotation(Verify.class);
         boolean adminOnlyClazz = clazzAnnotation != null && clazzAnnotation.adminOnly();

@@ -11,21 +11,21 @@ import java.util.Map;
 public class RspUtil {
 
     /**OK，表示请求被服务器正常处理*/
-    public final static String CODE_OK = "200";
+    public final static int CODE_OK = 200;
     /**No Content，表示请求已成功处理，但是没有内容返回*/
-    public final static String CODE_NO_CONTENT = "204";
+    public final static int CODE_NO_CONTENT = 204;
     /**Bad Request，表示请求报文存在语法错误或参数错误*/
-    public final static String CODE_BAD_REQUEST = "400";
+    public final static int CODE_BAD_REQUEST = 400;
     /**Unauthorized，表示发送的请求需要有HTTP认证信息或者是认证失败了*/
-    public final static String CODE_UNAUTHORIZED = "401";
+    public final static int CODE_UNAUTHORIZED = 401;
     /**Forbidden，表示对请求资源的访问被服务器拒绝了*/
-    public final static String CODE_FORBIDDEN = "403";
+    public final static int CODE_FORBIDDEN = 403;
     /**Not Found，表示服务器找不到你请求的资源*/
-    public final static String CODE_NOT_FOUND = "404";
+    public final static int CODE_NOT_FOUND = 404;
     /**Internal Server Error，表示服务器执行请求的时候出错了*/
-    public final static String CODE_ERROR = "500";
+    public final static int CODE_ERROR = 500;
     /**Service Unavailable，表示服务器超负载或正停机维护，无法处理请求*/
-    public final static String CODE_UNAVAILABLE = "503";
+    public final static int CODE_UNAVAILABLE = 503;
 
     /**
      * 初始化返回Map
@@ -35,6 +35,13 @@ public class RspUtil {
         Map<String,Object> map = new HashMap<>(4);
         map.put("code", CODE_OK);
         map.put("msg", "Request success");
+        return map;
+    }
+
+    public static Map<String,Object> ok(String msg){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", msg);
         return map;
     }
 

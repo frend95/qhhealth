@@ -28,7 +28,7 @@ public class WechatController {
 
     @LogOut("微信验证")
     @RequestMapping("/auth")
-    public HashMap auth(@RequestBody Map<String,Object> requestMap) throws Exception {
+    public HashMap auth(@RequestBody Map<String,Object> requestMap) {
         String jsCode = (String) requestMap.get("code");
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
                 + "&secret=" + secret

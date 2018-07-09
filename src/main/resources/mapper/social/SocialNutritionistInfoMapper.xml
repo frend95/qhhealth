@@ -32,4 +32,23 @@
     ${alias}.followers,
     </sql>
 
+
+    <select id="getYysList" resultType="Map">
+        SELECT
+            nutritionist_id id,
+            name,
+            bio,
+            avatar,
+            service_cnt serviceCnt,
+            followers,
+            feed_cnt feedCnt,
+            tutorial_cnt tutorialCnt
+        FROM social_nutritionist_info
+        <if test="name != null and name != ''">
+            WHERE name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        LIMIT #{page}, #{size}
+    </select>
+
+
 </mapper>

@@ -26,8 +26,10 @@ public class SysDisplayImg implements Serializable {
     /**指向链接*/
     @TableField("to_url")
     private String toUrl;
-    /**类型：0 splash，1 banner，2 onboarding*/
-    private String type;
+    /**分组*/
+    private Integer group;
+    /**页面：0 splash，1 onboarding，2 tutorial，3 case，4 social*/
+    private String page;
     /**序号*/
     private Integer order;
 
@@ -64,14 +66,6 @@ public class SysDisplayImg implements Serializable {
         this.toUrl = toUrl;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Integer getOrder() {
         return order;
     }
@@ -80,15 +74,19 @@ public class SysDisplayImg implements Serializable {
         this.order = order;
     }
 
-    @Override
-    public String toString() {
-        return "SysDisplayImg{" +
-            "id=" + id +
-            ", name=" + name +
-            ", imgUrl=" + imgUrl +
-            ", toUrl=" + toUrl +
-            ", type=" + type +
-            ", order=" + order +
-            "}";
+    public Integer getGroup() {
+        return group;
+    }
+
+    public void setGroup(Integer group) {
+        this.group = group;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 }

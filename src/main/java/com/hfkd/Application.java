@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
@@ -30,12 +28,6 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-    @Bean
-    ServletWebServerFactory servletWebServerFactory(){
-        return new TomcatServletWebServerFactory();
-    }
-
 
     /**
      * 解决tomcat关闭时可能导致memory leak的问提，详情见：
@@ -77,5 +69,10 @@ public class Application {
             }
         };
     }
+
+    //    @Bean
+    //    ServletWebServerFactory servletWebServerFactory(){
+    //        return new TomcatServletWebServerFactory();
+    //    }
 
 }

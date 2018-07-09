@@ -1,14 +1,11 @@
 package com.hfkd.qhhealth.test;
 
-import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author hexq
@@ -24,8 +21,7 @@ public class TestController {
     private SessionUtil sessionUtil;
 
     @RequestMapping("/1")
-    @Verify
-    public void test1(@RequestBody Map<String,Object> requestMap) {
+    public void test1(MultipartFile avatar) {
         /*redis.opsForValue().set("test", "100",60*10, TimeUnit.SECONDS);//向redis里存入数据和设置缓存时间
         redis.boundValueOps("test").increment(-1);//val做-1操作
         redis.opsForValue().get("test");//根据key获取缓存中的val
@@ -38,8 +34,7 @@ public class TestController {
         redis.expire("red_123",1000 , TimeUnit.MILLISECONDS);//设置过期时间
         redis.opsForSet().isMember("red_123", "1");//根据key查看集合中是否存在指定数据
         redis.opsForSet().members("red_123");//根据key获取set集合*/
-        System.out.println(sessionUtil.getCurrUser());
-
+        System.out.println(avatar);
 
     }
 }
