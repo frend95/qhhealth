@@ -30,4 +30,45 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getArticles" resultType="Map">
+        SELECT
+            id,
+            title,
+            thumb,
+            watched_cnt watchedCnt,
+            create_time createTime
+        FROM
+            article
+        <if test="tag != null and tag != ''">
+        WHERE
+            tag = #{tag}
+        </if>
+        ORDER BY create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getArticleBrief" resultType="Map">
+        SELECT
+            title,
+            thumb
+        FROM
+            article
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="watchedCntPlusOne">
+        UPDATE article
+        SET watched_cnt = watched_cnt + 1
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="cmtCntPlusOne">
+        UPDATE article
+        SET cmt_cnt = cmt_cnt + 1
+        WHERE
+        id = #{id}
+    </update>
+
 </mapper>

@@ -66,6 +66,8 @@ public class SysLoginController {
         if (!pwdSaltDb.equals(pwdSalt)) {
             return errorMsg;
         }
+        // 查询用户详情
+        Map<String, Object> userDetail = userService.getUserDetail(id);
         // 生成uuid的session key（改为单设备登陆）
         /*String token = UUIDUtil.getUUid();
         String sessionKey = prefix + token;*/
@@ -80,9 +82,8 @@ public class SysLoginController {
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
         Map<String, Object> resultMap = RspUtil.ok();
-        user.setSalt(null);
-        user.setPassword(null);
-        resultMap.put("result", user);
+
+        resultMap.put("result", userDetail);
         resultMap.put("token", token);
         return resultMap;
 	}
@@ -131,7 +132,7 @@ public class SysLoginController {
         String salt = UUIDUtil.getUUid();
         String pwdSalt = DigestUtil.pwdSalt(pwdMd5, salt);
         String randomName = "Qh_" + RandomStringUtils.randomAlphanumeric(4);
-        if (avatar != null) {
+        if (avatar != null && !avatar.isEmpty()) {
             String filename = FileUtil.upload(avatar, avatarPath, true, false);
             String avatarUrl = avatarDomain + filename;
             user.setAvatar(avatarUrl);

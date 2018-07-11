@@ -1,7 +1,7 @@
 package com.hfkd.qhhealth.user.service;
 
-import com.hfkd.qhhealth.user.model.UserArticleCollection;
 import com.baomidou.mybatisplus.service.IService;
+import com.hfkd.qhhealth.user.model.UserArticleCollection;
 
 /**
  * 用户文章收藏 Service

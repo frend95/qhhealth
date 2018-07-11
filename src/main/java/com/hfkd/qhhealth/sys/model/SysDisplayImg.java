@@ -26,12 +26,14 @@ public class SysDisplayImg implements Serializable {
     /**指向链接*/
     @TableField("to_url")
     private String toUrl;
+    /**类型：0非广告，1广告*/
+    private String type;
     /**分组*/
     private Integer group;
     /**页面：0 splash，1 onboarding，2 tutorial，3 case，4 social*/
     private String page;
     /**序号*/
-    private Integer order;
+    private Integer seq;
 
 
     public Integer getId() {
@@ -66,12 +68,20 @@ public class SysDisplayImg implements Serializable {
         this.toUrl = toUrl;
     }
 
-    public Integer getOrder() {
-        return order;
+    public String getType() {
+        return type;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public Integer getGroup() {

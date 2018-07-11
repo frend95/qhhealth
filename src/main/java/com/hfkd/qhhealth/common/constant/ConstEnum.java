@@ -16,9 +16,10 @@ public enum ConstEnum {
     VIP_YES("1"),
     VIP_NO("0"),
 
-    /**媒体类型*/
-    MEDIA_TYPE_IMAGE("0"),
-    MEDIA_TYPE_VIDEO("1"),
+    /**内容类型*/
+    CONTENT_TYPE_ARTICLE("0"),
+    CONTENT_TYPE_VIDEO("1"),
+    CONTENT_TYPE_FEED("2"),
 
     /**用户状态：0无效,1信息未完善,2有效*/
     USER_STATUS_ENABLE("2"),
@@ -53,6 +54,12 @@ public enum ConstEnum {
     VIDEO_TAG_YOUTH("2"),
     VIDEO_TAG_SIMPLE("3"),
     VIDEO_TAG_GENETIC("4"),
+
+    /**文章标签：0饮食，1运动，2减肥方法，3食谱*/
+    ARTICLE_TAG_DIET("0"),
+    ARTICLE_TAG_SPORT("1"),
+    ARTICLE_TAG_METHOD("2"),
+    ARTICLE_TAG_RECIPE("3"),
 
     /**反馈类型：0建议,1问题*/
     SYS_FEEDBACK_SUGGESTION("0"),

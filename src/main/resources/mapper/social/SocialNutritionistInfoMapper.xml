@@ -50,5 +50,24 @@
         LIMIT #{page}, #{size}
     </select>
 
+    <select id="getYysByIds" resultType="Map">
+        SELECT
+            nutritionist_id id,
+            name,
+            bio,
+            avatar,
+            service_cnt serviceCnt,
+            followers,
+            feed_cnt feedCnt,
+            tutorial_cnt tutorialCnt
+        FROM social_nutritionist_info
+        <if test="ids != null">
+            WHERE nutritionist_id IN
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
 
 </mapper>

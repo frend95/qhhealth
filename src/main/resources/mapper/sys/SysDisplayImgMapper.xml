@@ -9,12 +9,12 @@
         <result column="img_url" property="imgUrl" />
         <result column="to_url" property="toUrl" />
         <result column="type" property="type" />
-        <result column="order" property="order" />
+        <result column="seq" property="seq" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, img_url, to_url, type, order
+        id, name, img_url, to_url, type, seq
     </sql>
 
     <sql id="columns">
@@ -23,7 +23,7 @@
     ${alias}.img_url AS imgUrl,
     ${alias}.to_url AS toUrl,
     ${alias}.type,
-    ${alias}.order,
+    ${alias}.seq,
     </sql>
 
 </mapper>

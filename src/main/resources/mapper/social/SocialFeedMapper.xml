@@ -14,14 +14,14 @@
         <result column="cmt_cnt" property="cmtCnt" />
         <result column="like_cnt" property="likeCnt" />
         <result column="is_private" property="isPrivate" />
-        <result column="order" property="order" />
+        <result column="seq" property="seq" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, author_id, author_type, title, content, img, img_thumb, cmt_cnt, like_cnt, is_private, order, create_time, update_time
+        id, author_id, author_type, title, content, img, img_thumb, cmt_cnt, like_cnt, is_private, seq, create_time, update_time
     </sql>
 
     <sql id="columns">
@@ -35,7 +35,7 @@
     ${alias}.cmt_cnt AS cmtCnt,
     ${alias}.like_cnt AS likeCnt,
     ${alias}.is_private AS isPrivate,
-    ${alias}.order,
+    ${alias}.seq,
     ${alias}.create_time AS createTime,
     ${alias}.update_time AS updateTime,
     </sql>

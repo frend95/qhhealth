@@ -1,9 +1,9 @@
 package com.hfkd.qhhealth.user.service.impl;
 
-import com.hfkd.qhhealth.user.model.UserArticleCollection;
-import com.hfkd.qhhealth.user.mapper.UserArticleCollectionMapper;
-import com.hfkd.qhhealth.user.service.UserArticleCollectionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.hfkd.qhhealth.user.mapper.UserArticleCollectionMapper;
+import com.hfkd.qhhealth.user.model.UserArticleCollection;
+import com.hfkd.qhhealth.user.service.UserArticleCollectionService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,12 +1,12 @@
 package com.hfkd.qhhealth.health.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * 健康目标 Model
@@ -18,8 +18,9 @@ public class HealthGoal implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value="id", type= IdType.AUTO)
-    private Integer id;
+    /**用户id*/
+    @TableId("user_id")
+    private Integer userId;
     /**目标体重*/
     @TableField("goal_weight")
     private BigDecimal goalWeight;
@@ -39,12 +40,12 @@ public class HealthGoal implements Serializable {
     private Date updateTime;
 
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getGoalWeight() {
@@ -98,7 +99,7 @@ public class HealthGoal implements Serializable {
     @Override
     public String toString() {
         return "HealthGoal{" +
-            "id=" + id +
+            "userId=" + userId +
             ", goalWeight=" + goalWeight +
             ", goalType=" + goalType +
             ", period=" + period +

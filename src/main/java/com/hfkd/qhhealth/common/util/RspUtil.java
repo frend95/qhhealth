@@ -1,5 +1,6 @@
 package com.hfkd.qhhealth.common.util;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,14 @@ public class RspUtil {
         Map<String,Object> map = new HashMap<>(4);
         map.put("code", CODE_OK);
         map.put("msg", "Request success");
+        return map;
+    }
+
+    public static Map<String,Object> emptyList(){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", "Request success");
+        map.put("result", Collections.EMPTY_LIST);
         return map;
     }
 

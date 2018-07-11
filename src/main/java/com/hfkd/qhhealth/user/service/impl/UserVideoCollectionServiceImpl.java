@@ -1,9 +1,9 @@
 package com.hfkd.qhhealth.user.service.impl;
 
-import com.hfkd.qhhealth.user.model.UserVideoCollection;
-import com.hfkd.qhhealth.user.mapper.UserVideoCollectionMapper;
-import com.hfkd.qhhealth.user.service.UserVideoCollectionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.hfkd.qhhealth.user.mapper.UserVideoCollectionMapper;
+import com.hfkd.qhhealth.user.model.UserVideoCollection;
+import com.hfkd.qhhealth.user.service.UserVideoCollectionService;
 import org.springframework.stereotype.Service;
 
 /**

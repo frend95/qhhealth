@@ -36,4 +36,11 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getMaxId" resultType="Integer">
+        SELECT
+            MAX(id)
+        FROM
+            nutritionist
+    </select>
+
 </mapper>

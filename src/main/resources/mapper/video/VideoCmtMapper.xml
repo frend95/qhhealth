@@ -26,4 +26,29 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getComments" resultType="Map">
+        SELECT
+            vc.id,
+            u.name,
+            u.avatar,
+            vc.author_id authorId,
+            vc.content,
+            vc.reply_cnt replyCnt,
+            vc.create_time createTime
+        FROM
+            video_cmt vc
+        LEFT JOIN user u ON vc.author_id = u.id
+        WHERE
+            vc.video_id = #{videoId}
+        ORDER BY vc.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <update id="replyCntPlusOne">
+        UPDATE video_cmt
+        SET reply_cnt = reply_cnt + 1
+        WHERE
+        id = #{id}
+    </update>
+
 </mapper>

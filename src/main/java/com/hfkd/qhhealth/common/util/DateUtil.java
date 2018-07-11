@@ -169,6 +169,19 @@ public class DateUtil {
         return daty;
     }
 
+    public static long divideDate(String time1, String time2, String format) {
+        long daty = 0;
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        try {
+            Date date1 = df.parse(time1);
+            Date date2 = df.parse(time2);
+            daty = date1.getTime() - date2.getTime();
+            daty = daty / 1000 / 60 / 60 / 24;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return daty;
+    }
 
     /**
      * 获取指定年指定月份的最后一天
@@ -428,9 +441,19 @@ public class DateUtil {
      * @return date string
      * @throws ParseException
      */
-    public static String addDay(String dateStr, String format, int day) throws ParseException {
+    public static String addDay(String dateStr, int day, String format) throws ParseException {
         Date prePreDate = DateUtils.addDays(DateUtils.parseDate(dateStr, format), day);
         return DateFormatUtils.format(prePreDate, format);
+    }
+
+    public static String addDay(String dateStr, int day) {
+        Date prePreDate = null;
+        try {
+            prePreDate = DateUtils.addDays(DateUtils.parseDate(dateStr, "yyyyMMdd"), day);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return DateFormatUtils.format(prePreDate, "yyyyMMdd");
     }
 
     /**

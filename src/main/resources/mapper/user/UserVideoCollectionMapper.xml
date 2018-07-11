@@ -26,4 +26,18 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getCollection" resultType="Map">
+        SELECT
+            video_id id,
+            title,
+            thumb,
+            create_time createTime
+        FROM
+            user_video_collection
+        WHERE
+            user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

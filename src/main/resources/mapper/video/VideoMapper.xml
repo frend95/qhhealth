@@ -38,4 +38,46 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getVideoLs" resultType="Map">
+        SELECT
+            id,
+            title,
+            thumb,
+            watched_cnt watchedCnt,
+            create_time createTime
+        FROM
+            video
+        WHERE
+            type = #{type}
+            <if test="tag != null and tag != ''">
+                AND tag = #{tag}
+            </if>
+        ORDER BY create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getVideoBrief" resultType="Map">
+        SELECT
+            title,
+            thumb
+        FROM
+            video
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="watchedCntPlusOne">
+        UPDATE video
+        SET watched_cnt = watched_cnt + 1
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="cmtCntPlusOne">
+        UPDATE video
+        SET cmt_cnt = cmt_cnt + 1
+        WHERE
+        id = #{id}
+    </update>
+
 </mapper>

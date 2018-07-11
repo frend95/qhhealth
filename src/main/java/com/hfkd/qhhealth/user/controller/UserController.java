@@ -40,6 +40,10 @@ public class UserController {
     @RequestMapping("/update")
     public Map<String, Object> update(Integer id, String name, String gender, Integer height, BigDecimal weight,
                                       String birthday) {
+        name = "".equals(name) ? null : name;
+        gender = "".equals(gender) ? null : gender;
+        birthday = "".equals(birthday) ? null : birthday;
+
         User user = new User();
         user.setId(id);
         user.setName(name);
@@ -66,11 +70,11 @@ public class UserController {
         user.setWeight(weight);
         user.setHeight(height);
         user.setGender(gender);
-        user.setStatus(ConstEnum.USER_STATUS_INCOMPLETE.getValue());
+        user.setStatus(ConstEnum.USER_STATUS_ENABLE.getValue());
 
         // 用户减肥目标
         HealthGoal healthGoal = new HealthGoal();
-        healthGoal.setId(id);
+        healthGoal.setUserId(id);
         healthGoal.setGoalType(goalType);
         healthGoal.setGoalWeight(goalWeight);
         healthGoal.setPeriod(period);
@@ -82,7 +86,11 @@ public class UserController {
         socialUserInfo.setName(name);
 
         userService.completeInfo(user, healthGoal, socialUserInfo);
-        return RspUtil.ok();
+        // 查询用户详情
+        Map<String, Object> userDetail = userService.getUserDetail(id);
+        Map<String, Object> resultMap = RspUtil.ok();
+        resultMap.put("result", userDetail);
+        return resultMap;
     }
 
     @LogOut("更新密码")

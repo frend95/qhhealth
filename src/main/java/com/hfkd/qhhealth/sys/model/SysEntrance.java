@@ -24,7 +24,7 @@ public class SysEntrance implements Serializable {
     /**入口类型*/
     private String type;
     /**序号*/
-    private Integer order;
+    private Integer seq;
 
 
     public Integer getId() {
@@ -51,12 +51,12 @@ public class SysEntrance implements Serializable {
         this.type = type;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getSeq() {
+        return seq;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SysEntrance implements Serializable {
             "id=" + id +
             ", contentId=" + contentId +
             ", type=" + type +
-            ", order=" + order +
+            ", seq=" + seq +
             "}";
     }
 }

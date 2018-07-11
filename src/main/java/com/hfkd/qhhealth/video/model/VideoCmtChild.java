@@ -27,6 +27,8 @@ public class VideoCmtChild implements Serializable {
     private String content;        //评论内容
     @TableField("reply_to_id")
     private Integer replyToId;        //被回复人id
+    @TableField("reply_to_name")
+    private String replyToName;        //被回复人名称
     @TableField("create_time")
     private Date createTime;        //创建时间
 
@@ -69,6 +71,14 @@ public class VideoCmtChild implements Serializable {
 
     public void setReplyToId(Integer replyToId) {
         this.replyToId = replyToId;
+    }
+
+    public String getReplyToName() {
+        return replyToName;
+    }
+
+    public void setReplyToName(String replyToName) {
+        this.replyToName = replyToName;
     }
 
     public Date getCreateTime() {

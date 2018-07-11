@@ -1,11 +1,12 @@
 package com.hfkd.qhhealth.social.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 动态 Model
@@ -44,7 +45,7 @@ public class SocialFeed implements Serializable {
     @TableField("is_private")
     private String isPrivate;
     /**序号*/
-    private Integer order;
+    private Integer seq;
     /**创建时间*/
     @TableField("create_time")
     private Date createTime;
@@ -133,12 +134,12 @@ public class SocialFeed implements Serializable {
         this.isPrivate = isPrivate;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getSeq() {
+        return seq;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public Date getCreateTime() {
@@ -170,7 +171,7 @@ public class SocialFeed implements Serializable {
             ", cmtCnt=" + cmtCnt +
             ", likeCnt=" + likeCnt +
             ", isPrivate=" + isPrivate +
-            ", order=" + order +
+            ", seq=" + seq +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
             "}";

@@ -26,4 +26,23 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+
+    <select id="getChildCmt" resultType="Map">
+        SELECT
+            vcc.author_id authorId,
+            u.name,
+            u.avatar,
+            vcc.content,
+            vcc.reply_to_id replyToId,
+            vcc.reply_to_name replyToName,
+            vcc.create_time createTime
+        FROM
+            video_cmt_child vcc
+        LEFT JOIN user u ON vcc.author_id = u.id
+        WHERE
+            vcc.parent_cmt_id = #{cmtId}
+        ORDER BY vcc.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

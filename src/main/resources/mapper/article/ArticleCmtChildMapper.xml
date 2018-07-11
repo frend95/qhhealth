@@ -26,4 +26,22 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getChildCmt" resultType="Map">
+        SELECT
+            acc.author_id authorId,
+            u.name,
+            u.avatar,
+            acc.content,
+            acc.reply_to_id replyToId,
+            acc.reply_to_name replyToName,
+            acc.create_time createTime
+        FROM
+            article_cmt_child acc
+            LEFT JOIN user u ON acc.author_id = u.id
+        WHERE
+            acc.parent_cmt_id = #{cmtId}
+        ORDER BY acc.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

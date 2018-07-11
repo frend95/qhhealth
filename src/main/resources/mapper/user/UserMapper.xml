@@ -44,4 +44,28 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getUserDetail" resultType="Map">
+        SELECT
+            u.id,
+            u.name,
+            u.account,
+            u.avatar,
+            u.status,
+            u.birthday,
+            u.height,
+            u.weight,
+            hg.goal_weight goalWeight,
+            hg.start_time startTime,
+            hg.period,
+            hg.goal_type goalType,
+            u.nutritionist_id nutritionistId,
+            n.name nutritionistName,
+            n.avatar nutritionistAvatar
+        FROM
+            user u
+            LEFT JOIN health_goal hg ON u.id = hg.id
+            LEFT JOIN nutritionist n ON u.nutritionist_id = n.id
+        WHERE u.id = #{id}
+    </select>
+
 </mapper>

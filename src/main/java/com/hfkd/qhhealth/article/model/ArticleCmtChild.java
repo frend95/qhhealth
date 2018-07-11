@@ -1,11 +1,12 @@
 package com.hfkd.qhhealth.article.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 文章子评论 Model
@@ -26,6 +27,8 @@ public class ArticleCmtChild implements Serializable {
     private String content;        //评论内容
     @TableField("reply_to_id")
     private Integer replyToId;        //被回复人id
+    @TableField("reply_to_name")
+    private String replyToName;        //被回复人名称
     @TableField("create_time")
     private Date createTime;        //创建时间
 
@@ -68,6 +71,14 @@ public class ArticleCmtChild implements Serializable {
 
     public void setReplyToId(Integer replyToId) {
         this.replyToId = replyToId;
+    }
+
+    public String getReplyToName() {
+        return replyToName;
+    }
+
+    public void setReplyToName(String replyToName) {
+        this.replyToName = replyToName;
     }
 
     public Date getCreateTime() {

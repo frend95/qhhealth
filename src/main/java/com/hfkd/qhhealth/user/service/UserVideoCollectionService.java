@@ -1,7 +1,7 @@
 package com.hfkd.qhhealth.user.service;
 
-import com.hfkd.qhhealth.user.model.UserVideoCollection;
 import com.baomidou.mybatisplus.service.IService;
+import com.hfkd.qhhealth.user.model.UserVideoCollection;
 
 /**
  * 用户视频收藏 Service

@@ -21,10 +21,12 @@ public class SysDisplayImgServiceImpl extends ServiceImpl<SysDisplayImgMapper, S
     @Override
     public List<SysDisplayImg> getDisplayImg(ConstEnum page, Integer group, Integer limit) {
         EntityWrapper<SysDisplayImg> wrapper = new EntityWrapper<>();
-        wrapper.eq("type", page.getValue())
+        wrapper.eq("page", page.getValue())
                 .eq(group != null, "group", group)
-                .orderBy("order", true)
-                .last("LIMIT " + limit);
+                .orderBy("seq", true);
+        if (limit != null) {
+            wrapper.last("LIMIT " + limit);
+        }
         return selectList(wrapper);
     }
 }
