@@ -1,9 +1,9 @@
 package com.hfkd.qhhealth.sys.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -18,14 +18,14 @@ public class SysEntrance implements Serializable {
 
     @TableId(value="id", type= IdType.AUTO)
     private Integer id;
-    /**内容id*/
-    @TableField("content_id")
-    private Integer contentId;
-    /**入口类型*/
-    private String type;
+    /**名称*/
+    private String name;
+    /**值*/
+    private String value;
+    /**页面：0 splash，1 onboarding，2 tutorial，3 case，4 social*/
+    private String page;
     /**序号*/
     private Integer seq;
-
 
     public Integer getId() {
         return id;
@@ -35,20 +35,28 @@ public class SysEntrance implements Serializable {
         this.id = id;
     }
 
-    public Integer getContentId() {
-        return contentId;
+    public String getName() {
+        return name;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getValue() {
+        return value;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 
     public Integer getSeq() {
@@ -62,10 +70,11 @@ public class SysEntrance implements Serializable {
     @Override
     public String toString() {
         return "SysEntrance{" +
-            "id=" + id +
-            ", contentId=" + contentId +
-            ", type=" + type +
-            ", seq=" + seq +
-            "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", page='" + page + '\'' +
+                ", seq=" + seq +
+                '}';
     }
 }
