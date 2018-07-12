@@ -77,7 +77,7 @@ public class ArticleCmtController {
         ArticleCmt articleCmt = new ArticleCmt();
         articleCmt.setAuthorId(currId);
         articleCmt.setContent(content);
-        articleCmt.setArticleId(articleId);
+        articleCmt.setContentId(articleId);
         articleCmtMapper.insert(articleCmt);
         // 评论数加一
         articleMapper.cmtCntPlusOne(articleId);

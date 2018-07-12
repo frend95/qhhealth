@@ -81,7 +81,7 @@ public class UserCollectionController {
         } else {
             return RspUtil.error("类型错误");
         }
-        return RspUtil.ok();
+        return RspUtil.ok("收藏成功");
     }
 
     @LogOut("查询收藏的视频或文章")

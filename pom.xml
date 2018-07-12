@@ -163,7 +163,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>qh</finalName>
+        <finalName>qh2</finalName>
     </build>
 
 </project>

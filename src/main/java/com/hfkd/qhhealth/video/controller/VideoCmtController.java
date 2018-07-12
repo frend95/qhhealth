@@ -77,7 +77,7 @@ public class VideoCmtController {
         VideoCmt videoCmt = new VideoCmt();
         videoCmt.setAuthorId(currId);
         videoCmt.setContent(content);
-        videoCmt.setVideoId(videoId);
+        videoCmt.setContentId(videoId);
         videoCmtMapper.insert(videoCmt);
         // 评论数加一
         videoMapper.cmtCntPlusOne(videoId);

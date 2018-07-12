@@ -530,4 +530,8 @@ public class DateUtil {
         return calendar.get(Calendar.DAY_OF_YEAR) == Calendar.SUNDAY;
     }
 
+    public static String prettifyDate(Date date) {
+        return null;
+    }
+
 }

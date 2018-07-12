@@ -22,4 +22,6 @@ public @interface Verify {
 
     @AliasFor("value")
     boolean adminOnly() default false;
+
+    boolean hasSession() default false;
 }

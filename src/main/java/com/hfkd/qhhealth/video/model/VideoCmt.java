@@ -20,8 +20,8 @@ public class VideoCmt implements Serializable {
 
     @TableId(value="id", type= IdType.AUTO)
     private Integer id;        //
-    @TableField("video_id")
-    private Integer videoId;        //视频id
+    @TableField("content_id")
+    private Integer contentId;        //视频id
     @TableField("author_id")
     private Integer authorId;        //作者id
     private String content;        //评论内容
@@ -39,12 +39,12 @@ public class VideoCmt implements Serializable {
         this.id = id;
     }
 
-    public Integer getVideoId() {
-        return videoId;
+    public Integer getContentId() {
+        return contentId;
     }
 
-    public void setVideoId(Integer videoId) {
-        this.videoId = videoId;
+    public void setContentId(Integer contentId) {
+        this.contentId = contentId;
     }
 
     public Integer getAuthorId() {
@@ -83,7 +83,7 @@ public class VideoCmt implements Serializable {
     public String toString() {
         return "VideoCmt{" +
             "id=" + id +
-            ", videoId=" + videoId +
+            ", contentId=" + contentId +
             ", authorId=" + authorId +
             ", content=" + content +
             ", replyCnt=" + replyCnt +

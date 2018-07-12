@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.comment.mapper.CommentMapper">
+
+    <select id="getComments" resultType="com.hfkd.qhhealth.comment.model.Comment">
+        SELECT
+            cmt.id,
+            u.name,
+            u.avatar,
+            cmt.author_id authorId,
+            cmt.content,
+            cmt.reply_cnt replyCnt,
+            cmt.create_time createTime
+        FROM
+        <if test='type == "0"'>
+            article_cmt cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt cmt
+        </if>
+        LEFT JOIN user u ON cmt.author_id = u.id
+        WHERE
+            cmt.content_id = #{contentId}
+        ORDER BY cmt.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getChildCmt" resultType="com.hfkd.qhhealth.comment.model.ChildComment">
+        SELECT
+            cmt.author_id authorId,
+            u.name,
+            u.avatar,
+            cmt.content,
+            cmt.reply_to_id replyToId,
+            cmt.reply_to_name replyToName,
+            cmt.create_time createTime
+        FROM
+        <if test='type == "0"'>
+            article_cmt_child cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt_child cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt_child cmt
+        </if>
+        LEFT JOIN user u ON cmt.author_id = u.id
+        WHERE
+            cmt.parent_cmt_id = #{cmtId}
+        ORDER BY cmt.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+
+    <update id="replyCntPlusOne">
+        UPDATE
+        <if test='type == "0"'>
+            article_cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt
+        </if>
+        SET reply_cnt = reply_cnt + 1
+        WHERE
+        id = #{cmtId}
+    </update>
+
+    <update id="cmtCntPlusOne">
+        UPDATE
+        <if test='type == "0"'>
+            article
+        </if>
+        <if test='type == "1"'>
+            video
+        </if>
+        <if test='type == "2"'>
+            social_feed
+        </if>
+        SET cmt_cnt = cmt_cnt + 1
+        WHERE
+        id = #{contentId}
+    </update>
+
+    <insert id="addCmt">
+        INSERT INTO
+        <if test='type == "0"'>
+            article_cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt
+        </if>
+            (author_id,content,content_id)
+        VALUES
+            (#{authorId},#{content},#{contentId})
+    </insert>
+
+    <insert id="addChildCmt">
+        INSERT INTO
+        <if test='type == "0"'>
+            article_cmt_child
+        </if>
+        <if test='type == "1"'>
+            video_cmt_child
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt_child
+        </if>
+            (parent_cmt_id,content,author_id,reply_to_id,reply_to_name)
+        VALUES
+            (#{parentCmtId},#{content},#{authorId},#{replyToId},#{replyToName})
+    </insert>
+
+</mapper>

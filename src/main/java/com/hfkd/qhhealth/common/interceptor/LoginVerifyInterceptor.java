@@ -57,11 +57,18 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
+        // Verify加上hasSession，则验证不通过也会放行
+        Verify clazzAnnotation = clazz.getAnnotation(Verify.class);
+        Verify methodAnnotation = m.getAnnotation(Verify.class);
+        boolean hasSessionClazz = clazzAnnotation != null && clazzAnnotation.hasSession();
+        boolean hasSessionMethod = methodAnnotation != null && methodAnnotation.hasSession();
+        boolean hasSession = hasSessionClazz || hasSessionMethod;
+
         String msg = "Session expired, please login again";
         String token = request.getHeader("Authorization");
         if (StringUtils.isBlank(token)) {
-            outPrint(response, msg);
-            return false;
+            if (!hasSession) outPrint(response, msg);
+            return hasSession;
         }
 
         // 把uuid token改为单设备登陆: SESSION_id
@@ -70,8 +77,8 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
         String sessionKey = prefix + split[0];
         String oriToken = split[1];
         if (!redis.hasKey(sessionKey)) {
-            outPrint(response, msg);
-            return false;
+            if (!hasSession) outPrint(response, msg);
+            return hasSession;
         }
 
         // 取出redis中的token与userJson
@@ -79,19 +86,17 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
         String userJson = (String) entries.get("user");
         String oriTokenDb = (String) entries.get("token");
         if (userJson == null || oriTokenDb == null) {
-            outPrint(response, msg);
-            return false;
+            if (!hasSession) outPrint(response, msg);
+            return hasSession;
         }
 
         // 验证token，是否重复登陆
         if (!oriToken.equals(oriTokenDb)) {
-            outPrint(response, msg);
-            return false;
+            if (!hasSession) outPrint(response, msg);
+            return hasSession;
         }
 
         // Verify加上adminOnly只能admin访问
-        Verify clazzAnnotation = clazz.getAnnotation(Verify.class);
-        Verify methodAnnotation = m.getAnnotation(Verify.class);
         boolean adminOnlyClazz = clazzAnnotation != null && clazzAnnotation.adminOnly();
         boolean adminOnlyMethod = methodAnnotation != null && methodAnnotation.adminOnly();
 

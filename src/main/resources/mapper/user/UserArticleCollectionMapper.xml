@@ -40,4 +40,14 @@
             LIMIT #{page}, #{size}
     </select>
 
+    <select id="getClctId" resultType="Integer">
+        SELECT
+            id
+        FROM
+            user_article_collection
+        WHERE
+            user_id = #{userId}
+        AND article_id = #{articleId}
+    </select>
+
 </mapper>

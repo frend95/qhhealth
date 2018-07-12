@@ -19,4 +19,7 @@ public interface UserVideoCollectionMapper extends BaseMapper<UserVideoCollectio
     List<Map<String, Object>> getCollection(@Param("page") Integer page,
                                             @Param("size") Integer size,
                                             @Param("userId") Integer userId);
+
+    Integer getClctId(@Param("userId") Integer userId,
+                      @Param("videoId") Integer videoId);
 }

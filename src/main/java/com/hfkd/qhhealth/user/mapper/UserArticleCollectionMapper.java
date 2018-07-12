@@ -19,4 +19,7 @@ public interface UserArticleCollectionMapper extends BaseMapper<UserArticleColle
     List<Map<String, Object>> getCollection(@Param("page") Integer page,
                                             @Param("size") Integer size,
                                             @Param("userId") Integer userId);
+
+    Integer getClctId(@Param("userId") Integer userId,
+                      @Param("articleId") Integer articleId);
 }

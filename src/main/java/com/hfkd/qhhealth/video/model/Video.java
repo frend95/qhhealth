@@ -1,11 +1,14 @@
 package com.hfkd.qhhealth.video.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.hfkd.qhhealth.comment.model.Comment;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 视频 Model
@@ -30,11 +33,16 @@ public class Video implements Serializable {
     private Integer cmtCnt;        //评论数
     @TableField("watched_cnt")
     private Integer watchedCnt;        //点击数
+    @JSONField(format="yyyy-MM-dd HH:mm")
     @TableField("create_time")
     private Date createTime;        //创建时间
+    @JSONField(format="yyyy-MM-dd HH:mm")
     @TableField("update_time")
     private Date updateTime;        //更新时间
-
+    @TableField(exist = false)
+    private List<Comment> comments;        //评论
+    @TableField(exist = false)
+    private Boolean isCollect;        //是否收藏
 
     public Integer getId() {
         return id;
@@ -130,6 +138,22 @@ public class Video implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Boolean getCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(Boolean collect) {
+        isCollect = collect;
     }
 
     @Override

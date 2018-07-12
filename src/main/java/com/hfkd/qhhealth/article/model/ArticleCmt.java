@@ -20,8 +20,8 @@ public class ArticleCmt implements Serializable {
 
     @TableId(value="id", type= IdType.AUTO)
     private Integer id;        //
-    @TableField("article_id")
-    private Integer articleId;        //文章id
+    @TableField("content_id")
+    private Integer contentId;        //文章id
     @TableField("author_id")
     private Integer authorId;        //作者id
     private String content;        //评论内容
@@ -39,12 +39,12 @@ public class ArticleCmt implements Serializable {
         this.id = id;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Integer getContentId() {
+        return contentId;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setContentId(Integer contentId) {
+        this.contentId = contentId;
     }
 
     public Integer getAuthorId() {
@@ -83,7 +83,7 @@ public class ArticleCmt implements Serializable {
     public String toString() {
         return "ArticleCmt{" +
             "id=" + id +
-            ", articleId=" + articleId +
+            ", contentId=" + contentId +
             ", authorId=" + authorId +
             ", content=" + content +
             ", replyCnt=" + replyCnt +
