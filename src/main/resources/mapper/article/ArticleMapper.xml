@@ -36,7 +36,7 @@
             title,
             thumb,
             watched_cnt watchedCnt,
-            create_time createTime
+            DATE_FORMAT(create_time, '%Y-%m-%d') createTime
         FROM
             article
         <if test="tag != null and tag != ''">

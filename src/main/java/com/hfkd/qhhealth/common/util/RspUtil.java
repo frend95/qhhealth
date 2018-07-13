@@ -47,10 +47,42 @@ public class RspUtil {
         return map;
     }
 
-    public static Map<String,Object> ok(String msg){
+    public static Map<String,Object> okMsg(String msg){
         Map<String,Object> map = new HashMap<>(4);
         map.put("code", CODE_OK);
         map.put("msg", msg);
+        return map;
+    }
+
+    public static Map<String,Object> ok(Object obj){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", "Request success");
+        map.put("result", obj);
+        return map;
+    }
+
+    public static Map<String,Object> okMsg(Object obj, String msg){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", msg);
+        map.put("result", obj);
+        return map;
+    }
+
+    public static Map<String,Object> okKey(String key, Object obj){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", "Request success");
+        map.put(key, obj);
+        return map;
+    }
+
+    public static Map<String,Object> ok(String key, Object obj, String msg){
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("code", CODE_OK);
+        map.put("msg", msg);
+        map.put(key, obj);
         return map;
     }
 

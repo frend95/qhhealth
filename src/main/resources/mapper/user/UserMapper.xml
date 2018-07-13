@@ -63,7 +63,7 @@
             n.avatar nutritionistAvatar
         FROM
             user u
-            LEFT JOIN health_goal hg ON u.id = hg.id
+            LEFT JOIN health_goal hg ON u.id = hg.user_id
             LEFT JOIN nutritionist n ON u.nutritionist_id = n.id
         WHERE u.id = #{id}
     </select>

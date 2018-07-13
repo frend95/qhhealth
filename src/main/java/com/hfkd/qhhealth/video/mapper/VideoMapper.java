@@ -19,7 +19,8 @@ public interface VideoMapper extends BaseMapper<Video> {
     List<Map<String,Object>> getVideoLs(@Param("page") Integer page,
                                       @Param("size") Integer size,
                                       @Param("type") String type,
-                                      @Param("tag") String tag);
+                                      @Param("tag") String tag,
+                                      @Param("authorId") Integer authorId);
 
     Map<String, Object> getVideoBrief(@Param("id") Integer id);
 

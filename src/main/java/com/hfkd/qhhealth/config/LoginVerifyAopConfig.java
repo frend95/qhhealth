@@ -65,7 +65,6 @@ public class LoginVerifyAopConfig {
             redisConn.expire(sessionKeyBytes, timeout);
             // 将token放入redis以在请求完成之前可以随时取出用户信息
             String tokenKey = "TOKEN_" + Thread.currentThread().getId();
-            System.out.println("interceptor: " + Thread.currentThread().getId() + "_" + token);
             redisConn.setEx(tokenKey.getBytes(), 30, token.getBytes());
             // 方法的返回值
             proceed = joinPoint.proceed();

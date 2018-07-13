@@ -42,11 +42,10 @@ public class ArticleController {
     @LogOut("查询文章列表")
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String tag) {
+        size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         List<Map<String, Object>> articles = articleMapper.getArticles(page, size, tag);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", articles);
-        return resultMap;
+        return RspUtil.ok(articles);
     }
 
     @LogOut("查询文章详情")
@@ -63,9 +62,7 @@ public class ArticleController {
         article.setCollect(isCollect);
         // 观看数加一
         articleMapper.watchedCntPlusOne(id);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", article);
-        return resultMap;
+        return RspUtil.ok(article);
     }
 
 }

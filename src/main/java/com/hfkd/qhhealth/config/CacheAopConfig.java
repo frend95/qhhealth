@@ -67,7 +67,7 @@ public class CacheAopConfig {
      * @return Target的返回值weaving后的产生的对象
      * @throws Throwable
      */
-    @Around("cacheable()")
+//    @Around("cacheable()")
     public Object saveCacheName(ProceedingJoinPoint joinPoint) throws Throwable {
         Map proceed = (Map) joinPoint.proceed();
         try {

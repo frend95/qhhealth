@@ -21,4 +21,6 @@ public interface SocialNutritionistInfoMapper extends BaseMapper<SocialNutrition
                                          @Param("name") String name);
 
     List<Map<String, Object>> getYysByIds(@Param("ids") int[] ids);
+
+    Map<String, Object> getById(@Param("id") Integer id);
 }

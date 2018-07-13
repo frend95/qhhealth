@@ -73,17 +73,12 @@ public enum ConstEnum {
     IMG_PAGE_SOCIAL("4"),
 
     /**被关注者类型：0用户,1营养师*/
-    FOLLOW_TYPE_USER("0"),
-    FOLLOW_TYPE_YYS("1"),
+    USER("0"),
+    YYS("1"),
 
     /**动态是否私密：0否,1是*/
     FEED_PRIVATE_NO("0"),
-    FEED_PRIVATE_YES("1"),
-
-    /**作者类型：0用户,1营养师*/
-    FEED_AUTHOR_USER("0"),
-    FEED_AUTHOR_YYS("1");
-
+    FEED_PRIVATE_YES("1");
 
     private String value;
 

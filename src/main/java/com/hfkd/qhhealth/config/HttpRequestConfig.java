@@ -28,7 +28,6 @@ public class HttpRequestConfig {
                 String type = req.getContentType() == null ? "" : req.getContentType();
                 String json = ContentTypeEnum.JSON.getType();
                 String xml = ContentTypeEnum.XML.getType();
-                System.out.println("我执行了");
                 if ("".equals(type) || json.equals(type)|| xml.equals(type)) {
                     req = new RequestBodyWrapper(req);
                 }

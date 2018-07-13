@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfkd.qhhealth.user.mapper.UserCollectionMapper">
+
+    <select id="getCollection" resultType="com.hfkd.qhhealth.user.model.UserCollection">
+        SELECT
+            content_id contentId,
+            title,
+            thumb,
+            create_time createTime
+        FROM
+        <if test='type == "0"'>
+            user_article_collection
+        </if>
+        <if test='type == "1"'>
+            user_video_collection
+        </if>
+        WHERE
+            user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getClctId" resultType="Integer">
+        SELECT
+            id
+        FROM
+        <if test='type == "0"'>
+            user_article_collection
+        </if>
+        <if test='type == "1"'>
+            user_video_collection
+        </if>
+        WHERE
+            user_id = #{userId}
+        AND content_id = #{contentId}
+    </select>
+
+    <insert id="addCollection">
+        INSERT INTO
+        <if test='type == "0"'>
+            user_article_collection
+        </if>
+        <if test='type == "1"'>
+            user_video_collection
+        </if>
+        (user_id,content_id,title,thumb)
+        VALUES
+        (#{userId},#{contentId},#{title},#{thumb})
+    </insert>
+
+    <delete id="delCollection">
+        DELETE FROM
+        <if test='type == "0"'>
+            user_article_collection
+        </if>
+        <if test='type == "1"'>
+            user_video_collection
+        </if>
+        WHERE id = #{clctId}
+    </delete>
+</mapper>

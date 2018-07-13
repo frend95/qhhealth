@@ -28,7 +28,7 @@
 
     <select id="getCollection" resultType="Map">
         SELECT
-            video_id id,
+            content_id id,
             title,
             thumb,
             create_time createTime
@@ -47,7 +47,7 @@
             user_video_collection
         WHERE
             user_id = #{userId}
-        AND video_id = #{videoId}
+        AND content_id = #{videoId}
     </select>
 
 </mapper>

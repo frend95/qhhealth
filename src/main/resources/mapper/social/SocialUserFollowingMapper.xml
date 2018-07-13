@@ -24,4 +24,15 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getFollowLsId" resultType="Integer">
+        SELECT
+            id
+        FROM
+            social_user_following
+        WHERE
+            user_id = #{userId}
+        AND following_id = #{followingId}
+        AND following_type = #{followingType}
+    </select>
+
 </mapper>

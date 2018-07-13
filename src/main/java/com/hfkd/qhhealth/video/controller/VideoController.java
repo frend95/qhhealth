@@ -42,8 +42,9 @@ public class VideoController {
     @LogOut("查询视频列表")
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String type, String tag) {
+        size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
-        List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag);
+        List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag, null);
         Map<String, Object> resultMap = RspUtil.ok();
         resultMap.put("result", articles);
         return resultMap;

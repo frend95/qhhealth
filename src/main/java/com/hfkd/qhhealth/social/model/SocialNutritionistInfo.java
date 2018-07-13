@@ -22,6 +22,8 @@ public class SocialNutritionistInfo implements Serializable {
     private String name;
     /**个人简介*/
     private String bio;
+    /**职称*/
+    private String title;
     /**头像*/
     private String avatar;
     /**头像略缩图*/
@@ -62,6 +64,14 @@ public class SocialNutritionistInfo implements Serializable {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAvatar() {

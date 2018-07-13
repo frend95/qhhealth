@@ -36,20 +36,18 @@ public class CommentController {
     @LogOut("查询评论")
     @RequestMapping("/getComment")
     public Map<String, Object> getComment(String type, Integer page, Integer size, Integer contentId) {
+        size = size == null ? 10 : size;
         List<Comment> comments = commentService.getFullCmt(type, page, size, contentId);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", comments);
-        return resultMap;
+        return RspUtil.ok(comments);
     }
 
     @LogOut("查询评论回复")
     @RequestMapping("/getReply")
     public Map<String, Object> getReply(String type, Integer page, Integer size, Integer cmtId) {
+        size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         List<ChildComment> comments = commentMapper.getChildCmt(type, page, size, cmtId);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", comments);
-        return resultMap;
+        return RspUtil.ok(comments);
     }
 
     @LogOut("评论")

@@ -82,7 +82,6 @@ public class SysLoginController {
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
         Map<String, Object> resultMap = RspUtil.ok();
-
         resultMap.put("result", userDetail);
         resultMap.put("token", token);
         return resultMap;
@@ -154,9 +153,7 @@ public class SysLoginController {
         String sessionKey = prefix + id;
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("token", token);
-        return resultMap;
+        return RspUtil.okKey("token", token);
     }
 
     @LogOut("获取验证码")
@@ -173,7 +170,7 @@ public class SysLoginController {
         // 放入redis并设置ttl
         String codeKey = phone + code;
         redis.opsForValue().set(codeKey, "", smsTimeout, TimeUnit.MINUTES);
-        return RspUtil.ok("发送成功");
+        return RspUtil.okMsg("发送成功");
     }
 
 }

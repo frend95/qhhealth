@@ -32,4 +32,22 @@
     ${alias}.content,
     </sql>
 
+    <select id="getCases" resultType="Map">
+        SELECT
+            id,
+            thumb,
+            name,
+            age,
+            height,
+            result,
+            period
+        FROM
+            nutritionist_case
+        <if test="nutritionistId != null">
+        WHERE
+            nutritionist_id = #{nutritionistId}
+        </if>
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

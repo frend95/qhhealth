@@ -7,12 +7,7 @@ import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
-import com.hfkd.qhhealth.user.mapper.UserArticleCollectionMapper;
-import com.hfkd.qhhealth.user.mapper.UserVideoCollectionMapper;
-import com.hfkd.qhhealth.user.model.UserArticleCollection;
-import com.hfkd.qhhealth.user.model.UserVideoCollection;
-import com.hfkd.qhhealth.user.service.UserArticleCollectionService;
-import com.hfkd.qhhealth.user.service.UserVideoCollectionService;
+import com.hfkd.qhhealth.user.mapper.UserCollectionMapper;
 import com.hfkd.qhhealth.video.mapper.VideoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +28,7 @@ public class UserCollectionController {
     @Autowired
     private SessionUtil session;
     @Autowired
-    private UserVideoCollectionService videoCollectionService;
-    @Autowired
-    private UserArticleCollectionService articleCollectionService;
-    @Autowired
-    private UserArticleCollectionMapper articleCollectionMapper;
-    @Autowired
-    private UserVideoCollectionMapper videoCollectionMapper;
+    private UserCollectionMapper collectionMapper;
     @Autowired
     private VideoMapper videoMapper;
     @Autowired
@@ -50,7 +39,7 @@ public class UserCollectionController {
     public Map<String, Object> collect(String type, Integer id) {
         Integer currId = session.getCurrId();
 
-        if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
+        /*if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
 
             Map<String, Object> articleBrief = articleMapper.getArticleBrief(id);
             String title = (String) articleBrief.get("title");
@@ -80,25 +69,44 @@ public class UserCollectionController {
 
         } else {
             return RspUtil.error("类型错误");
+        }*/
+        Integer clctId = collectionMapper.getClctId(type, currId, id);
+        if (clctId != null) {
+            collectionMapper.delCollection(type, clctId);
+            return RspUtil.ok("isCollect", false, "取消收藏成功");
         }
-        return RspUtil.ok("收藏成功");
+
+        Map<String, Object> brief;
+        if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
+            brief = articleMapper.getArticleBrief(id);
+        } else if (type.equals(ConstEnum.CONTENT_TYPE_VIDEO.getValue())) {
+            brief = videoMapper.getVideoBrief(id);
+        } else {
+            return RspUtil.error("类型错误");
+        }
+        String title = (String) brief.get("title");
+        String thumb = (String) brief.get("thumb");
+
+        collectionMapper.addCollection(type, currId, id, title, thumb);
+
+        return RspUtil.ok("isCollect", true, "收藏成功");
     }
 
     @LogOut("查询收藏的视频或文章")
     @RequestMapping("/collection")
     public Map<String, Object> collection(Integer page, Integer size, String type) {
+        size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
-        List ls;
+        /*List ls;
         if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
             ls = articleCollectionMapper.getCollection(page, size, currId);
         } else if (type.equals(ConstEnum.CONTENT_TYPE_VIDEO.getValue())) {
             ls = videoCollectionMapper.getCollection(page, size, currId);
         } else {
             return RspUtil.error("类型错误");
-        }
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", ls);
-        return resultMap;
+        }*/
+        List<Map<String, Object>> ls = collectionMapper.getCollection(type, page, size, currId);
+        return RspUtil.ok(ls);
     }
 }
