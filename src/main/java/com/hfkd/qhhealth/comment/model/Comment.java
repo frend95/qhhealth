@@ -127,4 +127,21 @@ public class Comment implements Serializable{
 
     public Comment() {
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", contentId=" + contentId +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", authorId=" + authorId +
+                ", content='" + content + '\'' +
+                ", replyCnt=" + replyCnt +
+                ", createTime=" + createTime +
+                ", dateTime='" + dateTime + '\'' +
+                ", childCmt=" + childCmt +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

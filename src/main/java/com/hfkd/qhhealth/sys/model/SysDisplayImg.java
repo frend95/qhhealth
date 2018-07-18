@@ -99,4 +99,18 @@ public class SysDisplayImg implements Serializable {
     public void setPage(String page) {
         this.page = page;
     }
+
+    @Override
+    public String toString() {
+        return "SysDisplayImg{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", toUrl='" + toUrl + '\'' +
+                ", type='" + type + '\'' +
+                ", group=" + group +
+                ", page='" + page + '\'' +
+                ", seq=" + seq +
+                '}';
+    }
 }

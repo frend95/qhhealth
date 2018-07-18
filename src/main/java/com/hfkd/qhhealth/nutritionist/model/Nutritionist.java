@@ -1,10 +1,11 @@
 package com.hfkd.qhhealth.nutritionist.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 营养师信息 Model
@@ -133,17 +134,17 @@ public class Nutritionist implements Serializable {
     @Override
     public String toString() {
         return "Nutritionist{" +
-            "id=" + id +
-            ", name=" + name +
-            ", gender=" + gender +
-            ", avatar=" + avatar +
-            ", avatarThumb=" + avatarThumb +
-            ", account=" + account +
-            ", password=" + password +
-            ", salt=" + salt +
-            ", status=" + status +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", avatarThumb='" + avatarThumb + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

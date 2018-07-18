@@ -66,11 +66,11 @@ public class CommentController {
     @LogOut("回复评论")
     @Verify
     @RequestMapping("/reply")
-    public Map<String, Object> reply(String type, Integer cmtId, String content) {
+    public Map<String, Object> reply(String type, Integer cmtId, String content, Integer replyToId, String replyToName) {
         Integer currId = session.getCurrId();
         // 根据父评论id查询内容id
         Integer contentId = commentMapper.getContentIdByCmtId(type, cmtId);
-        ChildComment childCmt = new ChildComment(currId, cmtId, content, null, null, type);
+        ChildComment childCmt = new ChildComment(currId, cmtId, content, replyToId, replyToName, type);
         commentMapper.addChildCmt(childCmt);
         // 回复数加一
         commentMapper.replyCntPlusOne(type, cmtId);

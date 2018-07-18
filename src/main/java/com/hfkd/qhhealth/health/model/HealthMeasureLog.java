@@ -146,17 +146,18 @@ public class HealthMeasureLog implements Serializable {
     @Override
     public String toString() {
         return "HealthMeasureLog{" +
-            "id=" + id +
-            ", userId=" + userId +
-            ", weight=" + weight +
-            ", bmi=" + bmi +
-            ", bfr=" + bfr +
-            ", uvi=" + uvi +
-            ", mr=" + mr +
-            ", bmr=" + bmr +
-            ", bq=" + bq +
-            ", wr=" + wr +
-            ", createTime=" + createTime +
-            "}";
+                "id=" + id +
+                ", userId=" + userId +
+                ", weight=" + weight +
+                ", bmi=" + bmi +
+                ", bfr=" + bfr +
+                ", uvi=" + uvi +
+                ", mr=" + mr +
+                ", bmr=" + bmr +
+                ", bq=" + bq +
+                ", wr=" + wr +
+                ", pr=" + pr +
+                ", createTime=" + createTime +
+                '}';
     }
 }

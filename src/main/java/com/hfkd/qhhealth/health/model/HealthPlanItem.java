@@ -74,10 +74,11 @@ public class HealthPlanItem implements Serializable {
     @Override
     public String toString() {
         return "HealthPlanItem{" +
-            "id=" + id +
-            ", name=" + name +
-            ", kcalPer100g=" + kcalPer100g +
-            ", sort=" + sort +
-            "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", kcalPer100g=" + kcalPer100g +
+                ", sort='" + sort + '\'' +
+                '}';
     }
 }

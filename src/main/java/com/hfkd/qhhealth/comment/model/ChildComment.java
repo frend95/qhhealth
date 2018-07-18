@@ -128,4 +128,21 @@ public class ChildComment implements Serializable{
 
     public ChildComment() {
     }
+
+    @Override
+    public String toString() {
+        return "ChildComment{" +
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", parentCmtId=" + parentCmtId +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", content='" + content + '\'' +
+                ", replyToId=" + replyToId +
+                ", replyToName='" + replyToName + '\'' +
+                ", createTime=" + createTime +
+                ", dateTime='" + dateTime + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -65,4 +65,15 @@ public class UserBodyInfo implements Serializable{
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "UserBodyInfo{" +
+                "gender='" + gender + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", birthday='" + birthday + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

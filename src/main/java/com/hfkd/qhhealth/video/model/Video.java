@@ -159,18 +159,20 @@ public class Video implements Serializable {
     @Override
     public String toString() {
         return "Video{" +
-            "id=" + id +
-            ", authorId=" + authorId +
-            ", title=" + title +
-            ", thumb=" + thumb +
-            ", resource=" + resource +
-            ", desc=" + desc +
-            ", type=" + type +
-            ", tag=" + tag +
-            ", cmtCnt=" + cmtCnt +
-            ", watchedCnt=" + watchedCnt +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            "}";
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", title='" + title + '\'' +
+                ", thumb='" + thumb + '\'' +
+                ", resource='" + resource + '\'' +
+                ", desc='" + desc + '\'' +
+                ", type='" + type + '\'' +
+                ", tag='" + tag + '\'' +
+                ", cmtCnt=" + cmtCnt +
+                ", watchedCnt=" + watchedCnt +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", comments=" + comments +
+                ", isCollect=" + isCollect +
+                '}';
     }
 }

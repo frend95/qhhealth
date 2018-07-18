@@ -142,23 +142,23 @@ public class HealthMeasureRule implements Serializable{
                 if (bfrBd != null) {
                     double bfr = bfrBd.doubleValue();
                     if (age < 30) {
-                        if (bfr < 0.1) {
+                        if (bfr < 10.0) {
                             this.bfr = low;
-                        } else if (0.1 <= bfr && bfr < 0.21) {
+                        } else if (10.0 <= bfr && bfr < 21.0) {
                             this.bfr = normal;
-                        } else if (0.21 <= bfr && bfr < 0.26) {
+                        } else if (21.0 <= bfr && bfr < 26.0) {
                             this.bfr = high;
-                        } else if (bfr >= 0.26) {
+                        } else if (bfr >= 26.0) {
                             this.bfr = veryhigh;
                         }
                     } else if (age >= 30) {
-                        if (bfr < 0.11) {
+                        if (bfr < 11.0) {
                             this.bfr = low;
-                        } else if (0.11 <= bfr && bfr < 0.22) {
+                        } else if (11.0 <= bfr && bfr < 22.0) {
                             this.bfr = normal;
-                        } else if (0.22 <= bfr && bfr < 0.27) {
+                        } else if (22.0 <= bfr && bfr < 27.0) {
                             this.bfr = high;
-                        } else if (bfr >= 0.27) {
+                        } else if (bfr >= 27.0) {
                             this.bfr = veryhigh;
                         }
                     }
@@ -187,22 +187,22 @@ public class HealthMeasureRule implements Serializable{
                 // 判断肌肉率
                 if (mrBd != null) {
                     double mr = mrBd.doubleValue();
-                    if (mr < 0.4) {
+                    if (mr < 40.0) {
                         this.mr = low;
-                    } else if (0.4 <= mr && mr < 0.6) {
+                    } else if (40.0 <= mr && mr < 60.0) {
                         this.mr = normal;
-                    } else if (mr >= 0.6) {
+                    } else if (mr >= 60.0) {
                         this.mr = high;
                     }
                 }
                 // 判断水含量
                 if (wrBd != null) {
                     double wr = wrBd.doubleValue();
-                    if (wr < 0.55) {
+                    if (wr < 55.0) {
                         this.wr = low;
-                    } else if (0.55 <= wr && wr < 0.65) {
+                    } else if (55.0 <= wr && wr < 65.0) {
                         this.wr = normal;
-                    } else if (wr >= 0.65) {
+                    } else if (wr >= 65.0) {
                         this.wr = high;
                     }
                 }
@@ -238,11 +238,11 @@ public class HealthMeasureRule implements Serializable{
                 // 判断蛋白质
                 if (prBd != null) {
                     double pr = prBd.doubleValue();
-                    if (pr < 0.16) {
+                    if (pr < 16.0) {
                         this.pr = low;
-                    } else if (0.16 <= pr && pr <= 0.18) {
+                    } else if (16.0 <= pr && pr <= 18.0) {
                         this.pr = normal;
-                    } else if (pr > 0.18) {
+                    } else if (pr > 18.0) {
                         this.pr = high;
                     }
                 }
@@ -252,23 +252,23 @@ public class HealthMeasureRule implements Serializable{
                 if (bfrBd != null) {
                     double bfr = bfrBd.doubleValue();
                     if (age < 30) {
-                        if (bfr < 0.16) {
+                        if (bfr < 16.0) {
                             this.bfr = low;
-                        } else if (0.16 <= bfr && bfr < 0.24) {
+                        } else if (16.0 <= bfr && bfr < 24.0) {
                             this.bfr = normal;
-                        } else if (0.24 <= bfr && bfr < 0.3) {
+                        } else if (24.0 <= bfr && bfr < 30.0) {
                             this.bfr = high;
-                        } else if (bfr >= 0.3) {
+                        } else if (bfr >= 30.0) {
                             this.bfr = veryhigh;
                         }
                     } else if (age >= 30) {
-                        if (bfr < 0.19) {
+                        if (bfr < 19.0) {
                             this.bfr = low;
-                        } else if (0.19 <= bfr && bfr < 0.27) {
+                        } else if (19.0 <= bfr && bfr < 27.0) {
                             this.bfr = normal;
-                        } else if (0.27 <= bfr && bfr < 0.3) {
+                        } else if (27.0 <= bfr && bfr < 30.0) {
                             this.bfr = high;
-                        } else if (bfr >= 0.3) {
+                        } else if (bfr >= 30.0) {
                             this.bfr = veryhigh;
                         }
                     }
@@ -297,22 +297,22 @@ public class HealthMeasureRule implements Serializable{
                 // 判断肌肉率
                 if (mrBd != null) {
                     double mr = mrBd.doubleValue();
-                    if (mr < 0.3) {
+                    if (mr < 30.0) {
                         this.mr = low;
-                    } else if (0.3 <= mr && mr < 0.5) {
+                    } else if (30.0 <= mr && mr < 50.0) {
                         this.mr = normal;
-                    } else if (mr >= 0.5) {
+                    } else if (mr >= 50.0) {
                         this.mr = high;
                     }
                 }
                 // 判断水含量
                 if (wrBd != null) {
                     double wr = wrBd.doubleValue();
-                    if (wr < 0.45) {
+                    if (wr < 45.0) {
                         this.wr = low;
-                    } else if (0.45 <= wr && wr < 0.6) {
+                    } else if (45.0 <= wr && wr < 60.0) {
                         this.wr = normal;
-                    } else if (wr >= 0.6) {
+                    } else if (wr >= 60.0) {
                         this.wr = high;
                     }
                 }
@@ -348,16 +348,30 @@ public class HealthMeasureRule implements Serializable{
                 // 判断蛋白质
                 if (prBd != null) {
                     double pr = prBd.doubleValue();
-                    if (pr < 0.16) {
+                    if (pr < 16.0) {
                         this.pr = low;
-                    } else if (0.16 <= pr && pr <= 0.18) {
+                    } else if (16.0 <= pr && pr <= 18.0) {
                         this.pr = normal;
-                    } else if (pr > 0.18) {
+                    } else if (pr > 18.0) {
                         this.pr = high;
                     }
                 }
                 break;
             default:
         }
+    }
+
+    @Override
+    public String toString() {
+        return "HealthMeasureRule{" +
+                "bmi='" + bmi + '\'' +
+                ", bfr='" + bfr + '\'' +
+                ", bmr='" + bmr + '\'' +
+                ", mr='" + mr + '\'' +
+                ", wr='" + wr + '\'' +
+                ", uvi='" + uvi + '\'' +
+                ", bq='" + bq + '\'' +
+                ", pr='" + pr + '\'' +
+                '}';
     }
 }

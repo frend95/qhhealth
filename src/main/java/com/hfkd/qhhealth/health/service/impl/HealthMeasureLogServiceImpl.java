@@ -21,7 +21,6 @@ import java.util.Map;
 @Service
 public class HealthMeasureLogServiceImpl extends ServiceImpl<HealthMeasureLogMapper, HealthMeasureLog> implements HealthMeasureLogService {
 
-    private static final String WEIGHT = "体重";
     private static final String BFR = "体脂率";
     private static final String BFR_IMG = "https://app.xintianhong888.com/img/bfr.jpg";
     private static final String UVI = "内脏脂肪数";
@@ -47,13 +46,6 @@ public class HealthMeasureLogServiceImpl extends ServiceImpl<HealthMeasureLogMap
 
         HealthMeasureRule standard = new HealthMeasureRule(log, gender, age);
         List<Map<String, Object>> list =new LinkedList<>();
-
-        Map<String, Object> weightMap = new HashMap<>(8);
-        weightMap.put("name", WEIGHT);
-        weightMap.put("value", num2Str(log.getWeight()));
-        weightMap.put("img", null);
-        weightMap.put("standard", null);
-        list.add(weightMap);
 
         Map<String, Object> bfrMap = new HashMap<>(8);
         bfrMap.put("name", BFR);
@@ -112,15 +104,13 @@ public class HealthMeasureLogServiceImpl extends ServiceImpl<HealthMeasureLogMap
         list.add(prMap);
 
         return list;
-
     }
 
     private String bd2Percent(BigDecimal bd) {
-        return bd == null ? "0" : bd.doubleValue() * 100 + "%";
+        return bd == null ? "0" : bd.doubleValue() + "%";
     }
 
     private String num2Str(Object number) {
         return number == null ? "0" : number.toString();
-
     }
 }
