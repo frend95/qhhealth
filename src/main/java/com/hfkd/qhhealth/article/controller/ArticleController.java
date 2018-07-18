@@ -9,6 +9,7 @@ import com.hfkd.qhhealth.comment.service.CommentService;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
+import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserArticleCollectionMapper;
@@ -42,10 +43,32 @@ public class ArticleController {
     @LogOut("查询文章列表")
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String tag) {
+        String title = null;
+        if (tag != null) {
+            switch (tag) {
+                case ConstVal.ARTICLE_TAG_DIET:
+                    title = ConstEnum.ARTICLE_TAG_DIET.ename();
+                    break;
+                case ConstVal.ARTICLE_TAG_SPORT:
+                    title = ConstEnum.ARTICLE_TAG_SPORT.ename();
+                    break;
+                case ConstVal.ARTICLE_TAG_METHOD:
+                    title = ConstEnum.ARTICLE_TAG_METHOD.ename();
+                    break;
+                case ConstVal.ARTICLE_TAG_RECIPE:
+                    title = ConstEnum.ARTICLE_TAG_RECIPE.ename();
+                    break;
+                default:
+            }
+        }
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
+
         List<Map<String, Object>> articles = articleMapper.getArticles(page, size, tag);
-        return RspUtil.ok(articles);
+        Map<String, Object> resultMap = RspUtil.ok();
+        resultMap.put("result", articles);
+        resultMap.put("title", title);
+        return resultMap;
     }
 
     @LogOut("查询文章详情")
@@ -55,7 +78,7 @@ public class ArticleController {
         Integer currId = session.getCurrId();
         Article article = articleService.selectById(id);
         // 查询最近的10条评论
-        List<Comment> comments = commentService.getFullCmt(ConstEnum.CONTENT_TYPE_ARTICLE.getValue(), 0, 10, id);
+        List<Comment> comments = commentService.getFullCmt(ConstVal.CONTENT_TYPE_ARTICLE, 0, 10, id);
         article.setComments(comments);
         // 查询是否收藏
         Boolean isCollect = currId != null && articleCollectionMapper.getClctId(currId, id) != null;

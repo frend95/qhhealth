@@ -1,12 +1,13 @@
 package com.hfkd.qhhealth.health.model;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * 健康数据记录 Model
@@ -39,6 +40,8 @@ public class HealthMeasureLog implements Serializable {
     private BigDecimal bq;
     /**水含量*/
     private BigDecimal wr;
+    /**蛋白质*/
+    private BigDecimal pr;
     /**创建时间*/
     @TableField("create_time")
     private Date createTime;
@@ -130,6 +133,14 @@ public class HealthMeasureLog implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public BigDecimal getPr() {
+        return pr;
+    }
+
+    public void setPr(BigDecimal pr) {
+        this.pr = pr;
     }
 
     @Override

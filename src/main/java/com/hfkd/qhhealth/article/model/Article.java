@@ -32,6 +32,8 @@ public class Article implements Serializable {
     private String tag;
     /**内容*/
     private String content;
+    /**描述*/
+    private String desc;
     /**评论数*/
     @TableField("cmt_cnt")
     private Integer cmtCnt;
@@ -99,6 +101,14 @@ public class Article implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Integer getCmtCnt() {

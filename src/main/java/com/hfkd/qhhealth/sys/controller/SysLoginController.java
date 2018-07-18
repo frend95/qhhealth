@@ -2,6 +2,7 @@ package com.hfkd.qhhealth.sys.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.util.*;
+import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import com.hfkd.qhhealth.user.model.User;
 import com.hfkd.qhhealth.user.model.UserSession;
 import com.hfkd.qhhealth.user.service.UserService;
@@ -34,6 +35,8 @@ public class SysLoginController {
     private StringRedisTemplate redis;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NutritionistService yysService;
 
     @Value("${login.prefix}")
     private String prefix;
@@ -136,6 +139,8 @@ public class SysLoginController {
             String avatarUrl = avatarDomain + filename;
             user.setAvatar(avatarUrl);
         }
+        //推荐随机一名营养师
+        user.setNutritionistId(yysService.getRandomYysId());
         user.setAccount(phone);
         user.setPassword(pwdSalt);
         user.setSalt(salt);

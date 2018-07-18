@@ -43,4 +43,11 @@
             nutritionist
     </select>
 
+    <select id="getAllId" resultType="Integer">
+        SELECT
+            id
+        FROM
+            nutritionist
+    </select>
+
 </mapper>

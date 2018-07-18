@@ -22,4 +22,20 @@
     ${alias}.sort,
     </sql>
 
+    <select id="getFoods" resultType="com.hfkd.qhhealth.health.model.HealthPlanItem">
+        SELECT
+            id,
+            name,
+            `desc`,
+            kcal_per_100g
+        FROM
+            health_plan_item
+        WHERE
+            sort = #{sort}
+        <if test="name != null and name != ''">
+        AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

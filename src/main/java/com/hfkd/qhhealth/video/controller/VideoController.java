@@ -6,6 +6,7 @@ import com.hfkd.qhhealth.comment.service.CommentService;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
+import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserVideoCollectionMapper;
@@ -42,11 +43,35 @@ public class VideoController {
     @LogOut("查询视频列表")
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String type, String tag) {
+        String title = null;
+        if (tag != null) {
+            switch (tag) {
+                case ConstVal.VIDEO_TAG_MIDAGE:
+                    title = ConstEnum.VIDEO_TAG_MIDAGE.ename();
+                    break;
+                case ConstVal.VIDEO_TAG_PARTUM:
+                    title = ConstEnum.VIDEO_TAG_PARTUM.ename();
+                    break;
+                case ConstVal.VIDEO_TAG_YOUTH:
+                    title = ConstEnum.VIDEO_TAG_YOUTH.ename();
+                    break;
+                case ConstVal.VIDEO_TAG_SIMPLE:
+                    title = ConstEnum.VIDEO_TAG_SIMPLE.ename();
+                    break;
+                case ConstVal.VIDEO_TAG_GENETIC:
+                    title = ConstEnum.VIDEO_TAG_GENETIC.ename();
+                    break;
+                default:
+            }
+        }
+
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
+
         List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag, null);
         Map<String, Object> resultMap = RspUtil.ok();
         resultMap.put("result", articles);
+        resultMap.put("title", title);
         return resultMap;
     }
 
@@ -57,15 +82,13 @@ public class VideoController {
         Integer currId = session.getCurrId();
         Video video = videoService.selectById(id);
         // 查询最近的10条评论
-        List<Comment> comments = commentService.getFullCmt(ConstEnum.CONTENT_TYPE_VIDEO.getValue(), 0, 10, id);
+        List<Comment> comments = commentService.getFullCmt(ConstVal.CONTENT_TYPE_VIDEO, 0, 10, id);
         video.setComments(comments);
         // 查询是否收藏
         Boolean isCollect = currId != null && videoCollectionMapper.getClctId(currId, id) != null;
         video.setCollect(isCollect);
         // 观看数加一
         videoMapper.watchedCntPlusOne(id);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", video);
-        return resultMap;
+        return RspUtil.ok(video);
     }
 }

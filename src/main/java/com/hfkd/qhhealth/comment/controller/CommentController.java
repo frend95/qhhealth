@@ -1,7 +1,6 @@
 package com.hfkd.qhhealth.comment.controller;
 
 
-import com.hfkd.qhhealth.article.model.ArticleCmt;
 import com.hfkd.qhhealth.comment.mapper.CommentMapper;
 import com.hfkd.qhhealth.comment.model.ChildComment;
 import com.hfkd.qhhealth.comment.model.Comment;
@@ -55,27 +54,30 @@ public class CommentController {
     @RequestMapping("/post")
     public Map<String, Object> post(String type, Integer contentId, String content) {
         Integer currId = session.getCurrId();
-        ArticleCmt articleCmt = new ArticleCmt();
-        articleCmt.setAuthorId(currId);
-        articleCmt.setContent(content);
-        articleCmt.setContentId(contentId);
-        commentMapper.addCmt(type, currId, content, contentId);
+        Comment comment = new Comment(currId, contentId, content, type);
+        commentMapper.addCmt(comment);
         // 评论数加一
         commentMapper.cmtCntPlusOne(type, contentId);
-        return RspUtil.ok();
+        // 查询出刚刚插入的评论
+        Comment cmtById = commentMapper.getCmtById(type, comment.getId());
+        return RspUtil.ok(cmtById);
     }
 
     @LogOut("回复评论")
     @Verify
     @RequestMapping("/reply")
-    public Map<String, Object> reply(String type, Integer contentId, Integer cmtId, String content, Integer replyToId,
-                                     String replyToName) {
+    public Map<String, Object> reply(String type, Integer cmtId, String content) {
         Integer currId = session.getCurrId();
-        commentMapper.addChildCmt(type, cmtId, content, currId, replyToId, replyToName);
+        // 根据父评论id查询内容id
+        Integer contentId = commentMapper.getContentIdByCmtId(type, cmtId);
+        ChildComment childCmt = new ChildComment(currId, cmtId, content, null, null, type);
+        commentMapper.addChildCmt(childCmt);
         // 回复数加一
         commentMapper.replyCntPlusOne(type, cmtId);
         // 评论数加一
         commentMapper.cmtCntPlusOne(type, contentId);
-        return RspUtil.ok();
+        // 查询出刚刚插入的评论
+        ChildComment cmtById = commentMapper.getChildCmtById(type, childCmt.getId());
+        return RspUtil.ok(cmtById);
     }
 }

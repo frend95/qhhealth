@@ -1,11 +1,10 @@
 package com.hfkd.qhhealth.sys.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.hfkd.qhhealth.common.constant.ConstEnum;
-import com.hfkd.qhhealth.sys.model.SysDisplayImg;
-import com.hfkd.qhhealth.sys.mapper.SysDisplayImgMapper;
-import com.hfkd.qhhealth.sys.service.SysDisplayImgService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.hfkd.qhhealth.sys.mapper.SysDisplayImgMapper;
+import com.hfkd.qhhealth.sys.model.SysDisplayImg;
+import com.hfkd.qhhealth.sys.service.SysDisplayImgService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +18,9 @@ import java.util.List;
 public class SysDisplayImgServiceImpl extends ServiceImpl<SysDisplayImgMapper, SysDisplayImg> implements SysDisplayImgService {
 
     @Override
-    public List<SysDisplayImg> getDisplayImg(ConstEnum page, Integer group, Integer limit) {
+    public List<SysDisplayImg> getDisplayImg(String page, Integer group, Integer limit) {
         EntityWrapper<SysDisplayImg> wrapper = new EntityWrapper<>();
-        wrapper.eq("page", page.getValue())
+        wrapper.eq("page", page)
                 .eq(group != null, "group", group)
                 .orderBy("seq", true);
         if (limit != null) {

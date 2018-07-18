@@ -34,6 +34,7 @@
         SELECT
             id,
             title,
+            `desc`,
             thumb,
             watched_cnt watchedCnt,
             DATE_FORMAT(create_time, '%Y-%m-%d') createTime

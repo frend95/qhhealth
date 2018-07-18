@@ -3,7 +3,7 @@ package com.hfkd.qhhealth.nutritionist.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.constant.ConstEnum;
+import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
@@ -66,11 +66,11 @@ public class NutritionistController {
         // 查询营养师社圈信息
         Map<String, Object> yysMap = socialYysInfoMapper.getById(id);
         // 查询是否关注该营养师
-        boolean isFollow = currId != null && userFollowingMapper.getFollowLsId(ConstEnum.YYS.getValue(), currId, id) != null;
+        boolean isFollow = currId != null && userFollowingMapper.getFollowLsId(ConstVal.YYS, currId, id) != null;
         // 查询6个服务案例
         List<Map<String, Object>> cases = caseMapper.getCases(0, 6, id);
         // 查询4个课程
-        List<Map<String, Object>> video = videoMapper.getVideoLs(0, 4, ConstEnum.VIDEO_TYPE_TUTORIAL.getValue(), null, id);
+        List<Map<String, Object>> video = videoMapper.getVideoLs(0, 4, ConstVal.VIDEO_TYPE_TUTORIAL, null, id);
 
         yysMap.put("isFollow", isFollow);
         yysMap.put("cases", cases);

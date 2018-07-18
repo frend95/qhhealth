@@ -7,7 +7,6 @@ import com.hfkd.qhhealth.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,7 +29,6 @@ public class CommentServiceImpl implements CommentService {
                 Integer replyCnt = comment.getReplyCnt();
                 // 如果子评论数为零则继续查询下一条评论的子评论, 最大为4条
                 if (replyCnt == null || replyCnt == 0) {
-                    comment.setChildCmt(Collections.EMPTY_LIST);
                     continue;
                 }
                 Integer cmtId = comment.getId();

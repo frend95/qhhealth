@@ -40,4 +40,18 @@ public class NutritionistServiceImpl extends ServiceImpl<NutritionistMapper, Nut
         }
         return socialYysInfoMapper.getYysByIds(ids);
     }
+
+    @Override
+    public Integer getRandomYysId() {
+        List<Integer> ids = yysMapper.getAllId();
+        int size = ids.size();
+        if (size < 1) {
+            return null;
+        } else if (size == 1) {
+            return ids.get(0);
+        }
+        int randomIdx = RandomUtil.getRandom(size - 1);
+        return ids.get(randomIdx);
+
+    }
 }

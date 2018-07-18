@@ -3,6 +3,10 @@ package com.hfkd.qhhealth.sys.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hfkd.qhhealth.sys.model.SysEntrance;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 内容入口配置 Mapper
@@ -11,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysEntranceMapper extends BaseMapper<SysEntrance> {
+
+    List<Map<String, Object>> getEntrance(@Param("page") String page);
 
 }

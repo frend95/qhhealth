@@ -1,7 +1,6 @@
 package com.hfkd.qhhealth.sys.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.sys.model.SysDisplayImg;
 
 import java.util.List;
@@ -13,5 +12,5 @@ import java.util.List;
  */
 public interface SysDisplayImgService extends IService<SysDisplayImg> {
 
-    List<SysDisplayImg> getDisplayImg(ConstEnum page, Integer group, Integer limit);
+    List<SysDisplayImg> getDisplayImg(String page, Integer group, Integer limit);
 }

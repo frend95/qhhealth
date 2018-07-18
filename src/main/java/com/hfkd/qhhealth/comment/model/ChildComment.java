@@ -12,7 +12,11 @@ import java.util.Date;
  */
 public class ChildComment implements Serializable{
 
+    @JSONField(serialize = false)
+    private Integer id;
     private Integer authorId;
+    @JSONField(serialize = false)
+    private Integer parentCmtId;
     private String name;
     private String avatar;
     private String content;
@@ -20,7 +24,18 @@ public class ChildComment implements Serializable{
     private String replyToName;
     @JSONField(format="yyyy-MM-dd HH:mm")
     private Date createTime;
+    @JSONField(serialize = false)
     private String dateTime;
+    @JSONField(serialize = false)
+    private String type;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getAuthorId() {
         return authorId;
@@ -28,6 +43,14 @@ public class ChildComment implements Serializable{
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public Integer getParentCmtId() {
+        return parentCmtId;
+    }
+
+    public void setParentCmtId(Integer parentCmtId) {
+        this.parentCmtId = parentCmtId;
     }
 
     public String getName() {
@@ -84,5 +107,25 @@ public class ChildComment implements Serializable{
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public ChildComment(Integer authorId, Integer parentCmtId, String content, Integer replyToId, String replyToName, String type) {
+        this.authorId = authorId;
+        this.parentCmtId = parentCmtId;
+        this.content = content;
+        this.replyToId = replyToId;
+        this.replyToName = replyToName;
+        this.type = type;
+    }
+
+    public ChildComment() {
     }
 }

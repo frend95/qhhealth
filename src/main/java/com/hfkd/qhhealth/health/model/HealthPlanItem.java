@@ -1,5 +1,6 @@
 package com.hfkd.qhhealth.health.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -20,10 +21,13 @@ public class HealthPlanItem implements Serializable {
     private Integer id;
     /**食物名称*/
     private String name;
+    /**描述*/
+    private String desc;
     /**千卡每100克*/
     @TableField("kcal_per_100g")
     private Integer kcalPer100g;
     /**0:五谷杂粮,1:鱼肉蛋奶,2:果蔬菌藻,3:菜肴,4:饮料,5:油脂,6:零食,7:其他*/
+    @JSONField(serialize = false)
     private String sort;
 
 
@@ -41,6 +45,14 @@ public class HealthPlanItem implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Integer getKcalPer100g() {

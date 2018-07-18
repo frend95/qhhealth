@@ -22,6 +22,6 @@ public class Test {
         String jsonStringArray = "[{\"account\":\"4142124\",\"name\":\"老师\",\"weight\":31231.0123}, {\"account\":\"12334124\",\"name\":\"校长\",\"weight\":123456789.0123}, {\"account\":\"6234341\",\"name\":\"学生\",\"weight\":745634.0123}]";
         List<User> userList = JSON.parseArray(jsonStringArray, User.class);
         System.out.println(userList);*/
+        System.out.println(65.0 / (1.75 * 1.75));
     }
-
 }

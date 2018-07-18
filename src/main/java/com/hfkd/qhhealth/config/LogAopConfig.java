@@ -11,7 +11,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 打印Controller日志AOP
@@ -37,7 +37,7 @@ public class LogAopConfig {
         log.debug("request args: " + Arrays.toString(joinPoint.getArgs()));
         //方法的返回值
         Object proceed = joinPoint.proceed();
-        if (proceed.getClass() == HashMap.class) {
+        if (proceed instanceof Map) {
             log.debug("return value: " + proceed);
         }
         log.info(name + "  Ended...");

@@ -22,4 +22,14 @@
     ${alias}.seq,
     </sql>
 
+    <select id="getEntrance" resultType="Map">
+        SELECT
+            name,
+            value tag,
+            img
+        FROM sys_entrance
+        WHERE page = #{page}
+        ORDER BY seq
+    </select>
+
 </mapper>

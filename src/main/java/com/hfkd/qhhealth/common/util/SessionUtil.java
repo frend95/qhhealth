@@ -60,6 +60,7 @@ public class SessionUtil {
         map.put("token", token);
         map.put("user", JSON.toJSONString(userSession));
         redis.opsForHash().putAll(sessionKey, map);
+        redis.expire(sessionKey, ttl, TimeUnit.SECONDS);
         return userSession.getId() + "_" + token;
     }
 }

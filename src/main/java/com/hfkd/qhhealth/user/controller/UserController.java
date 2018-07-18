@@ -3,21 +3,22 @@ package com.hfkd.qhhealth.user.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.constant.ConstEnum;
-import com.hfkd.qhhealth.common.util.DateUtil;
-import com.hfkd.qhhealth.common.util.DigestUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
-import com.hfkd.qhhealth.common.util.SessionUtil;
+import com.hfkd.qhhealth.common.constant.ConstVal;
+import com.hfkd.qhhealth.common.util.*;
 import com.hfkd.qhhealth.health.model.HealthGoal;
 import com.hfkd.qhhealth.social.model.SocialUserInfo;
+import com.hfkd.qhhealth.social.service.SocialUserInfoService;
 import com.hfkd.qhhealth.user.model.User;
 import com.hfkd.qhhealth.user.model.UserSession;
 import com.hfkd.qhhealth.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -35,24 +36,50 @@ public class UserController {
     private SessionUtil session;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SocialUserInfoService socialUserInfoService;
+    @Value("${file.path.avatar}")
+    private String avatarPath;
+    @Value("${domain.avatar}")
+    private String avatarDomain;
 
-    @LogOut("更新用户")
-    @RequestMapping("/update")
-    public Map<String, Object> update(Integer id, String name, String gender, Integer height, BigDecimal weight,
-                                      String birthday) {
-        name = "".equals(name) ? null : name;
-        gender = "".equals(gender) ? null : gender;
-        birthday = "".equals(birthday) ? null : birthday;
+    @LogOut("更新昵称")
+    @RequestMapping("/updName")
+    public Map<String, Object> updName(String name) {
+        // 检查名称是否合法
+        if (StringUtils.isBlank(name)
+                || name.length() < 2
+                || name.length() > 20
+                || name.replaceAll("^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$", "").length() != 0) {
+            return RspUtil.error("昵称不符合要求");
+        }
 
+        Integer currId = session.getCurrId();
         User user = new User();
-        user.setId(id);
+        user.setId(currId);
         user.setName(name);
-        user.setGender(gender);
-        user.setHeight(height);
-        user.setWeight(weight);
-        user.setBirthday(birthday);
         userService.updateById(user);
+        socialUserInfoService.updSocialName(currId, name, null);
         return RspUtil.ok();
+    }
+
+    @LogOut("更新头像")
+    @RequestMapping("/updAvatar")
+    public Map<String, Object> updAvatar(MultipartFile avatar) throws IOException {
+        if (avatar == null || avatar.isEmpty()) {
+            return RspUtil.error("头像不能为空");
+        }
+        // 上传并更新头像
+        String filename = FileUtil.upload(avatar, avatarPath, true, false);
+        String avatarUrl = avatarDomain + filename;
+
+        Integer currId = session.getCurrId();
+        User user = new User();
+        user.setId(currId);
+        user.setAvatar(avatarUrl);
+        userService.updateById(user);
+        socialUserInfoService.updSocialName(currId, null, avatarUrl);
+        return RspUtil.ok(avatarUrl);
     }
 
     @LogOut("新用户完善信息")
@@ -70,7 +97,7 @@ public class UserController {
         user.setWeight(weight);
         user.setHeight(height);
         user.setGender(gender);
-        user.setStatus(ConstEnum.USER_STATUS_ENABLE.getValue());
+        user.setStatus(ConstVal.USER_STATUS_ENABLE);
 
         // 用户减肥目标
         HealthGoal healthGoal = new HealthGoal();
@@ -88,9 +115,7 @@ public class UserController {
         userService.completeInfo(user, healthGoal, socialUserInfo);
         // 查询用户详情
         Map<String, Object> userDetail = userService.getUserDetail(id);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", userDetail);
-        return resultMap;
+        return RspUtil.ok(userDetail);
     }
 
     @LogOut("更新密码")

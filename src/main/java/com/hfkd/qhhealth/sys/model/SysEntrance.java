@@ -22,6 +22,8 @@ public class SysEntrance implements Serializable {
     private String name;
     /**值*/
     private String value;
+    /**图片地址*/
+    private String img;
     /**页面：0 splash，1 onboarding，2 tutorial，3 case，4 social*/
     private String page;
     /**序号*/
@@ -49,6 +51,14 @@ public class SysEntrance implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getPage() {

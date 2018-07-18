@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.user.controller;
 import com.hfkd.qhhealth.article.mapper.ArticleMapper;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.constant.ConstEnum;
+import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserCollectionMapper;
@@ -77,12 +77,15 @@ public class UserCollectionController {
         }
 
         Map<String, Object> brief;
-        if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
-            brief = articleMapper.getArticleBrief(id);
-        } else if (type.equals(ConstEnum.CONTENT_TYPE_VIDEO.getValue())) {
-            brief = videoMapper.getVideoBrief(id);
-        } else {
-            return RspUtil.error("类型错误");
+        switch (type) {
+            case ConstVal.CONTENT_TYPE_ARTICLE:
+                brief = articleMapper.getArticleBrief(id);
+                break;
+            case ConstVal.CONTENT_TYPE_VIDEO:
+                brief = videoMapper.getVideoBrief(id);
+                break;
+            default:
+                return RspUtil.error("类型错误");
         }
         String title = (String) brief.get("title");
         String thumb = (String) brief.get("thumb");

@@ -19,13 +19,13 @@ public class RandomUtil {
     }
 
     /**
-     * 生成 1 ～ limit的随机数
+     * 生成 0 ～ limit的随机数
      * @param limit 范围
      * @return 随机数
      */
-    public static String getRandom(int limit){
+    public static int getRandom(int limit){
         Random random = new Random();
-        return String.valueOf(random.nextInt(limit) + 1);
+        return random.nextInt(limit + 1);
     }
 
     public static int[] randomArray(int min, int max, int n) {

@@ -36,4 +36,31 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getRecentLog" resultType="com.hfkd.qhhealth.health.model.HealthMeasureLog">
+        SELECT
+            id,
+            user_id userId,
+            weight,
+            bmi,
+            bfr,
+            uvi,
+            mr,
+            bmr,
+            bq,
+            wr,
+            pr,
+            create_time createTime
+        FROM health_measure_log
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+
+
+    <update id="updWeight">
+        UPDATE health_measure_log
+        SET weight = #{weight}
+        WHERE id = #{logId}
+    </update>
+
 </mapper>

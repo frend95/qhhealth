@@ -28,6 +28,48 @@
         LIMIT #{page}, #{size}
     </select>
 
+    <select id="getCmtById" resultType="com.hfkd.qhhealth.comment.model.Comment">
+        SELECT
+            cmt.id,
+            u.name,
+            u.avatar,
+            cmt.author_id authorId,
+            cmt.content_id contentId,
+            cmt.content,
+            cmt.reply_cnt replyCnt,
+            cmt.create_time createTime
+        FROM
+        <if test='type == "0"'>
+            article_cmt cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt cmt
+        </if>
+        LEFT JOIN user u ON cmt.author_id = u.id
+        WHERE
+            cmt.id = #{cmtId}
+    </select>
+
+    <select id="getContentIdByCmtId" resultType="Integer">
+        SELECT
+            cmt.content_id
+        FROM
+        <if test='type == "0"'>
+            article_cmt cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt cmt
+        </if>
+        WHERE
+            cmt.id = #{cmtId}
+    </select>
+
     <select id="getChildCmt" resultType="com.hfkd.qhhealth.comment.model.ChildComment">
         SELECT
             cmt.author_id authorId,
@@ -50,10 +92,33 @@
         LEFT JOIN user u ON cmt.author_id = u.id
         WHERE
             cmt.parent_cmt_id = #{cmtId}
-        ORDER BY cmt.create_time DESC
+        ORDER BY cmt.create_time
         LIMIT #{page}, #{size}
     </select>
 
+    <select id="getChildCmtById" resultType="com.hfkd.qhhealth.comment.model.ChildComment">
+        SELECT
+            cmt.author_id authorId,
+            u.name,
+            u.avatar,
+            cmt.content,
+            cmt.reply_to_id replyToId,
+            cmt.reply_to_name replyToName,
+            cmt.create_time createTime
+        FROM
+        <if test='type == "0"'>
+            article_cmt_child cmt
+        </if>
+        <if test='type == "1"'>
+            video_cmt_child cmt
+        </if>
+        <if test='type == "2"'>
+            social_feed_cmt_child cmt
+        </if>
+        LEFT JOIN user u ON cmt.author_id = u.id
+        WHERE
+        cmt.id = #{cmtId}
+    </select>
 
     <update id="replyCntPlusOne">
         UPDATE
@@ -87,7 +152,7 @@
         id = #{contentId}
     </update>
 
-    <insert id="addCmt">
+    <insert id="addCmt" useGeneratedKeys="true" keyProperty="id" parameterType="com.hfkd.qhhealth.comment.model.Comment">
         INSERT INTO
         <if test='type == "0"'>
             article_cmt
@@ -103,7 +168,7 @@
             (#{authorId},#{content},#{contentId})
     </insert>
 
-    <insert id="addChildCmt">
+    <insert id="addChildCmt" useGeneratedKeys="true" keyProperty="id" parameterType="com.hfkd.qhhealth.comment.model.ChildComment">
         INSERT INTO
         <if test='type == "0"'>
             article_cmt_child

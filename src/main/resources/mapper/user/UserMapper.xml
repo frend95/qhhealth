@@ -54,6 +54,7 @@
             u.birthday,
             u.height,
             u.weight,
+            u.gender,
             hg.goal_weight goalWeight,
             hg.start_time startTime,
             hg.period,
@@ -66,6 +67,24 @@
             LEFT JOIN health_goal hg ON u.id = hg.user_id
             LEFT JOIN nutritionist n ON u.nutritionist_id = n.id
         WHERE u.id = #{id}
+    </select>
+
+    <update id="updWeight">
+        UPDATE user
+        SET weight = #{weight}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getBodyInfo" resultType="com.hfkd.qhhealth.user.model.UserBodyInfo">
+        SELECT
+            gender,
+            height,
+            weight,
+            birthday
+        FROM
+            user
+        WHERE
+            id = #{id}
     </select>
 
 </mapper>

@@ -1,7 +1,7 @@
 package com.hfkd.qhhealth.article.service;
 
-import com.hfkd.qhhealth.article.model.Article;
 import com.baomidou.mybatisplus.service.IService;
+import com.hfkd.qhhealth.article.model.Article;
 
 /**
  * 文章 Service

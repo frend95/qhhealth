@@ -10,4 +10,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface SocialUserInfoService extends IService<SocialUserInfo> {
 
+    void updSocialName(Integer userId, String name, String avatar);
 }

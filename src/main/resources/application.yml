@@ -75,7 +75,7 @@ c3p0:
 logging:
   level:
     com.hfkd.qhhealth: DEBUG
-    logging.level.org.apache.commons.httpclient: OFF
+    org.apache.http: OFF
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml

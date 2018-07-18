@@ -14,4 +14,6 @@ import java.util.Map;
 public interface NutritionistService extends IService<Nutritionist> {
 
     List<Map<String, Object>> recommendYys();
+
+    Integer getRandomYysId();
 }

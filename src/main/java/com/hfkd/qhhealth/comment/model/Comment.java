@@ -3,6 +3,7 @@ package com.hfkd.qhhealth.comment.model;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class Comment implements Serializable{
 
     private Integer id;
+    @JSONField(serialize = false)
+    private Integer contentId;
     private String name;
     private String avatar;
     private Integer authorId;
@@ -21,8 +24,11 @@ public class Comment implements Serializable{
     private Integer replyCnt;
     @JSONField(format="yyyy-MM-dd HH:mm")
     private Date createTime;
+    @JSONField(serialize = false)
     private String dateTime;
-    private List<ChildComment> childCmt;
+    private List<ChildComment> childCmt = Collections.EMPTY_LIST;
+    @JSONField(serialize = false)
+    private String type;
 
     public Integer getId() {
         return id;
@@ -30,6 +36,14 @@ public class Comment implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(Integer contentId) {
+        this.contentId = contentId;
     }
 
     public String getName() {
@@ -94,5 +108,23 @@ public class Comment implements Serializable{
 
     public void setChildCmt(List<ChildComment> childCmt) {
         this.childCmt = childCmt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Comment(Integer authorId, Integer contentId, String content, String type) {
+        this.contentId = contentId;
+        this.authorId = authorId;
+        this.content = content;
+        this.type = type;
+    }
+
+    public Comment() {
     }
 }

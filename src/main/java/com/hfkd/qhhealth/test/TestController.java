@@ -1,14 +1,14 @@
 package com.hfkd.qhhealth.test;
 
+import com.hfkd.qhhealth.health.service.HealthPlanItemService;
 import com.hfkd.qhhealth.nutritionist.model.NutritionistCase;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistCaseService;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
-import com.hfkd.qhhealth.social.service.SocialNutritionistInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
+import java.math.BigDecimal;
 
 /**
  * @author hexq
@@ -19,14 +19,14 @@ import java.util.Arrays;
 public class TestController {
 
     @Autowired
-    private NutritionistService yysService;
-    @Autowired
-    private SocialNutritionistInfoService socialYysInfoService;
-    @Autowired
     private NutritionistCaseService caseService;
+    @Autowired
+    private HealthPlanItemService itemService;
+    @Autowired
+    private NutritionistService yysService;
 
     @RequestMapping("/1")
-    public void test1(int[] id) {
+    public void test1(Integer id, BigDecimal weight) throws Exception {
         /*redis.opsForValue().set("test", "100",60*10, TimeUnit.SECONDS);//向redis里存入数据和设置缓存时间
         redis.boundValueOps("test").increment(-1);//val做-1操作
         redis.opsForValue().get("test");//根据key获取缓存中的val
@@ -39,7 +39,6 @@ public class TestController {
         redis.expire("red_123",1000 , TimeUnit.MILLISECONDS);//设置过期时间
         redis.opsForSet().isMember("red_123", "1");//根据key查看集合中是否存在指定数据
         redis.opsForSet().members("red_123");//根据key获取set集合*/
-        System.out.println(Arrays.toString(id));
 
     }
 
