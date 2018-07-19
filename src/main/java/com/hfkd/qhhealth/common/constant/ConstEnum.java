@@ -84,7 +84,12 @@ public enum ConstEnum {
     SCALES_LOW("偏低", 0),
     SCALES_NORMAL("标准", 1),
     SCALES_HIGH("偏高", 2),
-    SCALES_VERYHIGH("高", 3);
+    SCALES_VERYHIGH("高", 3),
+
+    INTAKE_BREAKFAST("早餐", 0),
+    INTAKE_LUNCH("午餐", 1),
+    INTAKE_DINNER("晚餐", 2),
+    INTAKE_MEAL("加餐", 3);
 
     private String name;
     private Integer value;

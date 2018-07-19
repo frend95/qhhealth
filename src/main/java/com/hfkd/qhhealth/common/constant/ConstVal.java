@@ -85,9 +85,14 @@ public class ConstVal {
     public static final String CMT_REVIEWED = "1";
 
     /**体脂秤数据标准*/
-    public static final Integer SCALES_LOW = 0;
-    public static final Integer SCALES_NORMAL = 1;
-    public static final Integer SCALES_HIGH = 2;
-    public static final Integer SCALES_VERYHIGH = 3;
+    public static final int SCALES_LOW = 0;
+    public static final int SCALES_NORMAL = 1;
+    public static final int SCALES_HIGH = 2;
+    public static final int SCALES_VERYHIGH = 3;
+
+    public static final int INTAKE_BREAKFAST = 0;
+    public static final int INTAKE_LUNCH = 1;
+    public static final int INTAKE_DINNER = 2;
+    public static final int INTAKE_MEAL = 3;
 
 }

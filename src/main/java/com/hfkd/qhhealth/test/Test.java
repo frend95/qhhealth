@@ -1,12 +1,14 @@
 package com.hfkd.qhhealth.test;
 
 
+import java.text.ParseException;
+
 /**
  * @author hexq
  * @date 2018/6/5 17:51
  */
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         /**json test*/
         /*User user = new User();
         user.setName("校长");
@@ -22,6 +24,5 @@ public class Test {
         String jsonStringArray = "[{\"account\":\"4142124\",\"name\":\"老师\",\"weight\":31231.0123}, {\"account\":\"12334124\",\"name\":\"校长\",\"weight\":123456789.0123}, {\"account\":\"6234341\",\"name\":\"学生\",\"weight\":745634.0123}]";
         List<User> userList = JSON.parseArray(jsonStringArray, User.class);
         System.out.println(userList);*/
-        System.out.println(65.0 / (1.75 * 1.75));
     }
 }

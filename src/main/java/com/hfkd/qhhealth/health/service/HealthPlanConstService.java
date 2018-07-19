@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @date 2018/7/5 10:12
  */
 public interface HealthPlanConstService extends IService<HealthPlanConst> {
-
+    HealthPlanConst getPlanConst();
 }

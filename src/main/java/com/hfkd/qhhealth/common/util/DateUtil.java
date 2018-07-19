@@ -456,6 +456,16 @@ public class DateUtil {
         return DateFormatUtils.format(prePreDate, "yyyyMMdd");
     }
 
+    public static String addDay(String dateStr, int day, String paramFmt, String resultFmt) {
+        Date prePreDate = null;
+        try {
+            prePreDate = DateUtils.addDays(DateUtils.parseDate(dateStr, paramFmt), day);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return DateFormatUtils.format(prePreDate, resultFmt);
+    }
+
     /**
      * 获取当前日期的过去几天
      * @param day 天数
