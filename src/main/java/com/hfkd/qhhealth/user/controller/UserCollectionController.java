@@ -38,38 +38,6 @@ public class UserCollectionController {
     @RequestMapping("/collect")
     public Map<String, Object> collect(String type, Integer id) {
         Integer currId = session.getCurrId();
-
-        /*if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
-
-            Map<String, Object> articleBrief = articleMapper.getArticleBrief(id);
-            String title = (String) articleBrief.get("title");
-            String thumb = (String) articleBrief.get("thumb");
-
-            UserArticleCollection articleClct = new UserArticleCollection();
-            articleClct.setArticleId(id);
-            articleClct.setThumb(thumb);
-            articleClct.setTitle(title);
-            articleClct.setUserId(currId);
-
-            articleCollectionService.insert(articleClct);
-
-        } else if (type.equals(ConstEnum.CONTENT_TYPE_VIDEO.getValue())) {
-
-            Map<String, Object> videoBrief = videoMapper.getVideoBrief(id);
-            String title = (String) videoBrief.get("title");
-            String thumb = (String) videoBrief.get("thumb");
-
-            UserVideoCollection videoClct = new UserVideoCollection();
-            videoClct.setVideoId(id);
-            videoClct.setThumb(thumb);
-            videoClct.setTitle(title);
-            videoClct.setUserId(currId);
-
-            videoCollectionService.insert(videoClct);
-
-        } else {
-            return RspUtil.error("类型错误");
-        }*/
         Integer clctId = collectionMapper.getClctId(type, currId, id);
         if (clctId != null) {
             collectionMapper.delCollection(type, clctId);
@@ -101,14 +69,6 @@ public class UserCollectionController {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
-        /*List ls;
-        if (type.equals(ConstEnum.CONTENT_TYPE_ARTICLE.getValue())) {
-            ls = articleCollectionMapper.getCollection(page, size, currId);
-        } else if (type.equals(ConstEnum.CONTENT_TYPE_VIDEO.getValue())) {
-            ls = videoCollectionMapper.getCollection(page, size, currId);
-        } else {
-            return RspUtil.error("类型错误");
-        }*/
         List<Map<String, Object>> ls = collectionMapper.getCollection(type, page, size, currId);
         return RspUtil.ok(ls);
     }

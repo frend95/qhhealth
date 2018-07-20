@@ -19,18 +19,24 @@ public class ArticleCmtChild implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value="id", type= IdType.AUTO)
-    private Integer id;        //
+    private Integer id;
+    /**作者id*/
     @TableField("author_id")
-    private Integer authorId;        //作者id
+    private Integer authorId;
+    /**父评论id*/
     @TableField("parent_cmt_id")
-    private Integer parentCmtId;        //父评论id
-    private String content;        //评论内容
+    private Integer parentCmtId;
+    /**评论内容*/
+    private String content;
+    /**被回复人id*/
     @TableField("reply_to_id")
-    private Integer replyToId;        //被回复人id
+    private Integer replyToId;
+    /**被回复人名称*/
     @TableField("reply_to_name")
-    private String replyToName;        //被回复人名称
+    private String replyToName;
+    /**创建时间*/
     @TableField("create_time")
-    private Date createTime;        //创建时间
+    private Date createTime;
 
 
     public Integer getId() {

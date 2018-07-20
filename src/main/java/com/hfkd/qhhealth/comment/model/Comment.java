@@ -15,18 +15,28 @@ import java.util.List;
 public class Comment implements Serializable{
 
     private Integer id;
+    /**内容id*/
     @JSONField(serialize = false)
     private Integer contentId;
+    /**评论人名称*/
     private String name;
+    /**评论人头像*/
     private String avatar;
+    /**评论人id*/
     private Integer authorId;
+    /**评论内容*/
     private String content;
+    /**回复数量*/
     private Integer replyCnt;
+    /**创建时间*/
     @JSONField(format="yyyy-MM-dd HH:mm")
     private Date createTime;
+    /**格式化的回复时间*/
     @JSONField(serialize = false)
     private String dateTime;
+    /**子评论list*/
     private List<ChildComment> childCmt = Collections.EMPTY_LIST;
+    /**内容类型*/
     @JSONField(serialize = false)
     private String type;
 

@@ -65,11 +65,4 @@
         id = #{id}
     </update>
 
-    <update id="cmtCntPlusOne">
-        UPDATE article
-        SET cmt_cnt = cmt_cnt + 1
-        WHERE
-        id = #{id}
-    </update>
-
 </mapper>

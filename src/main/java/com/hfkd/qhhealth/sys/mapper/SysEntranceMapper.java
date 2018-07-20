@@ -16,6 +16,11 @@ import java.util.Map;
 @Mapper
 public interface SysEntranceMapper extends BaseMapper<SysEntrance> {
 
+    /**
+     * 获取入口列表
+     * @param page 页面类别
+     * @return List<Map{ name,tag,img }>
+     */
     List<Map<String, Object>> getEntrance(@Param("page") String page);
 
 }

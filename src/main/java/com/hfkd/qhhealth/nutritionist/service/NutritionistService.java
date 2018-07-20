@@ -13,7 +13,15 @@ import java.util.Map;
  */
 public interface NutritionistService extends IService<Nutritionist> {
 
+    /**
+     * 获取推荐营养师
+     * @return List<Map{ id,name,bio,title,avatar,serviceCnt,followers,feedCnt,tutorialCnt }>
+     */
     List<Map<String, Object>> recommendYys();
 
+    /**
+     * 获取随机营养师id
+     * @return 随机营养师id
+     */
     Integer getRandomYysId();
 }

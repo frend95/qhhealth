@@ -106,10 +106,20 @@ public class HealthMeasureLogServiceImpl extends ServiceImpl<HealthMeasureLogMap
         return list;
     }
 
+    /**
+     * BigDecimal转百分比形式
+     * @param bd BigDecimal
+     * @return 0.xx -> xx%
+     */
     private String bd2Percent(BigDecimal bd) {
         return bd == null ? "0" : bd.doubleValue() + "%";
     }
 
+    /**
+     * 数字转字符串，空转为0
+     * @param number BigDecimal或Integer
+     * @return String
+     */
     private String num2Str(Object number) {
         return number == null ? "0" : number.toString();
     }

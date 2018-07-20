@@ -16,6 +16,13 @@ import java.util.Map;
 @Mapper
 public interface NutritionistCaseMapper extends BaseMapper<NutritionistCase> {
 
+    /**
+     * 获取客户案例
+     * @param page 页码
+     * @param size limit
+     * @param nutritionistId 营养师id
+     * @return List<Map{ id,thumb,name,age,height,result,period }>
+     */
     List<Map<String, Object>> getCases(@Param("page") Integer page,
                                        @Param("size") Integer size,
                                        @Param("nutritionistId") Integer nutritionistId);

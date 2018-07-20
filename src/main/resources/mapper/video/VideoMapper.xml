@@ -77,11 +77,4 @@
         id = #{id}
     </update>
 
-    <update id="cmtCntPlusOne">
-        UPDATE video
-        SET cmt_cnt = cmt_cnt + 1
-        WHERE
-        id = #{id}
-    </update>
-
 </mapper>

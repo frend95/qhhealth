@@ -14,18 +14,28 @@ public class ChildComment implements Serializable{
 
     @JSONField(serialize = false)
     private Integer id;
+    /**评论人id*/
     private Integer authorId;
+    /**父评论id*/
     @JSONField(serialize = false)
     private Integer parentCmtId;
+    /**评论人名称*/
     private String name;
+    /**评论人头像*/
     private String avatar;
+    /**评论内容*/
     private String content;
+    /**被回复人id*/
     private Integer replyToId;
+    /**被回复人名称*/
     private String replyToName;
+    /**创建时间*/
     @JSONField(format="yyyy-MM-dd HH:mm")
     private Date createTime;
+    /**格式化的评论时间*/
     @JSONField(serialize = false)
     private String dateTime;
+    /**内容类型*/
     @JSONField(serialize = false)
     private String type;
 

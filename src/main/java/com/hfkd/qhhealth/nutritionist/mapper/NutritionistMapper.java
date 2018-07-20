@@ -15,9 +15,21 @@ import java.util.Map;
 @Mapper
 public interface NutritionistMapper extends BaseMapper<Nutritionist> {
 
+    /**
+     * 获取最大营养师id
+     * @return 最大营养师id
+     */
     Integer getMaxId();
 
+    /**
+     * 获取所有营养师id
+     * @return 所有营养师id
+     */
     List<Integer> getAllId();
 
+    /**
+     * 获取热门营养师
+     * @return List<Map{ id,name }>
+     */
     List<Map<String, Object>> popularYys();
 }

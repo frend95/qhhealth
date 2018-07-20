@@ -40,7 +40,7 @@ public class LogAopConfig {
         if (proceed instanceof Map) {
             log.debug("return value: " + proceed);
         }
-        log.info(name + "  Ended...\n");
+        log.info(name + "  Ended...\n\n");
         return proceed;
     }
 

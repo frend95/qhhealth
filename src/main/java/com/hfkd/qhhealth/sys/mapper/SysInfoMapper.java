@@ -13,5 +13,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface SysInfoMapper extends BaseMapper<SysInfo> {
 
+    /**
+     * 根据id获取系统信息
+     * @param id 信息项id
+     * @return SysInfo{ name,variable }
+     */
     SysInfo getInfo(@Param("id") Integer id);
 }

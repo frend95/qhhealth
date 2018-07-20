@@ -15,12 +15,26 @@ import java.util.Map;
  */
 @Mapper
 public interface SocialUserFollowingMapper extends BaseMapper<SocialUserFollowing> {
-    
+
+    /**
+     * 获取关注列表id
+     * @param followingType 关注类型
+     * @param userId 用户id
+     * @param followingId 营养师id
+     * @return 关注列表id
+     */
     Integer getFollowLsId(@Param("followingType") String followingType,
                           @Param("userId") Integer userId,
                           @Param("followingId") Integer followingId);
 
-
+    /**
+     * 获取关注列表
+     * @param page 页码
+     * @param size limit
+     * @param userId 用户id
+     * @param followingType 关注类型
+     * @return List<Map{ id,userId,followingId,followingName,followingType }>
+     */
     List<Map<String,Object>> getFollowingLs(@Param("page") Integer page,
                                             @Param("size") Integer size,
                                             @Param("userId") Integer userId,

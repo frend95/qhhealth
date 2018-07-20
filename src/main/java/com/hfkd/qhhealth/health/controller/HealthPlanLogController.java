@@ -11,7 +11,7 @@ import com.hfkd.qhhealth.health.mapper.HealthPlanIntakeMapper;
 import com.hfkd.qhhealth.health.model.HealthPlanConst;
 import com.hfkd.qhhealth.health.model.HealthPlanIntake;
 import com.hfkd.qhhealth.health.service.HealthPlanConstService;
-import com.hfkd.qhhealth.health.service.IHealthPlanIntakeService;
+import com.hfkd.qhhealth.health.service.HealthPlanIntakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +33,7 @@ public class HealthPlanLogController {
     @Autowired
     private HealthPlanConstService planConstService;
     @Autowired
-    private IHealthPlanIntakeService intakeService;
+    private HealthPlanIntakeService intakeService;
     @Autowired
     private SessionUtil session;
     @Autowired

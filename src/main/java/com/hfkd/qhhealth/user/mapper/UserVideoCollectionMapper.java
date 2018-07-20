@@ -5,9 +5,6 @@ import com.hfkd.qhhealth.user.model.UserVideoCollection;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * 用户视频收藏 Mapper
  * @author hexq
@@ -16,10 +13,12 @@ import java.util.Map;
 @Mapper
 public interface UserVideoCollectionMapper extends BaseMapper<UserVideoCollection> {
 
-    List<Map<String, Object>> getCollection(@Param("page") Integer page,
-                                            @Param("size") Integer size,
-                                            @Param("userId") Integer userId);
-
+    /**
+     * 获取收藏项id
+     * @param userId 用户id
+     * @param videoId 视频id
+     * @return 收藏项id
+     */
     Integer getClctId(@Param("userId") Integer userId,
                       @Param("videoId") Integer videoId);
 }

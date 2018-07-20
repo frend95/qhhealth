@@ -19,16 +19,21 @@ public class ArticleCmt implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value="id", type= IdType.AUTO)
-    private Integer id;        //
+    private Integer id;
+    /**文章id*/
     @TableField("content_id")
-    private Integer contentId;        //文章id
+    private Integer contentId;
+    /**作者id*/
     @TableField("author_id")
-    private Integer authorId;        //作者id
-    private String content;        //评论内容
+    private Integer authorId;
+    /**评论内容*/
+    private String content;
+    /**回复数*/
     @TableField("reply_cnt")
-    private Integer replyCnt;        //回复数
+    private Integer replyCnt;
+    /**创建时间*/
     @TableField("create_time")
-    private Date createTime;        //创建时间
+    private Date createTime;
 
 
     public Integer getId() {

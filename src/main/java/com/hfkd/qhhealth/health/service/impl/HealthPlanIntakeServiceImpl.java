@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.health.mapper.HealthPlanIntakeMapper;
 import com.hfkd.qhhealth.health.model.HealthPlanIntake;
-import com.hfkd.qhhealth.health.service.IHealthPlanIntakeService;
+import com.hfkd.qhhealth.health.service.HealthPlanIntakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 2018-07-18
  */
 @Service
-public class HealthPlanIntakeServiceImpl extends ServiceImpl<HealthPlanIntakeMapper, HealthPlanIntake> implements IHealthPlanIntakeService {
+public class HealthPlanIntakeServiceImpl extends ServiceImpl<HealthPlanIntakeMapper, HealthPlanIntake> implements HealthPlanIntakeService {
 
     @Autowired
     private HealthPlanIntakeMapper intakeMapper;

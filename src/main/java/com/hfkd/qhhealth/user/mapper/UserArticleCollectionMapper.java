@@ -5,9 +5,6 @@ import com.hfkd.qhhealth.user.model.UserArticleCollection;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * 用户文章收藏 Mapper
  * @author hexq
@@ -16,10 +13,12 @@ import java.util.Map;
 @Mapper
 public interface UserArticleCollectionMapper extends BaseMapper<UserArticleCollection> {
 
-    List<Map<String, Object>> getCollection(@Param("page") Integer page,
-                                            @Param("size") Integer size,
-                                            @Param("userId") Integer userId);
-
+    /**
+     * 获取收藏项id
+     * @param userId 用户id
+     * @param articleId 文章id
+     * @return 收藏项id
+     */
     Integer getClctId(@Param("userId") Integer userId,
                       @Param("articleId") Integer articleId);
 }

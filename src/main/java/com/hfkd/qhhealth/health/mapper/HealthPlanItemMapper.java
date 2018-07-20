@@ -15,6 +15,14 @@ import java.util.List;
 @Mapper
 public interface HealthPlanItemMapper extends BaseMapper<HealthPlanItem> {
 
+    /**
+     * 获取食物列表
+     * @param page 页码
+     * @param size limit
+     * @param sort 食物分类
+     * @param name 食物名称（选传）
+     * @return List<HealthPlanItem>
+     */
     List<HealthPlanItem> getFoods(@Param("page") Integer page,
                                   @Param("size") Integer size,
                                   @Param("sort") String sort,

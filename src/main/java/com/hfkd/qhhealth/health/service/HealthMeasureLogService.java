@@ -13,5 +13,12 @@ import java.util.Map;
  */
 public interface HealthMeasureLogService extends IService<HealthMeasureLog> {
 
+     /**
+      * 构建饮食记录
+      * @param log HealthMeasureLog
+      * @param gender 性别
+      * @param age 年龄
+      * @return List<Map{ name,value,img,standard }>
+      */
      List<Map<String, Object>> buildLog(HealthMeasureLog log, String gender, Integer age);
 }
