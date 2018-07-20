@@ -24,5 +24,7 @@ public class Test {
         String jsonStringArray = "[{\"account\":\"4142124\",\"name\":\"老师\",\"weight\":31231.0123}, {\"account\":\"12334124\",\"name\":\"校长\",\"weight\":123456789.0123}, {\"account\":\"6234341\",\"name\":\"学生\",\"weight\":745634.0123}]";
         List<User> userList = JSON.parseArray(jsonStringArray, User.class);
         System.out.println(userList);*/
+        String s = "a,da,das,fas,";
+        System.out.println(s.substring(0, s.length()));
     }
 }

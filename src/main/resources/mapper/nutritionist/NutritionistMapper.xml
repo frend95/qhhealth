@@ -50,4 +50,14 @@
             nutritionist
     </select>
 
+    <select id="popularYys" resultType="Map">
+        SELECT
+            id,
+            name
+        FROM
+            nutritionist
+        WHERE
+            popular = '1'
+    </select>
+
 </mapper>

@@ -67,6 +67,16 @@ public class SysFeedback implements Serializable {
         this.type = type;
     }
 
+    public SysFeedback(String content, String img, String mobile, String type) {
+        this.content = content;
+        this.img = img;
+        this.mobile = mobile;
+        this.type = type;
+    }
+
+    public SysFeedback() {
+    }
+
     @Override
     public String toString() {
         return "SysFeedback{" +

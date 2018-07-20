@@ -36,7 +36,7 @@ public class HealthPlanIntake implements Serializable {
     /**重量g*/
     @TableField(exist = false)
     private Integer weight;
-    /**单个重量*/
+    /**单个重量g*/
     @TableField(exist = false)
     private Integer singleWeight = 100;
     /**总卡路里kCal*/

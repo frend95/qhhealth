@@ -30,11 +30,14 @@
             kcal_per_100g
         FROM
             health_plan_item
-        WHERE
-            sort = #{sort}
-        <if test="name != null and name != ''">
-        AND name LIKE CONCAT('%', #{name}, '%')
-        </if>
+        <trim prefix="WHERE" prefixOverrides="and">
+            <if test="sort != null and sort != ''">
+                AND sort = #{sort}
+            </if>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </trim>
         LIMIT #{page}, #{size}
     </select>
 

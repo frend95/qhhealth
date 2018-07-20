@@ -7,6 +7,7 @@ import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
+import com.hfkd.qhhealth.nutritionist.mapper.NutritionistMapper;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import com.hfkd.qhhealth.social.mapper.SocialNutritionistInfoMapper;
 import com.hfkd.qhhealth.social.mapper.SocialUserFollowingMapper;
@@ -34,6 +35,8 @@ public class NutritionistController {
     @Autowired
     private NutritionistService yysService;
     @Autowired
+    private NutritionistMapper yysMapper;
+    @Autowired
     private SocialUserFollowingMapper userFollowingMapper;
     @Autowired
     private SessionUtil session;
@@ -41,21 +44,26 @@ public class NutritionistController {
     private VideoMapper videoMapper;
 
     @LogOut("查询营养师列表")
+    @Verify(hasSession = true)
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String name) {
+        Integer currId = session.getCurrId();
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
-        List<Map<String, Object>> yysList = socialYysInfoMapper.getYysList(page, size, name);
+        List<Map<String, Object>> yysList = socialYysInfoMapper.getYysList(page, size, name, currId);
         return RspUtil.ok(yysList);
     }
 
     @LogOut("查询推荐营养师")
     @RequestMapping("/recommend")
     public Map<String, Object> recommend() {
-        Map<String, Object> resultMap = RspUtil.ok();
-        List<Map<String, Object>> list = yysService.recommendYys();
-        resultMap.put("result", list);
-        return resultMap;
+        return RspUtil.ok(yysService.recommendYys());
+    }
+
+    @LogOut("查询热门营养师")
+    @RequestMapping("/popular")
+    public Map<String, Object> popular() {
+        return RspUtil.ok(yysMapper.popularYys());
     }
 
     @LogOut("查询营养师详情")

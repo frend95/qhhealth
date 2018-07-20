@@ -1,11 +1,13 @@
 package com.hfkd.qhhealth.social.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户关注 Model
@@ -22,6 +24,9 @@ public class SocialUserFollowing implements Serializable {
     /**用户id*/
     @TableField("user_id")
     private Integer userId;
+    /**被关注者名称*/
+    @TableField(exist = false)
+    private String followingName;
     /**被关注者id*/
     @TableField("following_id")
     private Integer followingId;
@@ -29,6 +34,7 @@ public class SocialUserFollowing implements Serializable {
     @TableField("following_type")
     private String followingType;
     /**创建时间*/
+    @JSONField(serialize = false)
     @TableField("create_time")
     private Date createTime;
 
@@ -47,6 +53,14 @@ public class SocialUserFollowing implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getFollowingName() {
+        return followingName;
+    }
+
+    public void setFollowingName(String followingName) {
+        this.followingName = followingName;
     }
 
     public Integer getFollowingId() {
@@ -73,14 +87,24 @@ public class SocialUserFollowing implements Serializable {
         this.createTime = createTime;
     }
 
+    public SocialUserFollowing(Integer userId, Integer followingId, String followingType) {
+        this.userId = userId;
+        this.followingId = followingId;
+        this.followingType = followingType;
+    }
+
+    public SocialUserFollowing() {
+    }
+
     @Override
     public String toString() {
         return "SocialUserFollowing{" +
-            "id=" + id +
-            ", userId=" + userId +
-            ", followingId=" + followingId +
-            ", followingType=" + followingType +
-            ", createTime=" + createTime +
-            "}";
+                "id=" + id +
+                ", userId=" + userId +
+                ", followingName='" + followingName + '\'' +
+                ", followingId=" + followingId +
+                ", followingType='" + followingType + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

@@ -1,11 +1,13 @@
 package com.hfkd.qhhealth.sys.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 系统信息 Model
@@ -17,18 +19,22 @@ public class SysInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JSONField(serialize = false)
     @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**名称*/
     private String name;
     /**描述*/
+    @JSONField(serialize = false)
     private String desc;
     /**变量*/
     private String variable;
     /**创建时间*/
+    @JSONField(serialize = false)
     @TableField("create_time")
     private Date createTime;
     /**更新时间*/
+    @JSONField(serialize = false)
     @TableField("update_time")
     private Date updateTime;
 

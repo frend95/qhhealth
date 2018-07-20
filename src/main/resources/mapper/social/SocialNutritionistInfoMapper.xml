@@ -35,19 +35,25 @@
 
     <select id="getYysList" resultType="Map">
         SELECT
-            nutritionist_id id,
-            name,
-            bio,
-            title,
-            avatar,
-            service_cnt serviceCnt,
-            followers,
-            feed_cnt feedCnt,
-            tutorial_cnt tutorialCnt
-        FROM social_nutritionist_info
+            sni.nutritionist_id id,
+            sni.name,
+            sni.bio,
+            sni.title,
+            sni.avatar,
+            sni.service_cnt serviceCnt,
+            sni.followers,
+            sni.feed_cnt feedCnt,
+            sni.tutorial_cnt tutorialCnt,
+            IF(suf.id is NULL, FALSE, TRUE) isFollow
+        FROM social_nutritionist_info sni
+        LEFT JOIN social_user_following suf
+        ON suf.following_id = sni.nutritionist_id
+        AND suf.user_id = #{userId}
+        AND suf.following_type = '1'
         <if test="name != null and name != ''">
-            WHERE name LIKE CONCAT('%', #{name}, '%')
+            WHERE sni.name LIKE CONCAT('%', #{name}, '%')
         </if>
+        ORDER BY sni.nutritionist_id
         LIMIT #{page}, #{size}
     </select>
 

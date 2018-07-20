@@ -50,7 +50,7 @@ public class FileUtil {
         if (datePath) {
             String[] date = DateUtil.yyyyMMddArr();
             //以年、月、日创建文件夹
-            originalFilename = date[0] + "/" + date[1] + "/" + date[2] + "/" + originalFilename;
+            modelFilePath = modelFilePath + date[0] + "/" + date[1] + "/" + date[2] + "/";
         }
         // 完整文件名
         String entireFileName = modelFilePath + originalFilename;

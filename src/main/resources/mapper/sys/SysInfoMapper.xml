@@ -26,4 +26,14 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getInfo" resultType="com.hfkd.qhhealth.sys.model.SysInfo">
+        SELECT
+            name,
+            variable
+        FROM
+            sys_info
+        WHERE
+            id = #{id}
+    </select>
+
 </mapper>

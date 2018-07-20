@@ -96,6 +96,16 @@ public class HealthGoal implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public HealthGoal(Integer userId, BigDecimal goalWeight, Integer period, String startTime) {
+        this.userId = userId;
+        this.goalWeight = goalWeight;
+        this.period = period;
+        this.startTime = startTime;
+    }
+
+    public HealthGoal() {
+    }
+
     @Override
     public String toString() {
         return "HealthGoal{" +

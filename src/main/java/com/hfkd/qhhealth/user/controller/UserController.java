@@ -86,6 +86,16 @@ public class UserController {
     @RequestMapping("/completeInfo")
     public Map<String, Object> completeInfo(String birthday, BigDecimal weight, Integer height, String gender,
                                             String goalType, BigDecimal goalWeight, Integer period) {
+        if (StringUtils.isBlank(birthday)
+                || StringUtils.isBlank(gender)
+                || StringUtils.isBlank(goalType)
+                || weight == null
+                || height == null
+                || goalWeight == null
+                || period == null) {
+            return RspUtil.error("信息不完整");
+        }
+
         UserSession currUser = session.getCurrUser();
         Integer id = currUser.getId();
         String name = currUser.getName();

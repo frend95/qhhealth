@@ -57,20 +57,6 @@ public class HealthMeasureLogController {
         return resultMap;
     }
 
-    @LogOut("更改体重")
-    @RequestMapping("/updWeight")
-    public Map<String, Object> updWeight(Integer logId, BigDecimal weight) {
-        if (weight == null) {
-            return RspUtil.error("体重不能为空");
-        }
-        Integer currId = session.getCurrId();
-        // 更改用户表体重
-        userMapper.updWeight(currId, weight);
-        // 更改健康数据记录表体重
-        measureLogMapper.updWeight(logId, weight);
-        return RspUtil.ok();
-    }
-
     @LogOut("添加健康数据记录")
     @RequestMapping("/addLog")
     public Map<String, Object> addLog(HealthMeasureLog measureLog) {

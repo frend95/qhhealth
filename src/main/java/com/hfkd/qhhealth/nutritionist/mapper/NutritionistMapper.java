@@ -5,6 +5,7 @@ import com.hfkd.qhhealth.nutritionist.model.Nutritionist;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 营养师信息 Mapper
@@ -17,4 +18,6 @@ public interface NutritionistMapper extends BaseMapper<Nutritionist> {
     Integer getMaxId();
 
     List<Integer> getAllId();
+
+    List<Map<String, Object>> popularYys();
 }

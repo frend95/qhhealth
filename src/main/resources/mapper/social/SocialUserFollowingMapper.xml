@@ -35,4 +35,26 @@
         AND following_type = #{followingType}
     </select>
 
+    <select id="getFollowingLs" resultType="com.hfkd.qhhealth.social.model.SocialUserFollowing">
+        SELECT
+            f.id,
+            f.user_id userId,
+            f.following_id followingId,
+            u.name followingName,
+            f.following_type followingType
+        FROM
+            social_user_following f
+        <if test='followingType == "0"'>
+            LEFT JOIN user u ON f.following_id = u.id
+        </if>
+        <if test='followingType == "1"'>
+            LEFT JOIN nutritionist u ON f.following_id = u.id
+        </if>
+        WHERE
+            f.user_id = #{userId}
+        AND f.following_type = #{followingType}
+        ORDER BY f.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>
