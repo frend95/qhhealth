@@ -27,4 +27,17 @@ public interface HealthPlanItemMapper extends BaseMapper<HealthPlanItem> {
                                   @Param("size") Integer size,
                                   @Param("sort") String sort,
                                   @Param("name") String name);
+
+    /**
+     * 根据拼音模糊查询食物列表
+     * @param page 页码
+     * @param size limit
+     * @param sort 食物分类
+     * @param pinyin 食物名称拼音（选传）
+     * @return List<HealthPlanItem>
+     */
+    List<HealthPlanItem> getFoodsPinyin(@Param("page") Integer page,
+                                  @Param("size") Integer size,
+                                  @Param("sort") String sort,
+                                  @Param("pinyin") String pinyin);
 }

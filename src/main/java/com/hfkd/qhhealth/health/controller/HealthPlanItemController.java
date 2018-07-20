@@ -3,9 +3,11 @@ package com.hfkd.qhhealth.health.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
+import com.hfkd.qhhealth.common.util.PinyinUtil;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.health.mapper.HealthPlanItemMapper;
 import com.hfkd.qhhealth.health.model.HealthPlanItem;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,12 @@ public class HealthPlanItemController {
     public Map<String, Object> foods(Integer page, Integer size, String sort, String name) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
-        List<HealthPlanItem> foods = planItemMapper.getFoods(page, size, sort, name);
+        List<HealthPlanItem> foods;
+        if (StringUtils.isNotBlank(name) && !PinyinUtil.isChinese(name)) {
+            foods = planItemMapper.getFoodsPinyin(page, size, sort, name);
+        } else {
+            foods = planItemMapper.getFoods(page, size, sort, name);
+        }
         return RspUtil.ok(foods);
     }
 

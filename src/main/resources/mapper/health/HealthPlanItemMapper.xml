@@ -41,4 +41,20 @@
         LIMIT #{page}, #{size}
     </select>
 
+    <select id="getFoodsPinyin" resultType="com.hfkd.qhhealth.health.model.HealthPlanItem">
+        SELECT
+            id,
+            name,
+            `desc`,
+            kcal_per_100g
+        FROM
+        health_plan_item
+        WHERE
+            pinyin LIKE CONCAT('%', #{pinyin}, '%')
+            <if test="sort != null and sort != ''">
+                AND sort = #{sort}
+            </if>
+        LIMIT #{page}, #{size}
+    </select>
+
 </mapper>

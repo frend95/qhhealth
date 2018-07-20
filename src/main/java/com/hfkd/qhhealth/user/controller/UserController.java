@@ -79,7 +79,7 @@ public class UserController {
         user.setAvatar(avatarUrl);
         userService.updateById(user);
         socialUserInfoService.updSocialName(currId, null, avatarUrl);
-        return RspUtil.ok(avatarUrl);
+        return RspUtil.okKey("avatar", avatarUrl);
     }
 
     @LogOut("新用户完善信息")
