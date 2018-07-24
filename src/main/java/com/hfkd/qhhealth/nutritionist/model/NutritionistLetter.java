@@ -19,6 +19,7 @@ public class NutritionistLetter implements Serializable {
     private Integer nutritionistId;
     /**内容*/
     private String content;
+    private String url;
 
 
     public Integer getNutritionistId() {
@@ -37,11 +38,20 @@ public class NutritionistLetter implements Serializable {
         this.content = content;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "NutritionistLetter{" +
-            "nutritionistId=" + nutritionistId +
-            ", content=" + content +
-            "}";
+                "nutritionistId=" + nutritionistId +
+                ", content='" + content + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

@@ -67,6 +67,14 @@
         GROUP BY type
     </select>
 
+    <select id="getTotalIntake" resultType="Integer">
+        SELECT
+            SUM(kcal)
+        FROM health_plan_intake
+        WHERE
+            user_id = #{userId}
+    </select>
+
     <select id="getKcalPer100gByItemId" resultType="Integer">
         SELECT
             b.kcal_per_100g

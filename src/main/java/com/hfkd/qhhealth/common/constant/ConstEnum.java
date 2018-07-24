@@ -45,8 +45,8 @@ public enum ConstEnum {
     USER_GENDER_MALE("男", 1),
 
     /**视频类型：0案例,1教程*/
-    VIDEO_TYPE_CASE("案例", 0),
-    VIDEO_TYPE_TUTORIAL("教程", 1),
+    VIDEO_TYPE_CASE("客户案例", 0),
+    VIDEO_TYPE_TUTORIAL("健康研究院", 1),
 
     /**视频标签：0中年发福,1产后肥胖,2青春型肥胖,3单纯性肥胖,4遗传性肥胖*/
     VIDEO_TAG_MIDAGE("中年发福", 0),

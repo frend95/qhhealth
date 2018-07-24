@@ -20,29 +20,42 @@ public class Video implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value="id", type= IdType.AUTO)
-    private Integer id;        //
+    private Integer id;
+    /**所有者id*/
     @TableField("author_id")
-    private Integer authorId;        //所有者id
-    private String title;        //标题
-    private String thumb;        //略缩图
-    private String resource;        //资源位置
-    private String desc;        //描述
-    private String type;        //0:案例, 1:教程
-    private String tag;        //0:中年发福, 1:产后肥胖, 2:青春型肥胖, 3:单纯性肥胖, 4:遗传性肥胖
+    private Integer authorId;
+    /**标题*/
+    private String title;
+    /**略缩图*/
+    private String thumb;
+    /**资源位置*/
+    private String resource;
+    /**描述*/
+    private String desc;
+    /**0:案例, 1:教程*/
+    private String type;
+    /**0:中年发福, 1:产后肥胖, 2:青春型肥胖, 3:单纯性肥胖, 4:遗传性肥胖*/
+    private String tag;
+    /**评论数*/
     @TableField("cmt_cnt")
-    private Integer cmtCnt;        //评论数
+    private Integer cmtCnt;
+    /**点击数*/
     @TableField("watched_cnt")
-    private Integer watchedCnt;        //点击数
+    private Integer watchedCnt;
+    /**创建时间*/
     @JSONField(format="yyyy-MM-dd HH:mm")
     @TableField("create_time")
-    private Date createTime;        //创建时间
+    private Date createTime;
+    /**更新时间*/
     @JSONField(format="yyyy-MM-dd HH:mm")
     @TableField("update_time")
-    private Date updateTime;        //更新时间
+    private Date updateTime;
+    /**评论*/
     @TableField(exist = false)
-    private List<Comment> comments;        //评论
+    private List<Comment> comments;
+    /**是否收藏*/
     @TableField(exist = false)
-    private Boolean isCollect;        //是否收藏
+    private Boolean isCollect;
 
     public Integer getId() {
         return id;

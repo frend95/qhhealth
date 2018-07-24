@@ -5,6 +5,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
+import com.hfkd.qhhealth.social.mapper.SocialNutritionistInfoMapper;
 import com.hfkd.qhhealth.social.mapper.SocialUserFollowingMapper;
 import com.hfkd.qhhealth.social.model.SocialUserFollowing;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class SocialUserFollowingController {
     private SessionUtil session;
     @Autowired
     private SocialUserFollowingMapper followingMapper;
+    @Autowired
+    private SocialNutritionistInfoMapper yysInfoMapper;
 
     @LogOut("关注或取消关注对方")
     @RequestMapping("/follow")
@@ -38,11 +41,15 @@ public class SocialUserFollowingController {
         if (followLsId != null) {
             // 取消关注
             followingMapper.deleteById(followLsId);
+            // 关注数减一
+            yysInfoMapper.followerDivideOne(followingId);
             return RspUtil.ok("isFollow", false, "取消关注成功");
         } else {
             // 关注
             SocialUserFollowing userFollowing = new SocialUserFollowing(currId, followingId, followingType);
             followingMapper.insert(userFollowing);
+            // 关注数加一
+            yysInfoMapper.followerPlusOne(followingId);
             return RspUtil.ok("isFollow", true, "关注成功");
         }
     }

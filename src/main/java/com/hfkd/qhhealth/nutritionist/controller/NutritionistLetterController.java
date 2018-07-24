@@ -27,6 +27,6 @@ public class NutritionistLetterController {
     @RequestMapping("/letter")
     public Map<String, Object> letter(Integer id) {
         NutritionistLetter letter = letterService.selectById(id);
-        return RspUtil.ok(letter);
+        return RspUtil.ok(letter.getUrl());
     }
 }

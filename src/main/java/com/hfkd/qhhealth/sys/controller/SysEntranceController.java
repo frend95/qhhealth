@@ -54,8 +54,8 @@ public class SysEntranceController {
                 null, null);
         // 查询3条食谱文章
         List<Map<String, Object>> recipe = articleMapper.getArticles(0, 3, ConstVal.ARTICLE_TAG_RECIPE);
-        // 查询5条客户案例
-        List<Map<String, Object>> cases = videoMapper.getVideoLs(0, 5, ConstVal.VIDEO_TYPE_CASE,
+        // 查询10条客户案例
+        List<Map<String, Object>> cases = videoMapper.getVideoLs(0, 10, ConstVal.VIDEO_TYPE_CASE,
                 null, null);
         // 查询减肥小窍门标签
         List<Map<String, Object>> articleTags = entranceMapper.getEntrance(ConstVal.IMG_PAGE_TUTORIAL);

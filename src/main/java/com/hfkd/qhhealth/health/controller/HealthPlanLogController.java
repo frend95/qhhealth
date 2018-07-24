@@ -113,4 +113,19 @@ public class HealthPlanLogController {
         return RspUtil.ok(map);
     }
 
+    @LogOut("饮食计划信息")
+    @RequestMapping("/planInfo")
+    public Map<String, Object> planInfo() {
+        Integer currId = session.getCurrId();
+        Integer totalIntake = intakeMapper.getTotalIntake(currId);
+        Integer totalBudget = planConstService.getPlanConst().getTotalBudget();
+        Integer remain = totalBudget - totalIntake;
+
+        Map<String, Object> map = RspUtil.ok();
+        map.put("remain", remain < 0 ? 0 : remain);
+        map.put("total", totalBudget);
+        map.put("intake", totalIntake);
+        return map;
+    }
+
 }

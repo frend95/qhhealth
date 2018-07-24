@@ -28,6 +28,8 @@ public class Article implements Serializable {
     private String title;
     /**缩略图*/
     private String thumb;
+    /**资源位置*/
+    private String resource;
     /**0:饮食，1:运动，2:减肥方法，3:食谱*/
     private String tag;
     /**内容*/
@@ -85,6 +87,14 @@ public class Article implements Serializable {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     public String getTag() {

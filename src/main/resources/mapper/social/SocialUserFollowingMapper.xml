@@ -35,12 +35,13 @@
         AND following_type = #{followingType}
     </select>
 
-    <select id="getFollowingLs" resultType="com.hfkd.qhhealth.social.model.SocialUserFollowing">
+    <select id="getFollowingLs" resultType="Map">
         SELECT
             f.id,
             f.user_id userId,
             f.following_id followingId,
             u.name followingName,
+            u.avatar,
             f.following_type followingType
         FROM
             social_user_following f

@@ -35,22 +35,25 @@ public class FileUtil {
      * 上传文件
      * @param file MultipartFile
      * @param modelFilePath 文件路径
-     * @param uuidFileName 文件名是否重命名为uuid
+     * @param isUuidFileName 文件名是否重命名为uuid
+     * @param isDatePath 是否按日期创建目录
      * @return 文件名
      */
-    public static String upload(MultipartFile file, String modelFilePath, boolean uuidFileName, boolean datePath)
+    public static String upload(MultipartFile file, String modelFilePath, boolean isUuidFileName, boolean isDatePath)
             throws IOException {
         if (!modelFilePath.endsWith("/")) {
             modelFilePath = modelFilePath + "/";
         }
         String originalFilename = file.getOriginalFilename();
-        if (uuidFileName) {
+        if (isUuidFileName) {
             originalFilename = uuidFileName(originalFilename);
         }
-        if (datePath) {
+        String datePath = "";
+        if (isDatePath) {
             String[] date = DateUtil.yyyyMMddArr();
+            datePath = date[0] + "/" + date[1] + "/" + date[2] + "/";
             //以年、月、日创建文件夹
-            modelFilePath = modelFilePath + date[0] + "/" + date[1] + "/" + date[2] + "/";
+            modelFilePath = modelFilePath + datePath;
         }
         // 完整文件名
         String entireFileName = modelFilePath + originalFilename;
@@ -75,7 +78,7 @@ public class FileUtil {
             e.printStackTrace();
             throw new MyException("文件上传失败");
         }
-        return originalFilename;
+        return datePath + originalFilename;
     }
 
     /**

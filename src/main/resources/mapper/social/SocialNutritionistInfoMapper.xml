@@ -94,4 +94,15 @@
             nutritionist_id = #{id}
     </select>
 
+    <update id="followerPlusOne">
+        UPDATE social_nutritionist_info
+        SET followers = followers + 1
+        WHERE nutritionist_id = #{id}
+    </update>
+
+    <update id="followerDivideOne">
+        UPDATE social_nutritionist_info
+        SET followers = followers - 1
+        WHERE nutritionist_id = #{id}
+    </update>
 </mapper>

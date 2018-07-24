@@ -39,21 +39,12 @@ spring:
       max-request-size: 50Mb
   profiles:
     # 激活dev环境配置
-    active: prod
+    active: dev-remote
 
 # 多环境配置
 ---
 spring:
-  profiles: dev
-  redis:
-    host: 127.0.0.1
-c3p0:
-  jdbcUrl: jdbc:mysql://127.0.0.1:3306/qh_dev?useSSL=false
-  user: root
-  password: root
----
-spring:
-  profiles: test
+  profiles: dev-local
   redis:
     host: 127.0.0.1
 c3p0:
@@ -62,11 +53,47 @@ c3p0:
   password: qhhealthserver
 ---
 spring:
-  profiles: prod
+  profiles: test-local
+  redis:
+    host: 127.0.0.1
+c3p0:
+  jdbcUrl: jdbc:mysql://127.0.0.1:3306/qh_test?useSSL=false
+  user: root
+  password: qhhealthserver
+---
+spring:
+  profiles: prod-local
+  redis:
+    host: 127.0.0.1
+c3p0:
+  jdbcUrl: jdbc:mysql://127.0.0.1:3306/qh_prod?useSSL=false
+  user: root
+  password: qhhealthserver
+---
+spring:
+  profiles: dev-remote
   redis:
     host: 127.0.0.1
 c3p0:
   jdbcUrl: jdbc:mysql://120.78.152.134:3306/qh_dev?useSSL=false
+  user: root
+  password: qhhealthserver
+---
+spring:
+  profiles: test-remote
+  redis:
+    host: 127.0.0.1
+c3p0:
+  jdbcUrl: jdbc:mysql://120.78.152.134:3306/qh_test?useSSL=false
+  user: root
+  password: qhhealthserver
+---
+spring:
+  profiles: prod-remote
+  redis:
+    host: 127.0.0.1
+c3p0:
+  jdbcUrl: jdbc:mysql://120.78.152.134:3306/qh_prod?useSSL=false
   user: root
   password: qhhealthserver
 ---

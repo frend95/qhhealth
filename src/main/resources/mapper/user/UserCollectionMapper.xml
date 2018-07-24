@@ -4,20 +4,22 @@
 
     <select id="getCollection" resultType="com.hfkd.qhhealth.user.model.UserCollection">
         SELECT
-            content_id contentId,
-            title,
-            thumb,
-            create_time createTime
+            a.content_id id,
+            a.title,
+            a.thumb,
+            b.resource,
+            b.watched_cnt watchedCnt,
+            DATE_FORMAT(b.create_time, '%Y-%m-%d') createTime
         FROM
         <if test='type == "0"'>
-            user_article_collection
+            user_article_collection a LEFT JOIN article b ON a.content_id = b.id
         </if>
         <if test='type == "1"'>
-            user_video_collection
+            user_video_collection a LEFT JOIN video b ON a.content_id = b.id
         </if>
         WHERE
-            user_id = #{userId}
-        ORDER BY create_time DESC
+            a.user_id = #{userId}
+        ORDER BY a.create_time DESC
         LIMIT #{page}, #{size}
     </select>
 

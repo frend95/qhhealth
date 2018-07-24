@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,8 +45,7 @@ public class SysInfoController {
     @LogOut("关于我们")
     @RequestMapping("/about")
     public Map<String, Object> about() {
-        Map<String, Object> map = new HashMap<>();
-        List<SysInfo> list = new LinkedList<>();
+        Map<String, Object> map = new HashMap<>(8);
 
         SysInfo appnameInfo = infoMapper.getInfo(appnameCode);
         SysInfo versionInfo = infoMapper.getInfo(versionCode);
@@ -57,12 +54,11 @@ public class SysInfoController {
         SysInfo wechatInfo = infoMapper.getInfo(wechatCode);
         SysInfo contactInfo = infoMapper.getInfo(contactCode);
 
-        list.add(weiboInfo);
-        list.add(wechatInfo);
-        list.add(contactInfo);
         map.put("icon", iconInfo.getVariable());
         map.put("appName", appnameInfo.getVariable() + " v" + versionInfo.getVariable());
-        map.put("list", list);
+        map.put("wechat", wechatInfo.getVariable());
+        map.put("weibo", weiboInfo.getVariable());
+        map.put("contact", contactInfo.getVariable());
 
         return RspUtil.ok(map);
     }

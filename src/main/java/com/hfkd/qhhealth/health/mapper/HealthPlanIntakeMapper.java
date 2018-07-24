@@ -35,6 +35,13 @@ public interface HealthPlanIntakeMapper extends BaseMapper<HealthPlanIntake> {
     List<Map<String, Object>> getTotalIntakeSortByType(@Param("userId") Integer userId);
 
     /**
+     * 获取总摄入能量
+     * @param userId 用户id
+     * @return 总摄入能量
+     */
+    Integer getTotalIntake(@Param("userId") Integer userId);
+
+    /**
      * 根据已选食物id获取每100g食物的卡路里
      * @param itemId 已选食物id
      * @return 每100g食物的卡路里（千卡）

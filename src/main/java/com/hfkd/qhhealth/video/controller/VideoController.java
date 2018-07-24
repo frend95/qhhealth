@@ -42,7 +42,7 @@ public class VideoController {
     
     @LogOut("查询视频列表")
     @RequestMapping("/list")
-    public Map<String, Object> list(Integer page, Integer size, String type, String tag) {
+    public Map<String, Object> list(Integer page, Integer size, String type, String tag, Integer id) {
         String title = null;
         if (tag != null) {
             switch (tag) {
@@ -63,12 +63,22 @@ public class VideoController {
                     break;
                 default:
             }
+        } else {
+            switch (type) {
+                case ConstVal.VIDEO_TYPE_CASE:
+                    title = ConstEnum.VIDEO_TYPE_CASE.ename();
+                    break;
+                case ConstVal.VIDEO_TYPE_TUTORIAL:
+                    title = ConstEnum.VIDEO_TYPE_TUTORIAL.ename();
+                    break;
+                default:
+            }
         }
 
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
 
-        List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag, null);
+        List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag, id);
         Map<String, Object> resultMap = RspUtil.ok();
         resultMap.put("result", articles);
         resultMap.put("title", title);

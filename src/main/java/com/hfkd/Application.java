@@ -1,18 +1,8 @@
 package com.hfkd;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Enumeration;
 
 /**
  * SpringBoot启动入口
@@ -23,7 +13,7 @@ import java.util.Enumeration;
 @PropertySource("classpath:config.properties")
 public class Application {
 
-    private final Logger log = LoggerFactory.getLogger(Application.class);
+    //private final Logger log = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -33,7 +23,7 @@ public class Application {
      * 解决tomcat关闭时可能导致memory leak的问提，详情见：
      * <a>https://github.com/spring-projects/spring-boot/issues/2612</a>
      */
-    @Bean
+    /*@Bean
     protected ServletContextListener listener() {
         return new ServletContextListener() {
 
@@ -68,7 +58,7 @@ public class Application {
                 }
             }
         };
-    }
+    }*/
 
     //    @Bean
     //    ServletWebServerFactory servletWebServerFactory(){

@@ -23,6 +23,9 @@ public class NutritionistCase implements Serializable {
     private Integer nutritionistId;
     /**缩略图*/
     private String thumb;
+    /**视频id*/
+    @TableField("video_id")
+    private Integer videoId;
     /**姓名*/
     private String name;
     /**年龄*/
@@ -35,6 +38,9 @@ public class NutritionistCase implements Serializable {
     private String period;
     /**内容*/
     private String content;
+    /**是否有视频*/
+    @TableField(exist = false)
+    private Boolean hasVideo;
 
 
     public Integer getId() {
@@ -59,6 +65,14 @@ public class NutritionistCase implements Serializable {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public Integer getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(Integer videoId) {
+        this.videoId = videoId;
     }
 
     public String getName() {
@@ -107,6 +121,15 @@ public class NutritionistCase implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getHasVideo() {
+        this.hasVideo = this.videoId != null;
+        return hasVideo;
+    }
+
+    public void setHasVideo(Boolean hasVideo) {
+        this.hasVideo = hasVideo;
     }
 
     @Override
