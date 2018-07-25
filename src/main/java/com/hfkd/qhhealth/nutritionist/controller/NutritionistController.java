@@ -7,7 +7,9 @@ import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
+import com.hfkd.qhhealth.nutritionist.mapper.NutritionistLetterMapper;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistMapper;
+import com.hfkd.qhhealth.nutritionist.model.NutritionistLetter;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import com.hfkd.qhhealth.social.mapper.SocialNutritionistInfoMapper;
 import com.hfkd.qhhealth.social.mapper.SocialUserFollowingMapper;
@@ -42,6 +44,8 @@ public class NutritionistController {
     private SessionUtil session;
     @Autowired
     private VideoMapper videoMapper;
+    @Autowired
+    private NutritionistLetterMapper letterMapper;
 
     @LogOut("查询营养师列表")
     @Verify(hasSession = true)
@@ -79,10 +83,13 @@ public class NutritionistController {
         List<Map<String, Object>> cases = caseMapper.getCases(0, 6, id);
         // 查询4个课程
         List<Map<String, Object>> video = videoMapper.getVideoLs(0, 4, ConstVal.VIDEO_TYPE_TUTORIAL, null, id);
+        // 查询给营养师的一封信
+        NutritionistLetter letter = letterMapper.selectById(id);
 
         yysMap.put("isFollow", isFollow);
         yysMap.put("cases", cases);
         yysMap.put("video", video);
+        yysMap.put("letter", letter == null ? null : letter.getUrl());
 
         return RspUtil.ok(yysMap);
     }

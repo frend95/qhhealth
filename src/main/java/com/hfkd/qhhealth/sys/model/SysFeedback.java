@@ -1,9 +1,12 @@
 package com.hfkd.qhhealth.sys.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 反馈建议 Model
@@ -25,6 +28,9 @@ public class SysFeedback implements Serializable {
     private String mobile;
     /**0:suggestion，1:issue*/
     private String type;
+    /**创建时间*/
+    @TableField("create_time")
+    private Date createTime;
 
 
     public Integer getId() {
@@ -65,6 +71,14 @@ public class SysFeedback implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public SysFeedback(String content, String img, String mobile, String type) {

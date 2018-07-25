@@ -74,9 +74,14 @@ public class SysEntranceController {
     @RequestMapping("/startPage")
     public Map<String, Object> startPage() {
         List<SysDisplayImg> splash = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_SPLASH, null, null);
-        Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("result", splash.get(0));
-        return resultMap;
+        return RspUtil.ok(splash.get(0));
+    }
+
+    @LogOut("查询引导页")
+    @RequestMapping("/onboardingPage")
+    public Map<String, Object> onboardingPage() {
+        List<SysDisplayImg> onboarding = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_ONBOARDING, null, null);
+        return RspUtil.ok(onboarding);
     }
 
     @LogOut("查询案例页")

@@ -40,7 +40,8 @@
             age,
             height,
             result,
-            period
+            period,
+            resource
         FROM
             nutritionist_case
         <if test="nutritionistId != null">
