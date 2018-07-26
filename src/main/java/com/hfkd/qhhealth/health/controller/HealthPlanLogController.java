@@ -118,6 +118,7 @@ public class HealthPlanLogController {
     public Map<String, Object> planInfo() {
         Integer currId = session.getCurrId();
         Integer totalIntake = intakeMapper.getTotalIntake(currId);
+        totalIntake = totalIntake == null ? 0 : totalIntake;
         Integer totalBudget = planConstService.getPlanConst().getTotalBudget();
         Integer remain = totalBudget - totalIntake;
 

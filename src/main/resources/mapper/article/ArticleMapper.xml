@@ -65,4 +65,13 @@
         id = #{id}
     </update>
 
+    <select id="getResourceById" resultType="String">
+        SELECT
+            resource
+        FROM
+            article
+        WHERE
+            id = #{id}
+    </select>
+
 </mapper>

@@ -42,7 +42,6 @@ public class SysLoginController {
     private String prefix;
     @Value("${login.timeout}")
     private long timeout;
-//    @Value("${user.home}${file.path.avatar}")
     @Value("${file.path.avatar}")
     private String avatarPath;
     @Value("${domain.avatar}")

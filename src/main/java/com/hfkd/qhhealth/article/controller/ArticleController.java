@@ -2,9 +2,6 @@ package com.hfkd.qhhealth.article.controller;
 
 
 import com.hfkd.qhhealth.article.mapper.ArticleMapper;
-import com.hfkd.qhhealth.article.model.Article;
-import com.hfkd.qhhealth.article.service.ArticleService;
-import com.hfkd.qhhealth.comment.model.Comment;
 import com.hfkd.qhhealth.comment.service.CommentService;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
@@ -33,8 +30,6 @@ public class ArticleController {
     private SessionUtil session;
     @Autowired
     private ArticleMapper articleMapper;
-    @Autowired
-    private ArticleService articleService;
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -76,16 +71,16 @@ public class ArticleController {
     @RequestMapping("/detail")
     public Map<String, Object> detail(Integer id) {
         Integer currId = session.getCurrId();
-        Article article = articleService.selectById(id);
-        // 查询最近的10条评论
-        List<Comment> comments = commentService.getFullCmt(ConstVal.CONTENT_TYPE_ARTICLE, 0, 10, id);
-        article.setComments(comments);
+        String url = articleMapper.getResourceById(id);
         // 查询是否收藏
         Boolean isCollect = currId != null && articleCollectionMapper.getClctId(currId, id) != null;
-        article.setCollect(isCollect);
         // 观看数加一
         articleMapper.watchedCntPlusOne(id);
-        return RspUtil.ok(article);
+
+        Map<String, Object> rspMap = RspUtil.ok();
+        rspMap.put("isCollect", isCollect);
+        rspMap.put("resource", url);
+        return RspUtil.ok(rspMap);
     }
 
 }

@@ -1,3 +1,4 @@
+/*
 package com.hfkd.qhhealth.common.util;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -8,16 +9,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+*/
 /**
  * 图像工具类
  * 对于CMYK模式的图像，由于JDK的Bug，目前还不能够处理,这些问题可以JAI.create()来代替ImageIO.read()解决。
  * 而高清图的内存溢出OOM问题只能使用ImageMagick转换
  * @author hexq
  * @date 2018/5/21 17:13
- */
+ *//*
+
 public class ImageUtils {
 
-    /**
+    */
+/**
      * 若图片横比200小，高比300小，不变
      * 若图片横比200小，高比300大，高缩小到300，图片比例不变
      * 若图片横比200大，高比300小，横缩小到200，图片比例不变
@@ -28,7 +32,8 @@ public class ImageUtils {
      * @param width 宽
      * @param height 高
      * @throws IOException IOException
-     */
+     *//*
+
     public static void scalePixel(InputStream is, String toFile, boolean keepAspectRatio, int width, int height)
             throws IOException {
         Thumbnails.of(is)
@@ -37,20 +42,23 @@ public class ImageUtils {
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 将图片按比例缩放
      * @param is 输入流
      * @param toFile 输出的文件路径
      * @param scale 比例
      * @throws IOException IOException
-     */
+     *//*
+
     public static void scale(InputStream is, String toFile, float scale) throws IOException {
         Thumbnails.of(is)
                 .scale(scale)
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 将图片旋转
      * @param is 输入流
      * @param toFile 输出的文件路径
@@ -58,7 +66,8 @@ public class ImageUtils {
      * @param width 宽
      * @param height 高
      * @throws IOException IOException
-     */
+     *//*
+
     public static void rotate(InputStream is, String toFile, int angle, int width, int height) throws IOException {
         Thumbnails.of(is)
                 .size(width, height)
@@ -66,7 +75,8 @@ public class ImageUtils {
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 图片加水印
      * @param is 输入流
      * @param toFile 输出的文件路径
@@ -76,7 +86,8 @@ public class ImageUtils {
      * @param width 宽
      * @param height 高
      * @throws IOException IOException
-     */
+     *//*
+
     public static void watermark(InputStream is, String toFile, String watermarkPath, Positions positions, float quality,
                                  float opacity, int width, int height) throws IOException {
         Thumbnails.of(is)
@@ -86,7 +97,8 @@ public class ImageUtils {
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 裁剪图片
      * @param is 输入流
      * @param toFile 输出文件路径
@@ -95,7 +107,8 @@ public class ImageUtils {
      * @param height 裁剪出的图片高度
      * @param keepAspectRatio 是否保持比例
      * @throws IOException IOException
-     */
+     *//*
+
     public static void cut(InputStream is, String toFile, Positions positions, int width, int height,
                            boolean keepAspectRatio) throws IOException {
         Thumbnails.of(is)
@@ -105,7 +118,8 @@ public class ImageUtils {
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 指定坐标裁剪图片
      * @param is 输入流
      * @param toFile 输出文件路径
@@ -115,7 +129,8 @@ public class ImageUtils {
      * @param height 裁剪出的图片高度
      * @param keepAspectRatio 是否保持比例
      * @throws IOException IOException
-     */
+     *//*
+
     public static void cutByCoordinate(InputStream is, String toFile, int x, int y, int width, int height,
                                        boolean keepAspectRatio) throws IOException {
         Thumbnails.of(is)
@@ -124,13 +139,15 @@ public class ImageUtils {
                 .toFile(toFile);
     }
 
-    /**
+    */
+/**
      * 改变图片格式
      * @param is 输入流
      * @param toFile 输出文件路径
      * @param format 图像格式
      * @throws IOException IOException
-     */
+     *//*
+
     public static void format(InputStream is, String toFile, String format) throws IOException {
         Thumbnails.of(is)
                 .outputFormat(format)
@@ -186,3 +203,4 @@ public class ImageUtils {
     }
 
 }
+*/

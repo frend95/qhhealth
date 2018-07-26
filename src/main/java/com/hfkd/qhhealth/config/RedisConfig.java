@@ -2,7 +2,6 @@ package com.hfkd.qhhealth.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
-import com.hfkd.qhhealth.common.util.RedisUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +36,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     public KeyGenerator keyGenerator() {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();
-            sb.append("CACHE_");
             sb.append(target.getClass().getSimpleName());
             sb.append(".");
             sb.append(method.getName());
@@ -52,12 +50,12 @@ public class RedisConfig extends CachingConfigurerSupport {
         };
     }
 
-    @Bean
+    /*@Bean
     public boolean initCache() {
         RedisUtil.bathDelByPref("CACHE_");
         log.info("缓存与登陆信息初始化...");
         return true;
-    }
+    }*/
 
     /**
      * 缓存管理设置(缓存刷新时间)

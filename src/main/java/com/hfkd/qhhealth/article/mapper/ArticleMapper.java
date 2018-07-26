@@ -39,4 +39,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param id 文章id
      */
     void watchedCntPlusOne(@Param("id") Integer id);
+
+    /**
+     * 根据文章id获取文章url
+     * @param id 文章id
+     * @return 文章url
+     */
+    String getResourceById(@Param("id") Integer id);
 }

@@ -71,7 +71,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <!--<scope>runtime</scope>-->
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.mchange</groupId>
@@ -105,12 +105,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -135,11 +135,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
-        <dependency>
+        <!--<dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${thumbnailator.version}</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.belerweb</groupId>
