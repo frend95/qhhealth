@@ -36,4 +36,13 @@
             id = #{id}
     </select>
 
+    <select id="getVariable" resultType="String">
+        SELECT
+            variable
+        FROM
+            sys_info
+        WHERE
+            id = #{id}
+    </select>
+
 </mapper>

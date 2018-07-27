@@ -80,7 +80,7 @@ public class ArticleController {
         Map<String, Object> rspMap = RspUtil.ok();
         rspMap.put("isCollect", isCollect);
         rspMap.put("resource", url);
-        return RspUtil.ok(rspMap);
+        return rspMap;
     }
 
 }

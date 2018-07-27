@@ -24,7 +24,6 @@ public class SysInfoController {
 
     @Autowired
     private SysInfoMapper infoMapper;
-
     @Value("${sys.code.appname}")
     private Integer appnameCode;
     @Value("${sys.code.version}")
@@ -41,6 +40,8 @@ public class SysInfoController {
     private Integer agreementCode;
     @Value("${sys.code.package}")
     private Integer packageCode;
+    @Value("${sys.code.versionno}")
+    private Integer versionnoCode;
 
     @LogOut("关于我们")
     @RequestMapping("/about")
@@ -72,18 +73,19 @@ public class SysInfoController {
 
     @LogOut("检查更新")
     @RequestMapping("/checkUpdate")
-    public Map<String, Object> checkUpdate(String version) {
+    public Map<String, Object> checkUpdate(Integer version) {
         Map<String, Object> resultMap = RspUtil.ok();
         String packageUrl = null;
         boolean newVersion = false;
         String msg = "当前为最新版本";
-        String versionDb = infoMapper.getInfo(versionCode).getVariable();
-        if (!version.equals(versionDb)) {
+        String versionDb = infoMapper.getInfo(versionnoCode).getVariable();
+        Integer i = Integer.parseInt(versionDb);
+        if (i > version) {
             packageUrl = infoMapper.getInfo(packageCode).getVariable();
             newVersion = true;
             msg = "有新版本可供更新";
         }
-        resultMap.put("package", packageUrl);
+        resultMap.put("resource", packageUrl);
         resultMap.put("newVersion", newVersion);
         resultMap.put("msg", msg);
         return resultMap;

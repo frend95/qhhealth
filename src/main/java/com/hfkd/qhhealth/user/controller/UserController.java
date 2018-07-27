@@ -8,6 +8,7 @@ import com.hfkd.qhhealth.common.util.*;
 import com.hfkd.qhhealth.health.model.HealthGoal;
 import com.hfkd.qhhealth.social.model.SocialUserInfo;
 import com.hfkd.qhhealth.social.service.SocialUserInfoService;
+import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
 import com.hfkd.qhhealth.user.model.User;
 import com.hfkd.qhhealth.user.model.UserSession;
 import com.hfkd.qhhealth.user.service.UserService;
@@ -38,6 +39,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private SocialUserInfoService socialUserInfoService;
+    @Autowired
+    private SysInfoMapper sysInfoMapper;
+    @Value("${sys.code.contact}")
+    private Integer contactCode;
     @Value("${file.path.avatar}")
     private String avatarPath;
     @Value("${domain.avatar}")
@@ -125,7 +130,10 @@ public class UserController {
         userService.completeInfo(user, healthGoal, socialUserInfo);
         // 查询用户详情
         Map<String, Object> userDetail = userService.getUserDetail(id);
-        return RspUtil.ok(userDetail);
+        Map<String, Object> rspMap = RspUtil.ok();
+        rspMap.put("result", userDetail);
+        rspMap.put("contact", sysInfoMapper.getVariable(contactCode));
+        return RspUtil.ok(rspMap);
     }
 
     @LogOut("更新密码")

@@ -19,4 +19,6 @@ public interface SysInfoMapper extends BaseMapper<SysInfo> {
      * @return SysInfo{ name,variable }
      */
     SysInfo getInfo(@Param("id") Integer id);
+
+    String getVariable(@Param("id") Integer id);
 }

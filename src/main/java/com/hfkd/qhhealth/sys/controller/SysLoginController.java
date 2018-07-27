@@ -3,6 +3,7 @@ package com.hfkd.qhhealth.sys.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.util.*;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
+import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
 import com.hfkd.qhhealth.user.model.User;
 import com.hfkd.qhhealth.user.model.UserSession;
 import com.hfkd.qhhealth.user.service.UserService;
@@ -37,6 +38,8 @@ public class SysLoginController {
     private UserService userService;
     @Autowired
     private NutritionistService yysService;
+    @Autowired
+    private SysInfoMapper sysInfoMapper;
 
     @Value("${login.prefix}")
     private String prefix;
@@ -48,6 +51,8 @@ public class SysLoginController {
     private String avatarDomain;
     @Value("${sms.timeout}")
     private long smsTimeout;
+    @Value("${sys.code.contact}")
+    private Integer contactCode;
 
     @LogOut("登陆")
 	@RequestMapping("/login")
@@ -86,6 +91,7 @@ public class SysLoginController {
         Map<String, Object> resultMap = RspUtil.ok();
         resultMap.put("result", userDetail);
         resultMap.put("token", token);
+        resultMap.put("contact", sysInfoMapper.getVariable(contactCode));
         return resultMap;
 	}
 
