@@ -172,6 +172,11 @@ public class SysLoginController {
         if (StringUtils.isBlank(phone)) {
             return RspUtil.error();
         }
+        // 查询手机号是否已注册
+        User userDb = userService.getByAccount(phone);
+        if (userDb != null) {
+            return RspUtil.error("该号码已被注册");
+        }
         String code = RandomUtil.getRandom();
         String resp = SmsUtil.send(phone, code);
         if (!"0".equals(resp)) {
