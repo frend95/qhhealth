@@ -133,7 +133,7 @@ public class UserController {
         Map<String, Object> rspMap = RspUtil.ok();
         rspMap.put("result", userDetail);
         rspMap.put("contact", sysInfoMapper.getVariable(contactCode));
-        return RspUtil.ok(rspMap);
+        return rspMap;
     }
 
     @LogOut("更新密码")
