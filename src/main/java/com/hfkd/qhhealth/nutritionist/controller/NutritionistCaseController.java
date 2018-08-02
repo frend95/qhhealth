@@ -31,7 +31,6 @@ public class NutritionistCaseController {
         page = page <= 0 ? 0 : (page - 1) * size;
         List<Map<String, Object>> cases = caseMapper.getCases(page, size, nutritionistId);
         Map<String, Object> resultMap = RspUtil.ok();
-        resultMap.put("name", "服务案例");
         resultMap.put("result", cases);
         return resultMap;
     }
