@@ -1,10 +1,6 @@
 package com.hfkd.qhhealth.config;
 
-import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
-import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -26,7 +22,6 @@ import java.util.Map;
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
-    private final Log log = LogFactory.getLog(getClass());
 
     /**
      * 用spring标记接口时的key值设置
@@ -63,11 +58,21 @@ public class RedisConfig extends CachingConfigurerSupport {
      */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration(){
-        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
+        CustomJsonRedisSerializer fastJsonRedisSerializer = new CustomJsonRedisSerializer();
         return RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(fastJsonRedisSerializer))
                 .entryTtl(Duration.ofDays(7));
     }
+
+    //    @Bean
+    //    public RedisCacheConfiguration redisCacheConfiguration() {
+    //        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+    //        ObjectMapper objectMapper = new ObjectMapper();
+    //        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+    //        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+    //        serializer.setObjectMapper(objectMapper);
+    //        return RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
+    //    }
 
     @SuppressWarnings("unchecked")
     @Bean
@@ -85,7 +90,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         //fastJson
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
-        GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
+        //GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
+        CustomJsonRedisSerializer fastJsonRedisSerializer = new CustomJsonRedisSerializer();
         //设置默认的Serialize，包含 keySerializer & valueSerializer
         redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);
         //单独设置keySerializer
