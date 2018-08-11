@@ -39,7 +39,7 @@ spring:
       max-request-size: 50Mb
   profiles:
     # 激活dev环境配置
-    active: dev-remote
+    active: dev-local
 
 # 多环境配置
 ---

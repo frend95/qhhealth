@@ -2,6 +2,7 @@ package com.hfkd.qhhealth.nutritionist.controller;
 
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.nutritionist.model.NutritionistLetter;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistLetterService;
@@ -24,6 +25,7 @@ public class NutritionistLetterController {
     private NutritionistLetterService letterService;
 
     @LogOut("查询给客户的信")
+    @Verify
     @RequestMapping("/letter")
     public Map<String, Object> letter(Integer id) {
         NutritionistLetter letter = letterService.selectById(id);

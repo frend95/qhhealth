@@ -41,6 +41,7 @@ public class VideoController {
     private UserVideoCollectionMapper videoCollectionMapper;
     
     @LogOut("查询视频列表")
+    @Verify
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String type, String tag, Integer id) {
         String title = null;

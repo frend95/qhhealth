@@ -2,6 +2,7 @@ package com.hfkd.qhhealth.sys.controller;
 
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.FileUtil;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.sys.mapper.SysFeedbackMapper;
@@ -34,6 +35,7 @@ public class SysFeedbackController {
     private String imgDomain;
 
     @LogOut("用户反馈")
+    @Verify
     @RequestMapping("/feedBack")
     public Map<String, Object> feedBack(String content, String mobile, List<MultipartFile> img, String type) throws IOException {
         if (StringUtils.isBlank(content) || StringUtils.isBlank(mobile) || StringUtils.isBlank(type)) {

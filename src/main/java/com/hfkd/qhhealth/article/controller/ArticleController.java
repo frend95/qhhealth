@@ -2,7 +2,6 @@ package com.hfkd.qhhealth.article.controller;
 
 
 import com.hfkd.qhhealth.article.mapper.ArticleMapper;
-import com.hfkd.qhhealth.comment.service.CommentService;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
@@ -31,11 +30,10 @@ public class ArticleController {
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired
-    private CommentService commentService;
-    @Autowired
     private UserArticleCollectionMapper articleCollectionMapper;
 
     @LogOut("查询文章列表")
+    @Verify
     @RequestMapping("/list")
     public Map<String, Object> list(Integer page, Integer size, String tag) {
         String title = null;

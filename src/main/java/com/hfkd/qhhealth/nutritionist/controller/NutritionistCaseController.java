@@ -2,6 +2,7 @@ package com.hfkd.qhhealth.nutritionist.controller;
 
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
 import com.hfkd.qhhealth.nutritionist.model.NutritionistCase;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @author hexq
  * @date 2018/7/5 10:12
  */
+@Verify
 @RestController
 @RequestMapping("/yys")
 public class NutritionistCaseController {

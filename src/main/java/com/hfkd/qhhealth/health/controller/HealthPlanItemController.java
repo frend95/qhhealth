@@ -2,6 +2,7 @@ package com.hfkd.qhhealth.health.controller;
 
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.util.PinyinUtil;
 import com.hfkd.qhhealth.common.util.RspUtil;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @author hexq
  * @date 2018/7/5 10:12
  */
+@Verify
 @RestController
 @RequestMapping("/plan")
 public class HealthPlanItemController {

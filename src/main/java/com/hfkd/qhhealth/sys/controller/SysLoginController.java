@@ -1,6 +1,7 @@
 package com.hfkd.qhhealth.sys.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.*;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
@@ -72,6 +73,9 @@ public class SysLoginController {
         String pwdSalt = DigestUtil.pwdSalt(password, salt);
         if (!pwdSaltDb.equals(pwdSalt)) {
             return errorMsg;
+        }
+        if (ConstVal.USER_STATUS_DISABLE.equals(user.getStatus())) {
+            return RspUtil.error("该用户已停用，请联系客服");
         }
         // 查询用户详情
         Map<String, Object> userDetail = userService.getUserDetail(id);
@@ -168,14 +172,18 @@ public class SysLoginController {
 
     @LogOut("获取验证码")
     @RequestMapping("/getCode")
-    public Map<String, Object> getCode(String phone) {
+    public Map<String, Object> getCode(String phone, Boolean isReset) {
         if (StringUtils.isBlank(phone)) {
             return RspUtil.error();
         }
         // 查询手机号是否已注册
+        isReset = isReset == null ? false : isReset;
         User userDb = userService.getByAccount(phone);
-        if (userDb != null) {
+        if (userDb != null && !isReset) {
             return RspUtil.error("该号码已被注册");
+        }
+        if (userDb == null && isReset) {
+            return RspUtil.error("该号码不存在");
         }
         String code = RandomUtil.getRandom();
         String resp = SmsUtil.send(phone, code);
@@ -186,6 +194,32 @@ public class SysLoginController {
         String codeKey = phone + code;
         redis.opsForValue().set(codeKey, "", smsTimeout, TimeUnit.MINUTES);
         return RspUtil.okMsg("发送成功");
+    }
+
+    @LogOut("重置密码")
+    @RequestMapping("/resetPwd")
+    public Map<String, Object> resetPwd(String phone, String password, String code) {
+        if (password.length() < 6) {
+            return RspUtil.error("密码不能小于6位");
+        }
+        // 验证短信验证码
+        if (!redis.hasKey(phone + code)) {
+            return RspUtil.error("验证码错误");
+        }
+        User user = userService.getByAccount(phone);
+        String oldPwdSaltDb = user.getPassword();
+        // 盐为添加用户时随机生成的uuid
+        String salt = user.getSalt();
+        // 使用自定算法计算加盐后的的新密码
+        String pwdMd5 = DigestUtil.md5(password);
+        String newPwdSalt = DigestUtil.pwdSalt(pwdMd5, salt);
+        // 校验新旧密码是否相同
+        if (oldPwdSaltDb.equals(newPwdSalt)) {
+            return RspUtil.error("新密码不能与原密码相同");
+        }
+        user.setPassword(newPwdSalt);
+        userService.updateById(user);
+        return RspUtil.ok();
     }
 
 }

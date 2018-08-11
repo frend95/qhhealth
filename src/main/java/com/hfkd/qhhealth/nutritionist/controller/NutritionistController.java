@@ -59,12 +59,14 @@ public class NutritionistController {
     }
 
     @LogOut("查询推荐营养师")
+    @Verify
     @RequestMapping("/recommend")
     public Map<String, Object> recommend() {
         return RspUtil.ok(yysService.recommendYys());
     }
 
     @LogOut("查询热门营养师")
+    @Verify
     @RequestMapping("/popular")
     public Map<String, Object> popular() {
         return RspUtil.ok(yysMapper.popularYys());

@@ -2,9 +2,9 @@ package com.hfkd.qhhealth.sys.controller;
 
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
-import com.hfkd.qhhealth.sys.model.SysInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +18,7 @@ import java.util.Map;
  * @author hexq
  * @date 2018/7/5 10:12
  */
+@Verify
 @RestController
 @RequestMapping("/sys")
 public class SysInfoController {
@@ -48,18 +49,11 @@ public class SysInfoController {
     public Map<String, Object> about() {
         Map<String, Object> map = new HashMap<>(8);
 
-        SysInfo appnameInfo = infoMapper.getInfo(appnameCode);
-        SysInfo versionInfo = infoMapper.getInfo(versionCode);
-        SysInfo iconInfo = infoMapper.getInfo(iconCode);
-        SysInfo weiboInfo = infoMapper.getInfo(weiboCode);
-        SysInfo wechatInfo = infoMapper.getInfo(wechatCode);
-        SysInfo contactInfo = infoMapper.getInfo(contactCode);
-
-        map.put("icon", iconInfo.getVariable());
-        map.put("appName", appnameInfo.getVariable() + " v" + versionInfo.getVariable());
-        map.put("wechat", wechatInfo.getVariable());
-        map.put("weibo", weiboInfo.getVariable());
-        map.put("contact", contactInfo.getVariable());
+        map.put("icon", infoMapper.getVariable(iconCode));
+        map.put("appName", infoMapper.getVariable(appnameCode) + " v" + infoMapper.getVariable(versionCode));
+        map.put("wechat", infoMapper.getVariable(wechatCode));
+        map.put("weibo", infoMapper.getVariable(weiboCode));
+        map.put("contact", infoMapper.getVariable(contactCode));
 
         return RspUtil.ok(map);
     }
@@ -67,8 +61,7 @@ public class SysInfoController {
     @LogOut("用户协议")
     @RequestMapping("/agreement")
     public Map<String, Object> agreement() {
-        SysInfo sysInfo = infoMapper.getInfo(agreementCode);
-        return RspUtil.ok(sysInfo.getVariable());
+        return RspUtil.ok(infoMapper.getVariable(agreementCode));
     }
 
     @LogOut("检查更新")
@@ -78,10 +71,10 @@ public class SysInfoController {
         String packageUrl = null;
         boolean newVersion = false;
         String msg = "当前为最新版本";
-        String versionDb = infoMapper.getInfo(versionnoCode).getVariable();
+        String versionDb = infoMapper.getVariable(versionnoCode);
         Integer i = Integer.parseInt(versionDb);
         if (i > version) {
-            packageUrl = infoMapper.getInfo(packageCode).getVariable();
+            packageUrl = infoMapper.getVariable(packageCode);
             newVersion = true;
             msg = "有新版本可供更新";
         }

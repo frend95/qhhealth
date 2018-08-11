@@ -3,6 +3,7 @@ package com.hfkd.qhhealth.sys.controller;
 
 import com.hfkd.qhhealth.article.mapper.ArticleMapper;
 import com.hfkd.qhhealth.common.annotation.LogOut;
+import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
@@ -42,6 +43,7 @@ public class SysEntranceController {
     private SysEntranceMapper entranceMapper;
 
     @LogOut("查询首页")
+    @Verify
     @Cacheable("API_CACHE")
     @RequestMapping("/homepage")
     public Map<String, Object> homepage() {
@@ -85,6 +87,7 @@ public class SysEntranceController {
     }
 
     @LogOut("查询案例页")
+    @Verify
     @Cacheable("API_CACHE")
     @RequestMapping("/casePage")
     public Map<String, Object> casePage() {

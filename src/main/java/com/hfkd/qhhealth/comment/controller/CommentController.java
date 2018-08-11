@@ -21,6 +21,7 @@ import java.util.Map;
  * @author hexq
  * @date 2018/7/4 18:21
  */
+@Verify
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -50,7 +51,6 @@ public class CommentController {
     }
 
     @LogOut("评论")
-    @Verify
     @RequestMapping("/post")
     public Map<String, Object> post(String type, Integer contentId, String content) {
         Integer currId = session.getCurrId();
@@ -64,7 +64,6 @@ public class CommentController {
     }
 
     @LogOut("回复评论")
-    @Verify
     @RequestMapping("/reply")
     public Map<String, Object> reply(String type, Integer cmtId, String content, Integer replyToId, String replyToName) {
         Integer currId = session.getCurrId();
