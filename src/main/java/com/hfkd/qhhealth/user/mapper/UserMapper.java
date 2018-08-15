@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,4 +39,11 @@ public interface UserMapper extends BaseMapper<User> {
      * @return UserBodyInfo
      */
     UserBodyInfo getBodyInfo(@Param("id") Integer id);
+
+    /**
+     * 根据用户名查询id
+     * @param name 用户名
+     * @return 用户id
+     */
+    List<Integer> getIdByName(@Param("name") String name);
 }

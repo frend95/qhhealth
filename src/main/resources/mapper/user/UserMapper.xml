@@ -87,4 +87,13 @@
             id = #{id}
     </select>
 
+    <select id="getIdByName" resultType="Integer">
+        SELECT
+            id
+        FROM
+            user
+        WHERE
+            name = #{name}
+    </select>
+
 </mapper>

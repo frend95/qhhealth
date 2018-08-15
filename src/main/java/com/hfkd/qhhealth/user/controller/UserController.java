@@ -9,6 +9,7 @@ import com.hfkd.qhhealth.health.model.HealthGoal;
 import com.hfkd.qhhealth.social.model.SocialUserInfo;
 import com.hfkd.qhhealth.social.service.SocialUserInfoService;
 import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
+import com.hfkd.qhhealth.user.mapper.UserMapper;
 import com.hfkd.qhhealth.user.model.User;
 import com.hfkd.qhhealth.user.model.UserSession;
 import com.hfkd.qhhealth.user.service.UserService;
@@ -38,6 +39,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private UserMapper userMapper;
+    @Autowired
     private SocialUserInfoService socialUserInfoService;
     @Autowired
     private SysInfoMapper sysInfoMapper;
@@ -58,7 +61,9 @@ public class UserController {
                 || name.replaceAll("^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$", "").length() != 0) {
             return RspUtil.error("昵称不符合要求");
         }
-
+        if (userMapper.getIdByName(name).size() > 0) {
+            return RspUtil.error("此昵称已被使用");
+        }
         Integer currId = session.getCurrId();
         User user = new User();
         user.setId(currId);
