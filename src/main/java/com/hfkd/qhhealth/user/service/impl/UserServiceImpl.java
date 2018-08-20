@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -56,6 +57,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             healthGoalService.insert(healthGoal);
             socialUserInfoService.insert(socialUserInfo);
         } else {
+            healthGoal.setCreateTime(new Date());
             healthGoalService.updateAllColumnById(healthGoal);
         }
 

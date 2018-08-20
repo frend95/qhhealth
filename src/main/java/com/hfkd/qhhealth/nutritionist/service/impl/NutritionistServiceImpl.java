@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,17 +29,21 @@ public class NutritionistServiceImpl extends ServiceImpl<NutritionistMapper, Nut
 
     @Override
     public List<Map<String, Object>> recommendYys() {
-        int[] ids = null;
-        // 查询最大id并生成随机id
-        Integer maxId = yysMapper.getMaxId();
-        if (maxId == null) {
-            return Collections.EMPTY_LIST;
+        List<Integer> ids = yysMapper.getAllId();
+        int size = ids.size();
+        if (size == 0) {
+            return Collections.emptyList();
+        } else if (size > 10) {
+            List<Integer> list = new LinkedList<>();
+            // 获取9个随机的营养师id
+            int[] randomIdxs = RandomUtil.randomArray(0, size - 1, 9);
+            for (int randomIdx : randomIdxs) {
+                list.add(ids.get(randomIdx));
+            }
+            return socialYysInfoMapper.getYysByIds(list);
+        } else {
+            return socialYysInfoMapper.getYysByIds(null);
         }
-        if (maxId > 9) {
-            // 生成随机id数组
-            ids = RandomUtil.randomArray(1, maxId, 9);
-        }
-        return socialYysInfoMapper.getYysByIds(ids);
     }
 
     @Override

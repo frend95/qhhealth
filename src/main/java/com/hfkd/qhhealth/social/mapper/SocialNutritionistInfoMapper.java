@@ -31,10 +31,10 @@ public interface SocialNutritionistInfoMapper extends BaseMapper<SocialNutrition
 
     /**
      * 根据ids获取所有营养师
-     * @param ids id array
+     * @param ids id list
      * @return List<Map{ id,name,bio,title,avatar,serviceCnt,followers,feedCnt,tutorialCnt }>
      */
-    List<Map<String, Object>> getYysByIds(@Param("ids") int[] ids);
+    List<Map<String, Object>> getYysByIds(@Param("ids") List<Integer> ids);
 
     /**
      * 根据id获取营养师信息

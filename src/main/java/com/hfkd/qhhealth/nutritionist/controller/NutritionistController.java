@@ -79,6 +79,9 @@ public class NutritionistController {
         Integer currId = session.getCurrId();
         // 查询营养师社圈信息
         Map<String, Object> yysMap = socialYysInfoMapper.getById(id);
+        if (yysMap == null) {
+            return RspUtil.error("该营养师不存在");
+        }
         // 查询是否关注该营养师
         boolean isFollow = currId != null && userFollowingMapper.getFollowLsId(ConstVal.YYS, currId, id) != null;
         // 查询6个服务案例

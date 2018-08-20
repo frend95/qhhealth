@@ -32,7 +32,7 @@ public class RandomUtil {
         int len = max - min + 1;
 
         if (max < min || n > len) {
-            return null;
+            return new int[]{};
         }
 
         //初始化给定范围的待选数组
