@@ -8,6 +8,7 @@ import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.RspUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
+import com.hfkd.qhhealth.social.service.SocialFeedService;
 import com.hfkd.qhhealth.sys.mapper.SysEntranceMapper;
 import com.hfkd.qhhealth.sys.model.SysDisplayImg;
 import com.hfkd.qhhealth.sys.service.SysDisplayImgService;
@@ -41,6 +42,8 @@ public class SysEntranceController {
     private NutritionistCaseMapper caseMapper;
     @Autowired
     private SysEntranceMapper entranceMapper;
+    @Autowired
+    private SocialFeedService feedService;
 
     @LogOut("查询首页")
     @Verify
@@ -100,11 +103,34 @@ public class SysEntranceController {
         List<Map<String, Object>> cases = caseMapper.getCases(0, 10, null);
         // 查询案例分类标签
         List<Map<String, Object>> videoTags = entranceMapper.getEntrance(ConstVal.IMG_PAGE_CASE);
+
         Map<String, Object> resultMap = RspUtil.ok();
         resultMap.put("banner", banner);
         resultMap.put("video", video.get(0));
         resultMap.put("cases", cases);
         resultMap.put("videoTags", videoTags);
+        return resultMap;
+    }
+
+    @LogOut("查询社圈广场页")
+    @Verify
+    @Cacheable("API_CACHE")
+    @RequestMapping("/socialPage")
+    public Map<String, Object> socialPage() {
+        // 查询6张banner
+        List<SysDisplayImg> banner = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_SOCIAL, 1, 6);
+        // 查询5条最近的营养师动态
+        List<Map<String, Object>> yysFeeds = feedService.getRecentYysFeeds(5);
+        // 查询2张社区精选标签
+        List<SysDisplayImg> feature = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_SOCIAL, 2, 2);
+        // 查询10条动态
+        List<Map<String, Object>> feeds = feedService.getPlazaFeeds(0, 10);
+
+        Map<String, Object> resultMap = RspUtil.ok();
+        resultMap.put("banner", banner);
+        resultMap.put("yysFeeds", yysFeeds);
+        resultMap.put("feature", feature);
+        resultMap.put("feeds", feeds);
         return resultMap;
     }
 

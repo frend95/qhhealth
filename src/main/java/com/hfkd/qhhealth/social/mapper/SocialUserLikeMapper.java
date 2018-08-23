@@ -3,6 +3,7 @@ package com.hfkd.qhhealth.social.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hfkd.qhhealth.social.model.SocialUserLike;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 用户点赞 Mapper
@@ -12,4 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SocialUserLikeMapper extends BaseMapper<SocialUserLike> {
 
+    Integer getLikeId(@Param("userId") Integer userId,
+                      @Param("feedId") Integer feedId);
+
+    void delLike(@Param("id") Integer id);
 }

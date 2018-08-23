@@ -29,7 +29,7 @@ public class SysDisplayImg implements Serializable {
     /**类型：0非广告，1广告*/
     private String type;
     /**分组*/
-    private Integer group;
+    private Integer groups;
     /**页面：0 splash，1 onboarding，2 tutorial，3 case，4 social*/
     private String page;
     /**序号*/
@@ -84,12 +84,12 @@ public class SysDisplayImg implements Serializable {
         this.seq = seq;
     }
 
-    public Integer getGroup() {
-        return group;
+    public Integer getGroups() {
+        return groups;
     }
 
-    public void setGroup(Integer group) {
-        this.group = group;
+    public void setGroups(Integer groups) {
+        this.groups = groups;
     }
 
     public String getPage() {
@@ -108,7 +108,7 @@ public class SysDisplayImg implements Serializable {
                 ", imgUrl='" + imgUrl + '\'' +
                 ", toUrl='" + toUrl + '\'' +
                 ", type='" + type + '\'' +
-                ", group=" + group +
+                ", groups=" + groups +
                 ", page='" + page + '\'' +
                 ", seq=" + seq +
                 '}';

@@ -40,4 +40,143 @@
     ${alias}.update_time AS updateTime,
     </sql>
 
+    <select id="getRecentYysFeeds" resultType="Map">
+        SELECT
+            sf.id,
+            sf.author_id authorId,
+            sf.img,
+            sf.content,
+            n.name,
+            n.avatar
+        FROM (SELECT MAX(f.id) id
+              FROM social_feed f
+              WHERE f.author_type = '1'
+              GROUP BY f.author_id
+              LIMIT #{limit}) a
+            LEFT JOIN social_feed sf ON a.id = sf.id
+            LEFT JOIN nutritionist n ON sf.author_id = n.id
+        ORDER BY sf.create_time DESC
+    </select>
+
+    <select id="getPlazaFeeds" resultType="Map">
+        SELECT
+            sf.id,
+            sf.img,
+            sf.content,
+            sf.author_id authorId,
+            sf.author_type authorType,
+            IFNULL(u.name, n.name) name,
+            IFNULL(u.avatar, n.avatar) avatar
+        FROM
+            social_feed sf
+            LEFT JOIN user u ON sf.author_id = u.id AND sf.author_type = '0'
+            LEFT JOIN nutritionist n ON sf.author_id = n.id AND sf.author_type = '1'
+        WHERE
+            sf.is_private = '0'
+        ORDER BY sf.topping_time DESC, sf.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getFeed" resultType="com.hfkd.qhhealth.social.model.SocialFeedVo">
+        SELECT
+            sf.id,
+            sf.img,
+            sf.content,
+            sf.author_id authorId,
+            sf.author_type authorType,
+            sf.cmt_cnt cmtCnt,
+            sf.like_cnt likeCnt,
+            sf.create_time createTime,
+            IFNULL(u.name, n.name) name,
+            IFNULL(u.avatar, n.avatar) avatar
+        FROM
+            social_feed sf
+            LEFT JOIN user u ON sf.author_id = u.id AND sf.author_type = '0'
+            LEFT JOIN nutritionist n ON sf.author_id = n.id AND sf.author_type = '1'
+        WHERE sf.id = #{id}
+    </select>
+
+    <select id="getUserFeeds" resultType="com.hfkd.qhhealth.social.model.SocialFeedVo">
+        SELECT
+            sf.id,
+            sf.content,
+            sf.img,
+            u.name,
+            u.avatar,
+            sf.author_id authorId,
+            sf.author_type authorType,
+            sf.cmt_cnt cmtCnt,
+            sf.like_cnt likeCnt,
+            sf.create_time createTime,
+            IF(sul.id is NULL, FALSE, TRUE) isLike
+        FROM
+            social_feed sf
+            LEFT JOIN user u ON sf.author_id = u.id
+            LEFT JOIN social_user_like sul ON sul.user_id = #{userId} AND sul.feed_id = sf.id
+        WHERE
+            sf.author_id = #{authorId}
+        AND sf.author_type = '0'
+        ORDER BY sf.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getYysFeeds" resultType="com.hfkd.qhhealth.social.model.SocialFeedVo">
+        SELECT
+            sf.id,
+            sf.content,
+            sf.img,
+            n.name,
+            n.avatar,
+            sf.author_id authorId,
+            sf.author_type authorType,
+            sf.cmt_cnt cmtCnt,
+            sf.like_cnt likeCnt,
+            sf.create_time createTime,
+            IF(sul.id is NULL, FALSE, TRUE) isLike
+        FROM
+            social_feed sf
+            LEFT JOIN nutritionist n ON sf.author_id = n.id
+            LEFT JOIN social_user_like sul ON sul.user_id = #{userId} AND sul.feed_id = sf.id
+        WHERE
+            sf.author_id = #{authorId}
+        AND sf.author_type = '1'
+        ORDER BY sf.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <select id="getLikeFeeds" resultType="com.hfkd.qhhealth.social.model.SocialFeedVo">
+        SELECT
+            sf.id,
+            sf.content,
+            sf.img,
+            sf.author_id authorId,
+            sf.author_type authorType,
+            sf.cmt_cnt cmtCnt,
+            sf.like_cnt likeCnt,
+            sf.create_time createTime,
+            IFNULL(u.name, n.name) name,
+            IFNULL(u.avatar, n.avatar) avatar
+        FROM
+            social_user_like sul
+            LEFT JOIN social_feed sf ON sf.id = sul.feed_id
+            LEFT JOIN user u ON u.id = sf.author_id AND sf.author_type = '0'
+            LEFT JOIN nutritionist n ON n.id = sf.author_id AND sf.author_type = '1'
+        WHERE
+            sul.user_id = #{userId}
+        ORDER BY sul.create_time DESC
+        LIMIT #{page}, #{size}
+    </select>
+
+    <update id="likePlusOne">
+        UPDATE social_feed
+        SET like_cnt = like_cnt + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="likeMinusOne">
+        UPDATE social_feed
+        SET like_cnt = like_cnt - 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>

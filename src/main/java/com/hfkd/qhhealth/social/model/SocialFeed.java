@@ -44,8 +44,9 @@ public class SocialFeed implements Serializable {
     /**是否私密：0否，1是*/
     @TableField("is_private")
     private String isPrivate;
-    /**序号*/
-    private Integer seq;
+    /**置顶时间*/
+    @TableField("topping_time")
+    private Date toppingTime;
     /**创建时间*/
     @TableField("create_time")
     private Date createTime;
@@ -134,14 +135,6 @@ public class SocialFeed implements Serializable {
         this.isPrivate = isPrivate;
     }
 
-    public Integer getSeq() {
-        return seq;
-    }
-
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -158,22 +151,41 @@ public class SocialFeed implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Date getToppingTime() {
+        return toppingTime;
+    }
+
+    public void setToppingTime(Date toppingTime) {
+        this.toppingTime = toppingTime;
+    }
+
+    public SocialFeed() {
+    }
+
+    public SocialFeed(Integer authorId, String authorType, String content, String img, String isPrivate) {
+        this.authorId = authorId;
+        this.authorType = authorType;
+        this.content = content;
+        this.img = img;
+        this.isPrivate = isPrivate;
+    }
+
     @Override
     public String toString() {
         return "SocialFeed{" +
-            "id=" + id +
-            ", authorId=" + authorId +
-            ", authorType=" + authorType +
-            ", title=" + title +
-            ", content=" + content +
-            ", img=" + img +
-            ", imgThumb=" + imgThumb +
-            ", cmtCnt=" + cmtCnt +
-            ", likeCnt=" + likeCnt +
-            ", isPrivate=" + isPrivate +
-            ", seq=" + seq +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            "}";
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", authorType='" + authorType + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", img='" + img + '\'' +
+                ", imgThumb='" + imgThumb + '\'' +
+                ", cmtCnt=" + cmtCnt +
+                ", likeCnt=" + likeCnt +
+                ", isPrivate='" + isPrivate + '\'' +
+                ", toppingTime=" + toppingTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

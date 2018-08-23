@@ -22,4 +22,19 @@
     ${alias}.create_time AS createTime,
     </sql>
 
+    <select id="getLikeId" resultType="Integer">
+        SELECT
+            id
+        FROM
+            social_user_like
+        WHERE
+            user_id = #{userId}
+        AND feed_id = #{feedId}
+    </select>
+
+    <delete id="delLike">
+        DELETE FROM social_user_like
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

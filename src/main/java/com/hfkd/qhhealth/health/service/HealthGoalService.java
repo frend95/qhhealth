@@ -10,4 +10,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface HealthGoalService extends IService<HealthGoal> {
 
+    Long computeRemainDays(String startTime, Integer period);
 }

@@ -18,10 +18,10 @@ import java.util.List;
 public class SysDisplayImgServiceImpl extends ServiceImpl<SysDisplayImgMapper, SysDisplayImg> implements SysDisplayImgService {
 
     @Override
-    public List<SysDisplayImg> getDisplayImg(String page, Integer group, Integer limit) {
+    public List<SysDisplayImg> getDisplayImg(String page, Integer groups, Integer limit) {
         EntityWrapper<SysDisplayImg> wrapper = new EntityWrapper<>();
         wrapper.eq("page", page)
-                .eq(group != null, "group", group)
+                .eq(groups != null, "groups", groups)
                 .orderBy("seq", true);
         if (limit != null) {
             wrapper.last("LIMIT " + limit);

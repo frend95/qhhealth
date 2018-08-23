@@ -20,7 +20,7 @@ public interface SocialUserFollowingMapper extends BaseMapper<SocialUserFollowin
      * 获取关注列表id
      * @param followingType 关注类型
      * @param userId 用户id
-     * @param followingId 营养师id
+     * @param followingId 被关注者id
      * @return 关注列表id
      */
     Integer getFollowLsId(@Param("followingType") String followingType,
@@ -39,4 +39,14 @@ public interface SocialUserFollowingMapper extends BaseMapper<SocialUserFollowin
                                             @Param("size") Integer size,
                                             @Param("userId") Integer userId,
                                             @Param("followingType") String followingType);
+
+    void followerPlusOne(@Param("id") Integer id,
+                         @Param("type") String type);
+
+    void followerMinusOne(@Param("id") Integer id,
+                          @Param("type") String type);
+
+    void followingPlusOne(@Param("id") Integer userId);
+
+    void followingMinusOne(@Param("id") Integer userId);
 }

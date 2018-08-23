@@ -61,7 +61,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         CustomJsonRedisSerializer fastJsonRedisSerializer = new CustomJsonRedisSerializer();
         return RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(fastJsonRedisSerializer))
-                .entryTtl(Duration.ofDays(7));
+                .entryTtl(Duration.ofHours(1));
     }
 
     //    @Bean

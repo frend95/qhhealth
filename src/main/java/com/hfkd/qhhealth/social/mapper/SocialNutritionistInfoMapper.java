@@ -42,8 +42,4 @@ public interface SocialNutritionistInfoMapper extends BaseMapper<SocialNutrition
      * @return Map{ id,name,bio,title,avatar,serviceCnt,followers,feedCnt,tutorialCnt }
      */
     Map<String, Object> getById(@Param("id") Integer id);
-
-    void followerPlusOne(@Param("id") Integer yysId);
-
-    void followerDivideOne(@Param("id") Integer yysId);
 }

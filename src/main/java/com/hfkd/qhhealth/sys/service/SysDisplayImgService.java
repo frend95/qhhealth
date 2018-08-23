@@ -15,9 +15,9 @@ public interface SysDisplayImgService extends IService<SysDisplayImg> {
     /**
      * 获取展示图片
      * @param page 页面类别
-     * @param group 组别
+     * @param groups 组别
      * @param limit limit
      * @return List<SysDisplayImg>
      */
-    List<SysDisplayImg> getDisplayImg(String page, Integer group, Integer limit);
+    List<SysDisplayImg> getDisplayImg(String page, Integer groups, Integer limit);
 }

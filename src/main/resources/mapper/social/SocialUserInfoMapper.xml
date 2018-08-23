@@ -30,4 +30,27 @@
     ${alias}.followers,
     </sql>
 
+    <update id="feedPlusOne">
+        UPDATE social_user_info
+        SET feed_cnt = feed_cnt + 1
+        WHERE
+        user_id = #{userId}
+    </update>
+
+    <select id="getSocialInfo" resultType="Map">
+        SELECT
+            u.user_id id,
+            u.name,
+            u.avatar,
+            u.feed_cnt feedCnt,
+            u.followers,
+            u.following,
+            hg.goal_weight goalWeight,
+            hg.start_time startTime,
+            hg.period
+        FROM
+            social_user_info u
+            LEFT JOIN health_goal hg ON u.user_id = hg.user_id
+        WHERE u.user_id = #{id}
+    </select>
 </mapper>

@@ -58,4 +58,51 @@
         LIMIT #{page}, #{size}
     </select>
 
+    <update id="followerPlusOne">
+        UPDATE
+        <if test='type == "0"'>
+            social_user_info
+        </if>
+        <if test='type == "1"'>
+            social_nutritionist_info
+        </if>
+        SET followers = followers + 1
+        WHERE
+        <if test='type == "0"'>
+            user_id = #{id}
+        </if>
+        <if test='type == "1"'>
+            nutritionist_id = #{id}
+        </if>
+    </update>
+
+    <update id="followerMinusOne">
+        UPDATE
+        <if test='type == "0"'>
+            social_user_info
+        </if>
+        <if test='type == "1"'>
+            social_nutritionist_info
+        </if>
+        SET followers = followers - 1
+        WHERE
+        <if test='type == "0"'>
+            user_id = #{id}
+        </if>
+        <if test='type == "1"'>
+            nutritionist_id = #{id}
+        </if>
+    </update>
+
+    <update id="followingPlusOne">
+        UPDATE social_user_info
+        SET following = following + 1
+        WHERE user_id = #{id}
+    </update>
+
+    <update id="followingMinusOne">
+        UPDATE social_user_info
+        SET following = following - 1
+        WHERE user_id = #{id}
+    </update>
 </mapper>

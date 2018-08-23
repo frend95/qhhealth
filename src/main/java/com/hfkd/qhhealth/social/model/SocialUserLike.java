@@ -1,11 +1,12 @@
 package com.hfkd.qhhealth.social.model;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户点赞 Model
@@ -60,6 +61,14 @@ public class SocialUserLike implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public SocialUserLike() {
+    }
+
+    public SocialUserLike(Integer userId, Integer feedId) {
+        this.userId = userId;
+        this.feedId = feedId;
     }
 
     @Override
