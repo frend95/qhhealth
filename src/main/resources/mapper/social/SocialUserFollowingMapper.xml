@@ -35,27 +35,49 @@
         AND following_type = #{followingType}
     </select>
 
-    <select id="getFollowingLs" resultType="Map">
+    <select id="getFollowingLs" resultType="com.hfkd.qhhealth.social.model.FollowVo">
         SELECT
-            f.id,
-            f.user_id userId,
             f.following_id followingId,
-            u.name followingName,
-            u.avatar,
-            f.following_type followingType
+            IFNULL(u.name, n.name) followingName,
+            IFNULL(u.avatar, n.avatar) avatar,
+            f.following_type followingType,
+            <choose>
+                <when test="currId != userId">
+                    IF(f2.id is NULL, FALSE, TRUE) isFollow
+                </when>
+                <otherwise>
+                    TRUE isFollow
+                </otherwise>
+            </choose>
         FROM
             social_user_following f
-        <if test='followingType == "0"'>
-            LEFT JOIN user u ON f.following_id = u.id
-        </if>
-        <if test='followingType == "1"'>
-            LEFT JOIN nutritionist u ON f.following_id = u.id
-        </if>
+            LEFT JOIN user u ON f.following_id = u.id AND f.following_type = '0'
+            LEFT JOIN nutritionist n ON f.following_id = n.id AND f.following_type = '1'
+            <if test="currId != userId">
+                LEFT JOIN social_user_following f2 ON f2.user_id = ${currId} AND f2.following_id = f.following_id AND f2.following_type = f.following_type
+            </if>
         WHERE
             f.user_id = #{userId}
-        AND f.following_type = #{followingType}
         ORDER BY f.create_time DESC
-        LIMIT #{page}, #{size}
+        LIMIT #{pageVo.page}, #{pageVo.size}
+    </select>
+
+    <select id="getFollowers" resultType="com.hfkd.qhhealth.social.model.FollowVo">
+        SELECT
+            u.id followingId,
+            u.name followingName,
+            u.avatar avatar,
+            '0' followingType,
+            IF(f2.id is NULL, FALSE, TRUE) isFollow
+        FROM
+            social_user_following f
+            LEFT JOIN user u ON f.user_id = u.id
+            LEFT JOIN social_user_following f2 ON f2.user_id = ${currId} AND f2.following_id = f.user_id AND f2.following_type = '0'
+        WHERE
+            f.following_id = #{id}
+        AND f.following_type = #{type}
+        ORDER BY f.create_time DESC
+        LIMIT #{pageVo.page}, #{pageVo.size}
     </select>
 
     <update id="followerPlusOne">

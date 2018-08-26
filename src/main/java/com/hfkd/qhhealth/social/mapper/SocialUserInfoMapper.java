@@ -17,5 +17,7 @@ public interface SocialUserInfoMapper extends BaseMapper<SocialUserInfo> {
     
     void feedPlusOne(@Param("userId") Integer userId);
 
+    void feedMinusOne(@Param("userId") Integer userId);
+
     Map<String, Object> getSocialInfo(@Param("id") Integer id);
 }

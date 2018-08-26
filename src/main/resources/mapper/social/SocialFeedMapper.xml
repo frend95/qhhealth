@@ -154,6 +154,7 @@
             sf.cmt_cnt cmtCnt,
             sf.like_cnt likeCnt,
             sf.create_time createTime,
+            TRUE isLike,
             IFNULL(u.name, n.name) name,
             IFNULL(u.avatar, n.avatar) avatar
         FROM

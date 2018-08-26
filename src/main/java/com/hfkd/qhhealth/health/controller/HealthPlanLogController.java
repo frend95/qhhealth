@@ -39,6 +39,7 @@ public class HealthPlanLogController {
     @Autowired
     private HealthPlanIntakeMapper intakeMapper;
 
+    /**本应该存手机的固定icon，全部从服务器获取，美名其曰减少包大小，其实也就十几k，什么垃圾前端*/
     private static final String ICON_BREAKFAST = "https://app.xintianhong888.com/img/breakfast_icon.jpg";
     private static final String ICON_LUNCH = "https://app.xintianhong888.com/img/lunch_icon.jpg";
     private static final String ICON_DINNER = "https://app.xintianhong888.com/img/dinner_icon.jpg";

@@ -3,6 +3,7 @@ package com.hfkd.qhhealth.social.controller;
 
 import com.hfkd.qhhealth.comment.model.Comment;
 import com.hfkd.qhhealth.comment.service.CommentService;
+import com.hfkd.qhhealth.common.annotation.CacheRefresh;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
@@ -17,6 +18,7 @@ import com.hfkd.qhhealth.social.mapper.SocialUserLikeMapper;
 import com.hfkd.qhhealth.social.model.SocialFeed;
 import com.hfkd.qhhealth.social.model.SocialFeedVo;
 import com.hfkd.qhhealth.social.service.SocialFeedService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,6 +85,7 @@ public class SocialFeedController {
         socialInfo.put("feeds", userFeeds);
         socialInfo.put("isFollow", isFollow);
         socialInfo.put("hiddenBtn", hiddenBtn);
+        socialInfo.put("img", "https://app.xintianhong888.com/img/social.jpg");
         return RspUtil.ok(socialInfo);
     }
 
@@ -114,18 +117,31 @@ public class SocialFeedController {
     @LogOut("查看动态详情")
     @RequestMapping("/feedDetail")
     public Map<String, Object> feedDetail(Integer id) {
-        Integer currId = session.getCurrId();
         SocialFeedVo feed = feedMapper.getFeed(id);
+        if (feed == null) {
+            return RspUtil.error("该动态已删除");
+        }
+        Integer currId = session.getCurrId();
+        Integer authorId = feed.getAuthorId();
+        String authorType = feed.getAuthorType();
         // 查询最近的10条评论
         List<Comment> comments = commentService.getFullCmt(ConstVal.CONTENT_TYPE_FEED, 0, 10, id);
         feed.setComments(comments);
         // 查询是否点赞
-        Boolean isLike = currId != null && userLikeMapper.getLikeId(currId, id) != null;
+        Boolean isLike = userLikeMapper.getLikeId(currId, id) != null;
         feed.setIsLike(isLike);
         // 查询是否关注
-        boolean isFollow = currId != null
-                && followingMapper.getFollowLsId(feed.getAuthorType(), currId, feed.getAuthorId()) != null;
+        boolean isFollow = false;
+        // 判断是否隐藏关注按钮，竟然还要后台判断，什么鬼前端 -_-#
+        boolean hiddenBtn = false;
+        if (authorType.equals(ConstVal.USER) && currId.equals(authorId)) {
+            hiddenBtn = true;
+        } else {
+            // 查询是否关注
+            isFollow = followingMapper.getFollowLsId(authorType, currId, authorId) != null;
+        }
         feed.setIsFollow(isFollow);
+        feed.setHiddenBtn(hiddenBtn);
         return RspUtil.ok(feed);
     }
 
@@ -147,6 +163,26 @@ public class SocialFeedController {
         feedMapper.insert(feed);
         // 动态数加一
         userInfoMapper.feedPlusOne(currId);
+        return RspUtil.ok();
+    }
+
+    @LogOut("删除动态")
+    @CacheRefresh
+    @RequestMapping("/delFeed")
+    public Map<String, Object> delFeed(Integer id) throws IOException {
+        SocialFeedVo feed = feedMapper.getFeed(id);
+        // 删除文件
+        String[] imgs = feed.getImgs();
+        if (ArrayUtils.isNotEmpty(imgs)) {
+            for (String url : imgs) {
+                String path = imgPath + FileUtil.getFilePathFromUrl(url);
+                FileUtil.delFile(path);
+            }
+        }
+        // 删除动态
+        feedMapper.deleteById(id);
+        // 动态数减一
+        userInfoMapper.feedMinusOne(feed.getAuthorId());
         return RspUtil.ok();
     }
 

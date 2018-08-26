@@ -47,6 +47,8 @@ public class SocialFeedVo implements Serializable {
     private Boolean isLike;
     /**是否关注*/
     private Boolean isFollow;
+    /**隐藏关注按钮，竟然还要后台判断，这android开发真垃圾 -_-# */
+    private Boolean hiddenBtn;
 
 
     public Integer getId() {
@@ -162,6 +164,14 @@ public class SocialFeedVo implements Serializable {
 
     public void setIsFollow(Boolean follow) {
         isFollow = follow;
+    }
+
+    public Boolean getHiddenBtn() {
+        return hiddenBtn;
+    }
+
+    public void setHiddenBtn(Boolean hiddenBtn) {
+        this.hiddenBtn = hiddenBtn;
     }
 
     @Override

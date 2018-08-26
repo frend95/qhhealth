@@ -34,7 +34,14 @@
         UPDATE social_user_info
         SET feed_cnt = feed_cnt + 1
         WHERE
-        user_id = #{userId}
+            user_id = #{userId}
+    </update>
+
+    <update id="feedMinusOne">
+        UPDATE social_user_info
+        SET feed_cnt = feed_cnt - 1
+        WHERE
+            user_id = #{userId}
     </update>
 
     <select id="getSocialInfo" resultType="Map">

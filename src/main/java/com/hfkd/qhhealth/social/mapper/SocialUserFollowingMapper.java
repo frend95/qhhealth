@@ -1,12 +1,13 @@
 package com.hfkd.qhhealth.social.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.hfkd.qhhealth.common.Model.PageVo;
+import com.hfkd.qhhealth.social.model.FollowVo;
 import com.hfkd.qhhealth.social.model.SocialUserFollowing;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户关注 Mapper
@@ -29,16 +30,18 @@ public interface SocialUserFollowingMapper extends BaseMapper<SocialUserFollowin
 
     /**
      * 获取关注列表
-     * @param page 页码
-     * @param size limit
+     * @param pageVo 分页对象
      * @param userId 用户id
-     * @param followingType 关注类型
-     * @return List<Map{ id,userId,followingId,followingName,followingType }>
+     * @return List<FollowVo>
      */
-    List<Map<String,Object>> getFollowingLs(@Param("page") Integer page,
-                                            @Param("size") Integer size,
-                                            @Param("userId") Integer userId,
-                                            @Param("followingType") String followingType);
+    List<FollowVo> getFollowingLs(@Param("pageVo") PageVo pageVo,
+                                  @Param("userId") Integer userId,
+                                  @Param("currId") Integer currId);
+
+    List<FollowVo> getFollowers(@Param("pageVo") PageVo pageVo,
+                                          @Param("id") Integer id,
+                                          @Param("currId") Integer currId,
+                                          @Param("type") String type);
 
     void followerPlusOne(@Param("id") Integer id,
                          @Param("type") String type);

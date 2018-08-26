@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-
 /**
  * @author hexq
  * @date 2018/6/5 17:53
@@ -26,7 +24,7 @@ public class TestController {
     private NutritionistService yysService;
 
     @RequestMapping("/1")
-    public void test1(Integer id, BigDecimal weight) throws Exception {
+    public void test1() throws Exception {
         /*redis.opsForValue().set("test", "100",60*10, TimeUnit.SECONDS);//向redis里存入数据和设置缓存时间
         redis.boundValueOps("test").increment(-1);//val做-1操作
         redis.opsForValue().get("test");//根据key获取缓存中的val
