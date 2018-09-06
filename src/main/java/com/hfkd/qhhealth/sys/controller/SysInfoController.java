@@ -3,7 +3,7 @@ package com.hfkd.qhhealth.sys.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.sys.mapper.SysInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +46,7 @@ public class SysInfoController {
 
     @LogOut("关于我们")
     @RequestMapping("/about")
-    public Map<String, Object> about() {
+    public Map about() {
         Map<String, Object> map = new HashMap<>(8);
 
         map.put("icon", infoMapper.getVariable(iconCode));
@@ -55,19 +55,19 @@ public class SysInfoController {
         map.put("weibo", infoMapper.getVariable(weiboCode));
         map.put("contact", infoMapper.getVariable(contactCode));
 
-        return RspUtil.ok(map);
+        return RspEntity.ok(map);
     }
 
     @LogOut("用户协议")
     @RequestMapping("/agreement")
-    public Map<String, Object> agreement() {
-        return RspUtil.ok(infoMapper.getVariable(agreementCode));
+    public Map agreement() {
+        return RspEntity.ok(infoMapper.getVariable(agreementCode));
     }
 
     @LogOut("检查更新")
     @RequestMapping("/checkUpdate")
-    public Map<String, Object> checkUpdate(Integer version) {
-        Map<String, Object> resultMap = RspUtil.ok();
+    public Map checkUpdate(Integer version) {
+        Map<String, Object> resultMap = RspEntity.ok();
         String packageUrl = null;
         boolean newVersion = false;
         String msg = "当前为最新版本";

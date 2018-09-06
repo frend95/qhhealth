@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.nutritionist.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistLetterMapper;
@@ -50,37 +50,37 @@ public class NutritionistController {
     @LogOut("查询营养师列表")
     @Verify(hasSession = true)
     @RequestMapping("/list")
-    public Map<String, Object> list(Integer page, Integer size, String name) {
+    public Map list(Integer page, Integer size, String name) {
         Integer currId = session.getCurrId();
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         List<Map<String, Object>> yysList = socialYysInfoMapper.getYysList(page, size, name, currId);
-        return RspUtil.ok(yysList);
+        return RspEntity.ok(yysList);
     }
 
     @LogOut("查询推荐营养师")
     @Verify
     @RequestMapping("/recommend")
-    public Map<String, Object> recommend() {
-        return RspUtil.ok(yysService.recommendYys());
+    public Map recommend() {
+        return RspEntity.ok(yysService.recommendYys());
     }
 
     @LogOut("查询热门营养师")
     @Verify
     @RequestMapping("/popular")
-    public Map<String, Object> popular() {
-        return RspUtil.ok(yysMapper.popularYys());
+    public Map popular() {
+        return RspEntity.ok(yysMapper.popularYys());
     }
 
     @LogOut("查询营养师详情")
     @Verify(hasSession = true)
     @RequestMapping("/detail")
-    public Map<String, Object> detail(Integer id) {
+    public Map detail(Integer id) {
         Integer currId = session.getCurrId();
         // 查询营养师社圈信息
         Map<String, Object> yysMap = socialYysInfoMapper.getById(id);
         if (yysMap == null) {
-            return RspUtil.error("该营养师不存在");
+            return RspEntity.error("该营养师不存在");
         }
         // 查询是否关注该营养师
         boolean isFollow = currId != null && userFollowingMapper.getFollowLsId(ConstVal.YYS, currId, id) != null;
@@ -96,7 +96,7 @@ public class NutritionistController {
         yysMap.put("video", video);
         yysMap.put("letter", letter == null ? null : letter.getUrl());
 
-        return RspUtil.ok(yysMap);
+        return RspEntity.ok(yysMap);
     }
 
 

@@ -8,7 +8,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.util.FileUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.health.service.HealthGoalService;
 import com.hfkd.qhhealth.social.mapper.SocialFeedMapper;
@@ -63,7 +63,7 @@ public class SocialFeedController {
 
     @LogOut("查看用户动态主页")
     @RequestMapping("/feedHome")
-    public Map<String, Object> feedHome(Integer id) {
+    public Map feedHome(Integer id) {
         Integer currId = session.getCurrId();
         boolean isFollow = false;
         boolean hiddenBtn = false;
@@ -86,21 +86,21 @@ public class SocialFeedController {
         socialInfo.put("isFollow", isFollow);
         socialInfo.put("hiddenBtn", hiddenBtn);
         socialInfo.put("img", "https://app.xintianhong888.com/img/social.jpg");
-        return RspUtil.ok(socialInfo);
+        return RspEntity.ok(socialInfo);
     }
 
     @LogOut("查看首页动态列表")
     @RequestMapping("/homeFeeds")
-    public Map<String, Object> homeFeeds(Integer page, Integer size) {
+    public Map homeFeeds(Integer page, Integer size) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         List<Map<String, Object>> feeds = feedService.getPlazaFeeds(page, size);
-        return RspUtil.ok(feeds);
+        return RspEntity.ok(feeds);
     }
 
     @LogOut("查看动态列表")
     @RequestMapping("/feeds")
-    public Map<String, Object> userFeeds(Integer id, String type, Integer page, Integer size) {
+    public Map userFeeds(Integer id, String type, Integer page, Integer size) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
@@ -111,15 +111,15 @@ public class SocialFeedController {
         } else if (ConstVal.YYS.equals(type)) {
             feeds = feedMapper.getYysFeeds(id, currId, page, size);
         }
-        return RspUtil.ok(feeds);
+        return RspEntity.ok(feeds);
     }
 
     @LogOut("查看动态详情")
     @RequestMapping("/feedDetail")
-    public Map<String, Object> feedDetail(Integer id) {
+    public Map feedDetail(Integer id) {
         SocialFeedVo feed = feedMapper.getFeed(id);
         if (feed == null) {
-            return RspUtil.error("该动态已删除");
+            return RspEntity.error("该动态已删除");
         }
         Integer currId = session.getCurrId();
         Integer authorId = feed.getAuthorId();
@@ -142,20 +142,20 @@ public class SocialFeedController {
         }
         feed.setIsFollow(isFollow);
         feed.setHiddenBtn(hiddenBtn);
-        return RspUtil.ok(feed);
+        return RspEntity.ok(feed);
     }
 
     @LogOut("发布动态")
     @RequestMapping("/newFeed")
-    public Map<String, Object> newFeed(String content, String isPrivate, List<MultipartFile> img) throws IOException {
+    public Map newFeed(String content, String isPrivate, List<MultipartFile> img) throws IOException {
         if (StringUtils.isBlank(content) && (img == null || img.size() == 0)) {
-            return RspUtil.error("请填写动态内容");
+            return RspEntity.error("请填写动态内容");
         }
         if (StringUtils.length(content) > 500) {
-            return RspUtil.error("内容超出限制");
+            return RspEntity.error("内容超出限制");
         }
         if (img.size() > 9) {
-            return RspUtil.error("图片数量超出限制");
+            return RspEntity.error("图片数量超出限制");
         }
         Integer currId = session.getCurrId();
         String imgStr = FileUtil.upload(img, imgPath, imgDomain, true, true);
@@ -163,13 +163,13 @@ public class SocialFeedController {
         feedMapper.insert(feed);
         // 动态数加一
         userInfoMapper.feedPlusOne(currId);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
     @LogOut("删除动态")
     @CacheRefresh
     @RequestMapping("/delFeed")
-    public Map<String, Object> delFeed(Integer id) throws IOException {
+    public Map delFeed(Integer id) throws IOException {
         SocialFeedVo feed = feedMapper.getFeed(id);
         // 删除文件
         String[] imgs = feed.getImgs();
@@ -185,7 +185,7 @@ public class SocialFeedController {
         userInfoMapper.feedMinusOne(feed.getAuthorId());
         // 删除此条动态的点赞记录
         userLikeMapper.delLikeByFeed(id);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
 }

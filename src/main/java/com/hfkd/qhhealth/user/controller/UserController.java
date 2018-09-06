@@ -53,16 +53,16 @@ public class UserController {
 
     @LogOut("更新昵称")
     @RequestMapping("/updName")
-    public Map<String, Object> updName(String name) {
+    public Map updName(String name) {
         // 检查名称是否合法
         if (StringUtils.isBlank(name)
                 || name.length() < 2
                 || name.length() > 20
                 || name.replaceAll("^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$", "").length() != 0) {
-            return RspUtil.error("昵称不符合要求");
+            return RspEntity.error("昵称不符合要求");
         }
         if (userMapper.getIdByName(name).size() > 0) {
-            return RspUtil.error("此昵称已被使用");
+            return RspEntity.error("此昵称已被使用");
         }
         Integer currId = session.getCurrId();
         User user = new User();
@@ -70,14 +70,14 @@ public class UserController {
         user.setName(name);
         userService.updateById(user);
         socialUserInfoService.updSocialName(currId, name, null);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
     @LogOut("更新头像")
     @RequestMapping("/updAvatar")
-    public Map<String, Object> updAvatar(MultipartFile avatar) throws IOException {
+    public Map updAvatar(MultipartFile avatar) throws IOException {
         if (avatar == null || avatar.isEmpty()) {
-            return RspUtil.error("头像不能为空");
+            return RspEntity.error("头像不能为空");
         }
         // 上传并更新头像
         String filename = FileUtil.upload(avatar, avatarPath, true, false);
@@ -89,13 +89,13 @@ public class UserController {
         user.setAvatar(avatarUrl);
         userService.updateById(user);
         socialUserInfoService.updSocialName(currId, null, avatarUrl);
-        return RspUtil.okKey("avatar", avatarUrl);
+        return RspEntity.okKey("avatar", avatarUrl);
     }
 
     @LogOut("新用户完善信息")
     @RequestMapping("/completeInfo")
-    public Map<String, Object> completeInfo(String birthday, BigDecimal weight, Integer height, String gender,
-                                            String goalType, BigDecimal goalWeight, Integer period) {
+    public Map completeInfo(String birthday, BigDecimal weight, Integer height, String gender, String goalType,
+                            BigDecimal goalWeight, Integer period) {
         if (StringUtils.isBlank(birthday)
                 || StringUtils.isBlank(gender)
                 || StringUtils.isBlank(goalType)
@@ -103,7 +103,7 @@ public class UserController {
                 || height == null
                 || goalWeight == null
                 || period == null) {
-            return RspUtil.error("信息不完整");
+            return RspEntity.error("信息不完整");
         }
 
         UserSession currUser = session.getCurrUser();
@@ -135,7 +135,7 @@ public class UserController {
         userService.completeInfo(user, healthGoal, socialUserInfo);
         // 查询用户详情
         Map<String, Object> userDetail = userService.getUserDetail(id);
-        Map<String, Object> rspMap = RspUtil.ok();
+        Map<String, Object> rspMap = RspEntity.ok();
         rspMap.put("result", userDetail);
         rspMap.put("contact", sysInfoMapper.getVariable(contactCode));
         return rspMap;
@@ -143,15 +143,15 @@ public class UserController {
 
     @LogOut("更新密码")
     @RequestMapping("/updatePwd")
-    public Map<String, Object> updatePwd(String oldPassword, String newPassword) {
+    public Map updatePwd(String oldPassword, String newPassword) {
         if (StringUtils.isBlank(newPassword) || StringUtils.isBlank(oldPassword)) {
-            return RspUtil.error("信息不完整");
+            return RspEntity.error("信息不完整");
         }
         if (newPassword.length() < 6) {
-            return RspUtil.error("密码不能小于6位");
+            return RspEntity.error("密码不能小于6位");
         }
         if (oldPassword.equals(newPassword)) {
-            return RspUtil.error("新旧密码不能相同");
+            return RspEntity.error("新旧密码不能相同");
         }
         Integer userId = session.getCurrId();
         User user = userService.selectById(userId);
@@ -164,14 +164,14 @@ public class UserController {
         String oldPwdSalt = DigestUtil.pwdSalt(oldPwdMd5, salt);
         // 校验旧密码是否正确
         if (!oldPwdSaltDb.equals(oldPwdSalt)) {
-            return RspUtil.error("旧密码不正确");
+            return RspEntity.error("旧密码不正确");
         }
         // 计算新密码md5
         String newPwdMd5 = DigestUtil.md5(newPassword);
         String newPwdSalt = DigestUtil.pwdSalt(newPwdMd5, salt);
         user.setPassword(newPwdSalt);
         userService.updateById(user);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
 }

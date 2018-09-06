@@ -3,7 +3,7 @@ package com.hfkd.qhhealth.nutritionist.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.nutritionist.model.NutritionistLetter;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistLetterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class NutritionistLetterController {
     @LogOut("查询给客户的信")
     @Verify
     @RequestMapping("/letter")
-    public Map<String, Object> letter(Integer id) {
+    public Map letter(Integer id) {
         NutritionistLetter letter = letterService.selectById(id);
-        return RspUtil.ok(letter.getUrl());
+        return RspEntity.ok(letter.getUrl());
     }
 }

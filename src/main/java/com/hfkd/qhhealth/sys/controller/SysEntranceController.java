@@ -5,7 +5,7 @@ import com.hfkd.qhhealth.article.mapper.ArticleMapper;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.nutritionist.mapper.NutritionistCaseMapper;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import com.hfkd.qhhealth.social.service.SocialFeedService;
@@ -49,7 +49,7 @@ public class SysEntranceController {
     @Verify
     @Cacheable("API_CACHE")
     @RequestMapping("/homepage")
-    public Map<String, Object> homepage() {
+    public Map homepage() {
         // 查询6条banner
         List<SysDisplayImg> banner = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_TUTORIAL, null, 6);
         // 推荐营养师
@@ -65,7 +65,7 @@ public class SysEntranceController {
         // 查询减肥小窍门标签
         List<Map<String, Object>> articleTags = entranceMapper.getEntrance(ConstVal.IMG_PAGE_TUTORIAL);
 
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("banner", banner);
         resultMap.put("recommendYys", recommendYys);
         resultMap.put("video", video);
@@ -77,23 +77,23 @@ public class SysEntranceController {
 
     @LogOut("查询启动页")
     @RequestMapping("/startPage")
-    public Map<String, Object> startPage() {
+    public Map startPage() {
         List<SysDisplayImg> splash = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_SPLASH, null, null);
-        return RspUtil.ok(splash.get(0));
+        return RspEntity.ok(splash.get(0));
     }
 
     @LogOut("查询引导页")
     @RequestMapping("/onboardingPage")
-    public Map<String, Object> onboardingPage() {
+    public Map onboardingPage() {
         List<SysDisplayImg> onboarding = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_ONBOARDING, null, null);
-        return RspUtil.ok(onboarding);
+        return RspEntity.ok(onboarding);
     }
 
     @LogOut("查询案例页")
     @Verify
     @Cacheable("API_CACHE")
     @RequestMapping("/casePage")
-    public Map<String, Object> casePage() {
+    public Map casePage() {
         // 查询3张banner
         List<SysDisplayImg> banner = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_CASE, null, 3);
         // 查询1条客户案例视频
@@ -104,7 +104,7 @@ public class SysEntranceController {
         // 查询案例分类标签
         List<Map<String, Object>> videoTags = entranceMapper.getEntrance(ConstVal.IMG_PAGE_CASE);
 
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("banner", banner);
         resultMap.put("video", video.get(0));
         resultMap.put("cases", cases);
@@ -116,7 +116,7 @@ public class SysEntranceController {
     @Verify
     @Cacheable("API_CACHE")
     @RequestMapping("/socialPage")
-    public Map<String, Object> socialPage() {
+    public Map socialPage() {
         // 查询6张banner
         List<SysDisplayImg> banner = displayImgService.getDisplayImg(ConstVal.IMG_PAGE_SOCIAL, 1, 6);
         // 查询5条最近的营养师动态
@@ -126,7 +126,7 @@ public class SysEntranceController {
         // 查询10条动态
         List<Map<String, Object>> feeds = feedService.getPlazaFeeds(0, 10);
 
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("banner", banner);
         resultMap.put("yysFeeds", yysFeeds);
         resultMap.put("feature", feature);

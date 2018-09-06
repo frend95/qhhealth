@@ -5,7 +5,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.util.PinyinUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.health.mapper.HealthPlanItemMapper;
 import com.hfkd.qhhealth.health.model.HealthPlanItem;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +34,7 @@ public class HealthPlanItemController {
 
     @LogOut("查询参考食物列表")
     @RequestMapping("/foods")
-    public Map<String, Object> foods(Integer page, Integer size, String sort, String name) {
+    public Map foods(Integer page, Integer size, String sort, String name) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         List<HealthPlanItem> foods;
@@ -43,13 +43,13 @@ public class HealthPlanItemController {
         } else {
             foods = planItemMapper.getFoods(page, size, sort, name);
         }
-        return RspUtil.ok(foods);
+        return RspEntity.ok(foods);
     }
 
     @LogOut("查询参考食物分类")
     @RequestMapping("/foodSort")
     @Cacheable("API_CACHE")
-    public Map<String, Object> foodSort() {
+    public Map foodSort() {
         ArrayList<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> map1 = new HashMap<>(4);
@@ -92,7 +92,7 @@ public class HealthPlanItemController {
         map8.put("sort", ConstEnum.FOOD_OTHER.eval());
         list.add(map8);
 
-        return RspUtil.ok(list);
+        return RspEntity.ok(list);
     }
 
 

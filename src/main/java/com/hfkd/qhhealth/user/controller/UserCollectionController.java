@@ -5,7 +5,7 @@ import com.hfkd.qhhealth.article.mapper.ArticleMapper;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserCollectionMapper;
 import com.hfkd.qhhealth.video.mapper.VideoMapper;
@@ -36,12 +36,12 @@ public class UserCollectionController {
 
     @LogOut("收藏视频或文章")
     @RequestMapping("/collect")
-    public Map<String, Object> collect(String type, Integer id) {
+    public Map collect(String type, Integer id) {
         Integer currId = session.getCurrId();
         Integer clctId = collectionMapper.getClctId(type, currId, id);
         if (clctId != null) {
             collectionMapper.delCollection(type, clctId);
-            return RspUtil.ok("isCollect", false, "取消收藏成功");
+            return RspEntity.ok("isCollect", false, "取消收藏成功");
         }
 
         Map<String, Object> brief;
@@ -53,23 +53,23 @@ public class UserCollectionController {
                 brief = videoMapper.getVideoBrief(id);
                 break;
             default:
-                return RspUtil.error("类型错误");
+                return RspEntity.error("类型错误");
         }
         String title = (String) brief.get("title");
         String thumb = (String) brief.get("thumb");
 
         collectionMapper.addCollection(type, currId, id, title, thumb);
 
-        return RspUtil.ok("isCollect", true, "收藏成功");
+        return RspEntity.ok("isCollect", true, "收藏成功");
     }
 
     @LogOut("查询收藏的视频或文章")
     @RequestMapping("/collection")
-    public Map<String, Object> collection(Integer page, Integer size, String type) {
+    public Map collection(Integer page, Integer size, String type) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
         List<Map<String, Object>> ls = collectionMapper.getCollection(type, page, size, currId);
-        return RspUtil.ok(ls);
+        return RspEntity.ok(ls);
     }
 }

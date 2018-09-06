@@ -57,8 +57,8 @@ public class SysLoginController {
 
     @LogOut("登陆")
 	@RequestMapping("/login")
-	public Map<String, Object> login(String account, String password) {
-        Map<String, Object> errorMsg = RspUtil.error("登陆信息错误");
+	public Map login(String account, String password) {
+        Map<String, Object> errorMsg = RspEntity.error("登陆信息错误");
         if (StringUtils.isBlank(account) || StringUtils.isBlank(password)) {
             return errorMsg;
         }
@@ -75,7 +75,7 @@ public class SysLoginController {
             return errorMsg;
         }
         if (ConstVal.USER_STATUS_DISABLE.equals(user.getStatus())) {
-            return RspUtil.error("该用户已停用，请联系客服");
+            return RspEntity.error("该用户已停用，请联系客服");
         }
         // 查询用户详情
         Map<String, Object> userDetail = userService.getUserDetail(id);
@@ -92,7 +92,7 @@ public class SysLoginController {
         // 将用户session放入redis并设置ttl
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("result", userDetail);
         resultMap.put("token", token);
         resultMap.put("contact", sysInfoMapper.getVariable(contactCode));
@@ -101,10 +101,10 @@ public class SysLoginController {
 
     @LogOut("验证登陆状态")
     @RequestMapping("/verify")
-    public Map<String, Object> verify(HttpServletRequest request) {
+    public Map verify(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (StringUtils.isBlank(token)) {
-            return RspUtil.error();
+            return RspEntity.error();
         }
         String[] split = token.split("_");
         String sessionKey = prefix + split[0];
@@ -113,29 +113,29 @@ public class SysLoginController {
         //String sessionStr = RedisUtil.getEx(sessionKey, timeout);
         String oriTokenDb = (String) redis.opsForHash().get(sessionKey, "token");
         if (StringUtils.isBlank(oriTokenDb) || !oriToken.equals(oriTokenDb)) {
-            return RspUtil.unauthorized("登陆状态过期，请重新登陆");
+            return RspEntity.unauthorized("登陆状态过期，请重新登陆");
         }
         redis.expire(sessionKey, timeout, TimeUnit.SECONDS);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
     @LogOut("用户注册")
     @RequestMapping("/register")
-    public Map<String, Object> register(MultipartFile avatar, String phone, String password, String code) throws IOException {
+    public Map register(MultipartFile avatar, String phone, String password, String code) throws IOException {
         // 验证短信验证码
         if (!redis.hasKey(phone + code)) {
-            return RspUtil.error("验证码错误");
+            return RspEntity.error("验证码错误");
         }
         if (StringUtils.isBlank(phone) || StringUtils.isBlank(password) || StringUtils.isBlank(code)) {
-            return RspUtil.error("信息不完整");
+            return RspEntity.error("信息不完整");
         }
         if (password.length() < 6) {
-            return RspUtil.error("密码不能小于6位");
+            return RspEntity.error("密码不能小于6位");
         }
         // 查询手机号是否已注册
         User userDb = userService.getByAccount(phone);
         if (userDb != null) {
-            return RspUtil.error("该号码已被注册");
+            return RspEntity.error("该号码已被注册");
         }
 
         User user = new User();
@@ -167,44 +167,44 @@ public class SysLoginController {
         String sessionKey = prefix + id;
         String token = sessionUtil.setUniqueSession(userSession, sessionKey, timeout);
 
-        return RspUtil.okKey("token", token);
+        return RspEntity.okKey("token", token);
     }
 
     @LogOut("获取验证码")
     @RequestMapping("/getCode")
-    public Map<String, Object> getCode(String phone, Boolean isReset) {
+    public Map getCode(String phone, Boolean isReset) {
         if (StringUtils.isBlank(phone)) {
-            return RspUtil.error();
+            return RspEntity.error();
         }
         // 查询手机号是否已注册
         isReset = isReset == null ? false : isReset;
         User userDb = userService.getByAccount(phone);
         if (userDb != null && !isReset) {
-            return RspUtil.error("该号码已被注册");
+            return RspEntity.error("该号码已被注册");
         }
         if (userDb == null && isReset) {
-            return RspUtil.error("该号码不存在");
+            return RspEntity.error("该号码不存在");
         }
         String code = RandomUtil.getRandom();
         String resp = SmsUtil.send(phone, code);
         if (!"0".equals(resp)) {
-            return RspUtil.error("发送失败，错误码：" + resp);
+            return RspEntity.error("发送失败，错误码：" + resp);
         }
         // 放入redis并设置ttl
         String codeKey = phone + code;
         redis.opsForValue().set(codeKey, "", smsTimeout, TimeUnit.MINUTES);
-        return RspUtil.okMsg("发送成功");
+        return RspEntity.okMsg("发送成功");
     }
 
     @LogOut("重置密码")
     @RequestMapping("/resetPwd")
-    public Map<String, Object> resetPwd(String phone, String password, String code) {
+    public Map resetPwd(String phone, String password, String code) {
         if (password.length() < 6) {
-            return RspUtil.error("密码不能小于6位");
+            return RspEntity.error("密码不能小于6位");
         }
         // 验证短信验证码
         if (!redis.hasKey(phone + code)) {
-            return RspUtil.error("验证码错误");
+            return RspEntity.error("验证码错误");
         }
         User user = userService.getByAccount(phone);
         String oldPwdSaltDb = user.getPassword();
@@ -215,11 +215,11 @@ public class SysLoginController {
         String newPwdSalt = DigestUtil.pwdSalt(pwdMd5, salt);
         // 校验新旧密码是否相同
         if (oldPwdSaltDb.equals(newPwdSalt)) {
-            return RspUtil.error("新密码不能与原密码相同");
+            return RspEntity.error("新密码不能与原密码相同");
         }
         user.setPassword(newPwdSalt);
         userService.updateById(user);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
 }

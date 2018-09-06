@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.RedisUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.user.model.UserSession;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -204,7 +204,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
     }
 
     private void outPrint(HttpServletResponse response, String msg) throws IOException {
-        Map<String, Object> returnMap = RspUtil.unauthorized(msg);
+        Map<String, Object> returnMap = RspEntity.unauthorized(msg);
         JSONObject returnJson = new JSONObject(returnMap);
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = response.getWriter();

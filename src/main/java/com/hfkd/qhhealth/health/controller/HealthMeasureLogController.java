@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.health.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.health.mapper.HealthMeasureLogMapper;
 import com.hfkd.qhhealth.health.model.HealthMeasureLog;
@@ -40,7 +40,7 @@ public class HealthMeasureLogController {
 
     @LogOut("查询体脂秤记录")
     @RequestMapping("/log")
-    public Map<String, Object> log() {
+    public Map log() {
         Integer currId = session.getCurrId();
         HealthMeasureLog recentLog = measureLogMapper.getRecentLog(currId);
         boolean hasData = recentLog != null;
@@ -52,17 +52,17 @@ public class HealthMeasureLogController {
         age = age == null ? 30 : age;
         List<Map<String, Object>> list = measureLogService.buildLog(recentLog, gender, age);
 
-        Map<String, Object> resultMap = RspUtil.ok(list);
+        Map<String, Object> resultMap = RspEntity.ok(list);
         resultMap.put("hasData", hasData);
         return resultMap;
     }
 
     @LogOut("添加健康数据记录")
     @RequestMapping("/addLog")
-    public Map<String, Object> addLog(HealthMeasureLog measureLog) {
+    public Map addLog(HealthMeasureLog measureLog) {
         BigDecimal weight = measureLog.getWeight();
         if (weight == null) {
-            return RspUtil.error("体重不能为空");
+            return RspEntity.error("体重不能为空");
         }
         Integer currId = session.getCurrId();
         measureLog.setUserId(currId);
@@ -77,6 +77,6 @@ public class HealthMeasureLogController {
         // 更改用户表体重(两处体重记录，user与health_measure_log)
         userMapper.updWeight(currId, weight);
         measureLogMapper.insert(measureLog);
-        return RspUtil.ok(list);
+        return RspEntity.ok(list);
     }
 }

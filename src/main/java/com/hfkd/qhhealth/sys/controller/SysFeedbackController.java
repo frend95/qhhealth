@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.sys.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.FileUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.sys.mapper.SysFeedbackMapper;
 import com.hfkd.qhhealth.sys.model.SysFeedback;
 import org.apache.commons.lang3.StringUtils;
@@ -37,9 +37,9 @@ public class SysFeedbackController {
     @LogOut("用户反馈")
     @Verify
     @RequestMapping("/feedBack")
-    public Map<String, Object> feedBack(String content, String mobile, List<MultipartFile> img, String type) throws IOException {
+    public Map feedBack(String content, String mobile, List<MultipartFile> img, String type) throws IOException {
         if (StringUtils.isBlank(content) || StringUtils.isBlank(mobile) || StringUtils.isBlank(type)) {
-            return RspUtil.error("信息不完整");
+            return RspEntity.error("信息不完整");
         }
         String fileName = null;
         if (img != null && img.size() != 0 && !img.get(0).isEmpty()) {
@@ -52,6 +52,6 @@ public class SysFeedbackController {
         }
         SysFeedback feedback = new SysFeedback(content, fileName, mobile, type);
         feedbackMapper.insert(feedback);
-        return RspUtil.okMsg("感谢您的反馈！");
+        return RspEntity.okMsg("感谢您的反馈！");
     }
 }

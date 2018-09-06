@@ -5,7 +5,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstVal;
 import com.hfkd.qhhealth.common.Model.PageVo;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.social.mapper.SocialUserFollowingMapper;
 import com.hfkd.qhhealth.social.model.FollowVo;
@@ -36,10 +36,10 @@ public class SocialUserFollowingController {
     @LogOut("关注或取消关注对方")
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping("/follow")
-    public Map<String, Object> follow(Integer followingId, String followingType) {
+    public Map follow(Integer followingId, String followingType) {
         Integer currId = session.getCurrId();
         if (followingId.equals(currId)) {
-            return RspUtil.error("不能关注自己");
+            return RspEntity.error("不能关注自己");
         }
         // 查询是否关注对方
         Integer followLsId = followingMapper.getFollowLsId(followingType, currId, followingId);
@@ -50,7 +50,7 @@ public class SocialUserFollowingController {
             followingMapper.followerMinusOne(followingId, followingType);
             // 关注数减一
             followingMapper.followingMinusOne(currId);
-            return RspUtil.ok("isFollow", false, "取消关注成功");
+            return RspEntity.ok("isFollow", false, "取消关注成功");
         } else {
             // 关注
             SocialUserFollowing userFollowing = new SocialUserFollowing(currId, followingId, followingType);
@@ -59,29 +59,29 @@ public class SocialUserFollowingController {
             followingMapper.followerPlusOne(followingId, followingType);
             // 关注数加一
             followingMapper.followingPlusOne(currId);
-            return RspUtil.ok("isFollow", true, "关注成功");
+            return RspEntity.ok("isFollow", true, "关注成功");
         }
     }
 
     @LogOut("查看关注列表")
     @RequestMapping("/myFollow")
-    public Map<String, Object> myFollow(PageVo pageVo, Integer id) {
+    public Map myFollow(PageVo pageVo, Integer id) {
         Integer currId = session.getCurrId();
         id = id == null ? currId : id;
         List<FollowVo> ls = followingMapper.getFollowingLs(pageVo, id, currId);
-        return RspUtil.ok(ls);
+        return RspEntity.ok(ls);
     }
 
     @LogOut("查看粉丝列表")
     @RequestMapping("/followers")
-    public Map<String, Object> followers(PageVo pageVo, Integer id, String type) {
+    public Map followers(PageVo pageVo, Integer id, String type) {
         Integer currId = session.getCurrId();
         if (id == null) {
             id = currId;
             type = ConstVal.USER;
         }
         List<FollowVo> ls = followingMapper.getFollowers(pageVo, id, currId, type);
-        return RspUtil.ok(ls);
+        return RspEntity.ok(ls);
     }
 
 }

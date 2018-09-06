@@ -6,7 +6,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserArticleCollectionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ArticleController {
     @LogOut("查询文章列表")
     @Verify
     @RequestMapping("/list")
-    public Map<String, Object> list(Integer page, Integer size, String tag) {
+    public Map list(Integer page, Integer size, String tag) {
         String title = null;
         if (tag != null) {
             switch (tag) {
@@ -58,7 +58,7 @@ public class ArticleController {
         page = page <= 0 ? 0 : (page - 1) * size;
 
         List<Map<String, Object>> articles = articleMapper.getArticles(page, size, tag);
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("result", articles);
         resultMap.put("title", title);
         return resultMap;
@@ -67,7 +67,7 @@ public class ArticleController {
     @LogOut("查询文章详情")
     @Verify(hasSession = true)
     @RequestMapping("/detail")
-    public Map<String, Object> detail(Integer id) {
+    public Map detail(Integer id) {
         Integer currId = session.getCurrId();
         String url = articleMapper.getResourceById(id);
         // 查询是否收藏
@@ -75,7 +75,7 @@ public class ArticleController {
         // 观看数加一
         articleMapper.watchedCntPlusOne(id);
 
-        Map<String, Object> rspMap = RspUtil.ok();
+        Map<String, Object> rspMap = RspEntity.ok();
         rspMap.put("isCollect", isCollect);
         rspMap.put("resource", url);
         return rspMap;

@@ -64,7 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Map<String, Object> getUserDetail(Integer id) {
+    public Map getUserDetail(Integer id) {
         Map<String, Object> userDetail = userMapper.getUserDetail(id);
         Long age = null;
         Long remainDays = null;

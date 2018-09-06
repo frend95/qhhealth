@@ -1,7 +1,7 @@
 package com.hfkd.qhhealth.config;
 
 import com.hfkd.qhhealth.common.exception.MyException;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Object allExceptionHandler(Exception exception) {
         exception.printStackTrace();
-        Map<String, Object> exceptionMap = RspUtil.error();
+        Map<String, Object> exceptionMap = RspEntity.error();
         // 如果是自定义异常那么就把异常信息放到msg中
         if (exception.getClass().equals(MyException.class)) {
             exceptionMap.put("msg", exception.getMessage());

@@ -1,5 +1,6 @@
 package com.hfkd.qhhealth.test;
 
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.health.service.HealthPlanItemService;
 import com.hfkd.qhhealth.nutritionist.model.NutritionistCase;
 import com.hfkd.qhhealth.nutritionist.service.NutritionistCaseService;
@@ -7,6 +8,8 @@ import com.hfkd.qhhealth.nutritionist.service.NutritionistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * @author hexq
@@ -37,7 +40,11 @@ public class TestController {
         redis.expire("red_123",1000 , TimeUnit.MILLISECONDS);//设置过期时间
         redis.opsForSet().isMember("red_123", "1");//根据key查看集合中是否存在指定数据
         redis.opsForSet().members("red_123");//根据key获取set集合*/
+    }
 
+    @RequestMapping("/3")
+    public Map test3() {
+        return RspEntity.ok();
     }
 
     @RequestMapping("/2")

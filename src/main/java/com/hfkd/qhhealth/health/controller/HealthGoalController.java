@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.health.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.util.DateUtil;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.health.mapper.HealthGoalMapper;
 import com.hfkd.qhhealth.health.model.HealthGoal;
@@ -32,14 +32,14 @@ public class HealthGoalController {
 
     @LogOut("更改目标体重")
     @RequestMapping("/updWeight")
-    public Map<String, Object> updWeight(BigDecimal goalWeight, Integer period) {
+    public Map updWeight(BigDecimal goalWeight, Integer period) {
         if (goalWeight == null || period == null) {
-            return RspUtil.error("体重或时间期限不能为空");
+            return RspEntity.error("体重或时间期限不能为空");
         }
         Integer currId = session.getCurrId();
         String startTime = DateUtil.yyyyMMdd();
         HealthGoal healthGoal = new HealthGoal(currId, goalWeight, period, startTime);
         healthGoalMapper.updateById(healthGoal);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 }

@@ -3,7 +3,7 @@ package com.hfkd.qhhealth.social.controller;
 
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.social.mapper.SocialFeedMapper;
 import com.hfkd.qhhealth.social.mapper.SocialUserLikeMapper;
@@ -38,28 +38,28 @@ public class SocialUserLikeController {
 
     @LogOut("点赞动态")
     @RequestMapping("/like")
-    public Map<String, Object> like(Integer id) {
+    public Map like(Integer id) {
         Integer currId = session.getCurrId();
         Integer likeId = userLikeMapper.getLikeId(currId, id);
         if (likeId != null) {
             userLikeMapper.delLike(likeId);
             feedMapper.likeMinusOne(id);
-            return RspUtil.ok("isLike", false, "取消点赞成功");
+            return RspEntity.ok("isLike", false, "取消点赞成功");
         }
         SocialUserLike userLike = new SocialUserLike(currId, id);
         userLikeService.insert(userLike);
         feedMapper.likePlusOne(id);
-        return RspUtil.ok("isLike", true, "点赞成功");
+        return RspEntity.ok("isLike", true, "点赞成功");
     }
 
     @LogOut("查询点赞的动态")
     @RequestMapping("/myLike")
-    public Map<String, Object> myLike(Integer page, Integer size) {
+    public Map myLike(Integer page, Integer size) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
         List<SocialFeedVo> feeds = feedMapper.getLikeFeeds(currId, page, size);
-        return RspUtil.ok(feeds);
+        return RspEntity.ok(feeds);
     }
 
 }

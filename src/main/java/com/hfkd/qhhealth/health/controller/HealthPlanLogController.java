@@ -5,7 +5,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.health.mapper.HealthPlanIntakeMapper;
 import com.hfkd.qhhealth.health.model.HealthPlanConst;
@@ -51,7 +51,7 @@ public class HealthPlanLogController {
 
     @LogOut("饮食计划主页")
     @RequestMapping("/planPage")
-    public Map<String, Object> planPage() {
+    public Map planPage() {
         Integer currId = session.getCurrId();
 
         HealthPlanConst planConst = planConstService.getPlanConst();
@@ -111,19 +111,19 @@ public class HealthPlanLogController {
         map.put("intakeList", intakeSortByType);
         map.put("total", total);
         map.put("intake", intake);
-        return RspUtil.ok(map);
+        return RspEntity.ok(map);
     }
 
     @LogOut("饮食计划信息")
     @RequestMapping("/planInfo")
-    public Map<String, Object> planInfo() {
+    public Map planInfo() {
         Integer currId = session.getCurrId();
         Integer totalIntake = intakeMapper.getTotalIntake(currId);
         totalIntake = totalIntake == null ? 0 : totalIntake;
         Integer totalBudget = planConstService.getPlanConst().getTotalBudget();
         Integer remain = totalBudget - totalIntake;
 
-        Map<String, Object> map = RspUtil.ok();
+        Map<String, Object> map = RspEntity.ok();
         map.put("remain", remain < 0 ? 0 : remain);
         map.put("total", totalBudget);
         map.put("intake", totalIntake);

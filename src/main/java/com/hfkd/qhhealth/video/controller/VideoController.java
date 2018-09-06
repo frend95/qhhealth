@@ -7,7 +7,7 @@ import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
 import com.hfkd.qhhealth.common.constant.ConstVal;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.user.mapper.UserVideoCollectionMapper;
 import com.hfkd.qhhealth.video.mapper.VideoMapper;
@@ -43,7 +43,7 @@ public class VideoController {
     @LogOut("查询视频列表")
     @Verify
     @RequestMapping("/list")
-    public Map<String, Object> list(Integer page, Integer size, String type, String tag, Integer id) {
+    public Map list(Integer page, Integer size, String type, String tag, Integer id) {
         String title = null;
         if (tag != null) {
             switch (tag) {
@@ -80,7 +80,7 @@ public class VideoController {
         page = page <= 0 ? 0 : (page - 1) * size;
 
         List<Map<String, Object>> articles = videoMapper.getVideoLs(page, size, type, tag, id);
-        Map<String, Object> resultMap = RspUtil.ok();
+        Map<String, Object> resultMap = RspEntity.ok();
         resultMap.put("result", articles);
         resultMap.put("title", title);
         return resultMap;
@@ -89,7 +89,7 @@ public class VideoController {
     @LogOut("查询视频详情")
     @Verify(hasSession = true)
     @RequestMapping("/detail")
-    public Map<String, Object> detail(Integer id) {
+    public Map detail(Integer id) {
         Integer currId = session.getCurrId();
         Video video = videoService.selectById(id);
         // 查询最近的10条评论
@@ -100,6 +100,6 @@ public class VideoController {
         video.setCollect(isCollect);
         // 观看数加一
         videoMapper.watchedCntPlusOne(id);
-        return RspUtil.ok(video);
+        return RspEntity.ok(video);
     }
 }

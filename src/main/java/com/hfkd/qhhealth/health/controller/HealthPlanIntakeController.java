@@ -4,7 +4,7 @@ package com.hfkd.qhhealth.health.controller;
 import com.hfkd.qhhealth.common.annotation.LogOut;
 import com.hfkd.qhhealth.common.annotation.Verify;
 import com.hfkd.qhhealth.common.constant.ConstEnum;
-import com.hfkd.qhhealth.common.util.RspUtil;
+import com.hfkd.qhhealth.common.util.RspEntity;
 import com.hfkd.qhhealth.common.util.SessionUtil;
 import com.hfkd.qhhealth.health.mapper.HealthPlanIntakeMapper;
 import com.hfkd.qhhealth.health.mapper.HealthPlanItemMapper;
@@ -39,7 +39,7 @@ public class HealthPlanIntakeController {
 
     @LogOut("选择食物")
     @RequestMapping("/selectFood")
-    public Map<String, Object> selectFood(Integer foodId, Integer amount, Integer type) {
+    public Map selectFood(Integer foodId, Integer amount, Integer type) {
         Integer currId = session.getCurrId();
         HealthPlanItem food = itemMapper.selectById(foodId);
         Integer kcalPer100g = food.getKcalPer100g();
@@ -58,14 +58,14 @@ public class HealthPlanIntakeController {
             intake = new HealthPlanIntake(currId, foodId, amount, type, totalKcal);
             intakeMapper.addIntake(intake);
         }
-        return RspUtil.ok(intakeMapper.getMyFood(intake.getId()));
+        return RspEntity.ok(intakeMapper.getMyFood(intake.getId()));
     }
 
     @LogOut("编辑已选食物")
     @RequestMapping("/editMyFood")
-    public Map<String, Object> editMyFood(Integer itemId, Integer amount) {
+    public Map editMyFood(Integer itemId, Integer amount) {
         if (amount == null || amount < 1) {
-            return RspUtil.error("数量错误");
+            return RspEntity.error("数量错误");
         }
         // 计算总卡路里
         Integer kcalPer100g = intakeMapper.getKcalPer100gByItemId(itemId);
@@ -76,30 +76,30 @@ public class HealthPlanIntakeController {
         intake.setAmount(amount);
         intake.setKcal(kcal);
         intakeMapper.updateById(intake);
-        return RspUtil.ok(intakeMapper.getMyFood(itemId));
+        return RspEntity.ok(intakeMapper.getMyFood(itemId));
     }
 
     @LogOut("查询已选食物列表")
     @RequestMapping("/myFoods")
-    public Map<String, Object> myFoods(Integer page, Integer size, Integer type) {
+    public Map myFoods(Integer page, Integer size, Integer type) {
         size = size == null ? 10 : size;
         page = page <= 0 ? 0 : (page - 1) * size;
         Integer currId = session.getCurrId();
         List<HealthPlanIntake> list = intakeMapper.getMyFoods(page, size, currId, type);
-        return RspUtil.ok(list);
+        return RspEntity.ok(list);
     }
 
     @LogOut("删除已选择食物")
     @RequestMapping("/delMyFood")
-    public Map<String, Object> delMyFood(Integer itemId) {
+    public Map delMyFood(Integer itemId) {
         intakeMapper.deleteById(itemId);
-        return RspUtil.ok();
+        return RspEntity.ok();
     }
 
     @LogOut("查询饮食分类标签")
     @RequestMapping("/intakeTag")
     @Cacheable("API_CACHE")
-    public Map<String, Object> intakeTag() {
+    public Map intakeTag() {
         ArrayList<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> map1 = new HashMap<>(4);
@@ -122,6 +122,6 @@ public class HealthPlanIntakeController {
         map4.put("type", ConstEnum.INTAKE_MEAL.eval());
         list.add(map4);
 
-        return RspUtil.ok(list);
+        return RspEntity.ok(list);
     }
 }
