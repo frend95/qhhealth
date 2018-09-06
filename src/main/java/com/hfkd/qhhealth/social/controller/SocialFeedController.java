@@ -148,10 +148,10 @@ public class SocialFeedController {
     @LogOut("发布动态")
     @RequestMapping("/newFeed")
     public Map<String, Object> newFeed(String content, String isPrivate, List<MultipartFile> img) throws IOException {
-        if (StringUtils.isBlank(content)) {
+        if (StringUtils.isBlank(content) && (img == null || img.size() == 0)) {
             return RspUtil.error("请填写动态内容");
         }
-        if (content.length() > 500) {
+        if (StringUtils.length(content) > 500) {
             return RspUtil.error("内容超出限制");
         }
         if (img.size() > 9) {
@@ -183,6 +183,8 @@ public class SocialFeedController {
         feedMapper.deleteById(id);
         // 动态数减一
         userInfoMapper.feedMinusOne(feed.getAuthorId());
+        // 删除此条动态的点赞记录
+        userLikeMapper.delLikeByFeed(id);
         return RspUtil.ok();
     }
 

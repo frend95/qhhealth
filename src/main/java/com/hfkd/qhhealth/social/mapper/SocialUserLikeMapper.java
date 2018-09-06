@@ -17,4 +17,6 @@ public interface SocialUserLikeMapper extends BaseMapper<SocialUserLike> {
                       @Param("feedId") Integer feedId);
 
     void delLike(@Param("id") Integer id);
+
+    void delLikeByFeed(@Param("feedId") Integer feedId);
 }

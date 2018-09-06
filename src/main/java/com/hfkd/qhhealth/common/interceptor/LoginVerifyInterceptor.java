@@ -97,7 +97,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
         }
 
         // Verify加上adminOnly只能admin访问
-        boolean adminOnlyClazz = clazzAnnotation != null && clazzAnnotation.adminOnly();
+        /*boolean adminOnlyClazz = clazzAnnotation != null && clazzAnnotation.adminOnly();
         boolean adminOnlyMethod = methodAnnotation != null && methodAnnotation.adminOnly();
 
         if (adminOnlyClazz || adminOnlyMethod) {
@@ -106,7 +106,7 @@ public class LoginVerifyInterceptor extends HandlerInterceptorAdapter {
                 outPrint(response, "Access denied");
                 return false;
             }
-        }
+        }*/
 
         redis.expire(sessionKey, timeout, TimeUnit.SECONDS);
         // 把用户数据保存至请求中

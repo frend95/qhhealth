@@ -64,7 +64,7 @@
 
     <select id="getFollowers" resultType="com.hfkd.qhhealth.social.model.FollowVo">
         SELECT
-            u.id followingId,
+            f.user_id followingId,
             u.name followingName,
             u.avatar avatar,
             '0' followingType,
