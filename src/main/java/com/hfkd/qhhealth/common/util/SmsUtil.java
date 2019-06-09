@@ -23,10 +23,10 @@ public class SmsUtil {
     private static String timeout;
 
     static{
-        ResourceBundle bundle= ResourceBundle.getBundle("config");
-        username=bundle.getString("sms.username");
-        password=bundle.getString("sms.password");
-        timeout=bundle.getString("sms.timeout");
+        ResourceBundle bundle = ResourceBundle.getBundle("config");
+        username = bundle.getString("sms.username");
+        password = DigestUtil.md5(bundle.getString("sms.password"));
+        timeout = bundle.getString("sms.timeout");
         try {
             content = new String(bundle.getString("sms.content").getBytes("ISO-8859-1"), "UTF8");
         } catch (UnsupportedEncodingException e) {
@@ -39,7 +39,7 @@ public class SmsUtil {
         String str = content.replace("{code}", code).replace("{timeout}", timeout);
         StringBuffer httpArg = new StringBuffer();
         httpArg.append("u=").append(username).append("&");
-        httpArg.append("p=").append(DigestUtil.md5(password)).append("&");
+        httpArg.append("p=").append(password).append("&");
         httpArg.append("m=").append(phone).append("&");
         httpArg.append("c=").append(encodeUrlString(str, "UTF-8"));
         return request(httpUrl, httpArg.toString());
