@@ -30,7 +30,7 @@
         <velocity.version>1.7</velocity.version>
         <bcprov.version>1.59</bcprov.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mybatisplus-starter.version>1.0.5</mybatisplus-starter.version>
     </properties>
